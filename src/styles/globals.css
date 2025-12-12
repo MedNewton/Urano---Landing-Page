@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Conthrax";
+  src: url("../assets/fonts/Conthrax-SemiBold.otf") format("opentype");
+}
+
+html, body {
+  background-color: #131313;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+.main-gradient {
+  background: linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%);
+}
+
+#CybotCookiebotDialog{
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.conthrax {
+  font-family: "Conthrax", sans-serif !important;
+}
