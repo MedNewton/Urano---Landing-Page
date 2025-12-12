@@ -5,6 +5,7 @@ import { Host_Grotesk } from "next/font/google";
 import { Box, Container } from "@mui/material";
 import AnimatedSVGPreloader from "@/components/layout/AnimatedSVGPreloader";
 import { Providers } from "@/components/layout/providers";
+import Header from "@/components/layout/header";
 
 export const metadata: Metadata = {
   title: "Urano - Presale",
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={hostGrotesk.className}>
         <Providers>
           <Box component="main" sx={{ position: "relative", minHeight: "100dvh" }}>
+            <Header />
             {children}
             <AnimatedSVGPreloader
               scale={0.6}
