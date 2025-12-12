@@ -397,14 +397,14 @@ function NavTrigger({
         display: "inline-flex",
         alignItems: "center",
         gap: 0.5,
-        px: 1,
+        px: 1.5,
         py: 1,
-        borderRadius: 1.25,
+        borderRadius: 1.5,
         color: theme.palette.text.secondary,
         transition: "color 150ms ease, background-color 150ms ease",
         "&:hover": {
           color: theme.palette.text.primary,
-          backgroundColor: "rgba(255,255,255,0.05)",
+          backgroundColor: "rgba(0,0,0,0.25)",
         },
       }}
     >
