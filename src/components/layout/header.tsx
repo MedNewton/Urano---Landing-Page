@@ -486,7 +486,7 @@ export default function Header() {
           rel="noreferrer"
           sx={{ display: "inline-flex", alignItems: "center" }}
         >
-          <Image src={logo} alt="Logo" width={120} height={70} />
+          <Image src={logo} alt="Logo" width={120} height={70} fetchPriority="high" loading="eager" />
         </Link>
 
         <Stack direction="row" alignItems="center" gap={2}>
