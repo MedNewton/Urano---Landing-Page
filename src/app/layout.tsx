@@ -8,8 +8,8 @@ import { Providers } from "@/components/layout/providers";
 import Header from "@/components/layout/header";
 
 export const metadata: Metadata = {
-  title: "Urano - Presale",
-  description: "Urano Ecosystem - $URANO Token Presale",
+  title: "Urano - Ecosystem",
+  description: "Urano Ecosystem - Urano Ecosystem is a blockchain-based tokenization platform, serving as a safe path for off-chain and Real World Asset (RWA) opportunities.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
