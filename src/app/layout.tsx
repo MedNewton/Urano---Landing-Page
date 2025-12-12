@@ -24,12 +24,7 @@ export default function RootLayout({
       <body className={hostGrotesk.className}>
         <Providers>
           <Box component="main" sx={{ position: "relative", minHeight: "100dvh" }}>
-            <Container
-              maxWidth="xl"
-              sx={{ position: "relative", zIndex: 1, height: "fit-content" }}
-            >
-              {children}
-            </Container>
+            {children}
             <AnimatedSVGPreloader
               scale={0.6}
               textSrc="/urano-text.svg"
