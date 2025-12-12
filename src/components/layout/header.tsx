@@ -84,7 +84,7 @@ function UranoGradientIcon({
         svg.insertBefore(defs, svg.firstChild);
       }
 
-      let lg = svg.querySelector(`#${gradId}`) as SVGLinearGradientElement | null;
+      let lg = svg.querySelector(`#${gradId}`);
       if (!lg) {
         lg = document.createElementNS(ns, "linearGradient");
         lg.setAttribute("id", gradId);

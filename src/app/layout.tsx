@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Host_Grotesk } from "next/font/google";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import AnimatedSVGPreloader from "@/components/layout/AnimatedSVGPreloader";
 import { Providers } from "@/components/layout/providers";
 import Header from "@/components/layout/header";
