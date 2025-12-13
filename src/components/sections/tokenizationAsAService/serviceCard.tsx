@@ -38,18 +38,13 @@ export default function ServiceCard({
           aspectRatio: "1 / 1",
           backgroundColor: "rgba(255,255,255,0.06)",
           flex: "0 0 auto",
+          backgroundImage: `url(${image ? (typeof image === "string" ? image : image.src) : ""})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
       >
-        {image ? (
-          <Image
-            src={image}
-            alt={imageAlt}
-            fill
-            sizes="(max-width: 900px) 100vw, 420px"
-            style={{ objectFit: "cover" }}
-            priority={false}
-          />
-        ) : null}
+        
       </Box>
 
       <Stack
