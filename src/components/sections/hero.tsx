@@ -1,4 +1,9 @@
-import { Box, Stack } from "@mui/material";
+import theme from "@/theme/theme";
+import { Box, Stack, Typography, Button } from "@mui/material";
+import Image from "next/image";
+
+import arb from "@/assets/images/arbdao.webp";
+import SouthEastIcon from '@mui/icons-material/SouthEast';
 
 const Hero = () => {
     return (
@@ -106,13 +111,127 @@ const Hero = () => {
             {/* Hero content */}
             <Box
                 sx={{
-                    position: "relative",
-                    zIndex: 1,
-                    width: "100%",
+                    position: "absolute",
+                    zIndex: 10,
+                    width: "70%",
                     minHeight: "100dvh",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignContent: "start",
+                    left: 0,
+                    right: 0,
+                    mx: "auto",
+                    gap: "0.75rem"
                 }}
             >
-                {/* hero content */}
+                <Typography
+                    className="conthrax"
+                    variant="h3"
+                    sx={{
+                        fontSize: { xs: "1.4rem", lg: "2.5rem" },
+                        fontWeight: 700,
+                        background: theme.palette.uranoGradient,
+                        backgroundClip: "text",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                    }}
+                >
+                    Unlocking the<br /> power of on-chain<br />tokenization
+                </Typography>
+                <Typography
+                    variant="h6"
+                    sx={{
+                        fontSize: { xs: "1rem", lg: "0.95rem" },
+                        fontWeight: { xs: 400, lg: 300 },
+                        color: theme.palette.text.primary,
+                        width: "37%",
+                    }}
+                >
+                    Urano Ecosystem is a full-stack platform powering secure and scalable tokenization of Real-World Assets
+                </Typography>
+                <Stack direction="row" alignItems="center" gap={1} mt={2}>
+                    <Typography
+                        className="conthrax"
+                        variant="h6"
+                        sx={{
+                            fontSize: { xs: "1rem", lg: "1.125rem" },
+                            fontWeight: 600,
+                            color: theme.palette.text.primary,
+                        }}
+                    >
+                        Powered by
+                    </Typography>
+                    <Image src={arb} alt="ArbDAO" width={150} height={48} />
+                </Stack>
+                <Stack direction="row" alignItems="center" gap={5} mt={2}>
+                    <Button sx={{
+                        backgroundColor: "transparent",
+                        borderRadius: 0,
+                        borderBottom: `2px solid ${theme.palette.text.primary}`,
+                        borderTop: "none",
+                        borderLeft: "none",
+                        borderRight: "none",
+                        paddingX: 0.5,
+                        paddingY: 0.75,
+                        margin: 0,
+                        height: "fit-content",
+                        width: "fit-content",
+                        "&:hover": {
+                            backgroundColor: "transparent",
+                        },
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}>
+                        <Stack direction="row" alignItems="center" gap={5}>
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    fontSize: { xs: "1rem", lg: "1.125rem" },
+                                    fontWeight: { xs: 400, lg: 400 },
+                                    color: theme.palette.text.primary,
+                                }}
+                            >
+                                EXPLORE
+                            </Typography>
+                            <SouthEastIcon  sx={{ fontSize: 20, color: theme.palette.text.primary }} />
+                        </Stack>
+                    </Button>
+                    <Button sx={{
+                        backgroundColor: "transparent",
+                        borderRadius: 0,
+                        borderBottom: `2px solid ${theme.palette.text.primary}`,
+                        borderTop: "none",
+                        borderLeft: "none",
+                        borderRight: "none",
+                        paddingX: 0.5,
+                        paddingY: 0.75,
+                        margin: 0,
+                        height: "fit-content",
+                        width: "fit-content",
+                        "&:hover": {
+                            backgroundColor: "transparent",
+                        },
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}>
+                        <Stack direction="row" alignItems="center" gap={5}>
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    fontSize: { xs: "1rem", lg: "1.125rem" },
+                                    fontWeight: { xs: 400, lg: 400 },
+                                    color: theme.palette.text.primary,
+                                }}
+                            >
+                                TOKENIZE
+                            </Typography>
+                            <SouthEastIcon  sx={{ fontSize: 20, color: theme.palette.text.primary }} />
+                        </Stack>
+                    </Button>
+                </Stack>
             </Box>
         </Stack>
     );
