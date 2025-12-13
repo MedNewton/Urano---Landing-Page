@@ -69,7 +69,7 @@ export default function TokenizationAsAServiceCarousel({
             <Box
                 sx={{
                     position: "relative",
-                    width: "100vw",
+                    width: "105vw",
                     ml: "calc(50% - 50vw)",
                     overflow: "hidden",
                     transform: "translateY(-40px)",
@@ -77,7 +77,7 @@ export default function TokenizationAsAServiceCarousel({
                     backgroundColor: "transparent",
                     backgroundImage: `url(${backingImage.src})`,
                     backgroundSize: "cover",
-                    backgroundPosition: "center",
+                    backgroundPosition: "70% center",
                     backgroundRepeat: "no-repeat",
                 }}
             >
