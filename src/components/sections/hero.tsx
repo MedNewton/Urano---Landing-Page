@@ -177,8 +177,18 @@ const Hero = () => {
                         margin: 0,
                         height: "fit-content",
                         width: "fit-content",
+                        transition: "background 0.3s ease-in-out, border-bottom 0.3s ease-in-out, color 0.3s ease-in-out, filter 0.3s ease-in-out",
                         "&:hover": {
-                            backgroundColor: "transparent",
+                            background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
+                            borderBottom: `2px solid transparent`,
+                            ".button-text": {
+                                color: "#0E0E0E",
+                            },
+                            ".button-icon": {
+                                filter: "invert(1)",
+                                trasform: "rotate(45deg)",
+                                transition: "transform 0.3s ease-in-out",
+                            },
                         },
                         display: "flex",
                         justifyContent: "center",
@@ -186,6 +196,7 @@ const Hero = () => {
                     }}>
                         <Stack direction="row" alignItems="center" gap={5}>
                             <Typography
+                                className="button-text"
                                 variant="h6"
                                 sx={{
                                     fontSize: { xs: "1rem", lg: "1.125rem" },
@@ -195,7 +206,7 @@ const Hero = () => {
                             >
                                 EXPLORE
                             </Typography>
-                            <SouthEastIcon  sx={{ fontSize: 20, color: theme.palette.text.primary }} />
+                            <SouthEastIcon className="button-icon" sx={{ fontSize: 20, color: theme.palette.text.primary }} />
                         </Stack>
                     </Button>
                     <Button sx={{
@@ -205,13 +216,21 @@ const Hero = () => {
                         borderTop: "none",
                         borderLeft: "none",
                         borderRight: "none",
-                        paddingX: 0.5,
+                        paddingX: 0.75,
                         paddingY: 0.75,
                         margin: 0,
                         height: "fit-content",
                         width: "fit-content",
+                        transition: "background 0.3s ease-in-out, border-bottom 0.3s ease-in-out, color 0.3s ease-in-out, filter 0.3s ease-in-out",
                         "&:hover": {
-                            backgroundColor: "transparent",
+                            background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
+                            borderBottom: `2px solid transparent`,
+                            ".button-text": {
+                                color: "#0E0E0E",
+                            },
+                            ".button-icon": {
+                                filter: "invert(1)",
+                            },
                         },
                         display: "flex",
                         justifyContent: "center",
@@ -219,6 +238,7 @@ const Hero = () => {
                     }}>
                         <Stack direction="row" alignItems="center" gap={5}>
                             <Typography
+                                className="button-text"
                                 variant="h6"
                                 sx={{
                                     fontSize: { xs: "1rem", lg: "1.125rem" },
@@ -228,7 +248,7 @@ const Hero = () => {
                             >
                                 TOKENIZE
                             </Typography>
-                            <SouthEastIcon  sx={{ fontSize: 20, color: theme.palette.text.primary }} />
+                            <SouthEastIcon className="button-icon" sx={{ fontSize: 20, color: theme.palette.text.primary }} />
                         </Stack>
                     </Button>
                 </Stack>

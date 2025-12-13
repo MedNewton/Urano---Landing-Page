@@ -37,6 +37,7 @@ import theme from "@/theme/theme";
 import logo from "@/assets/images/logos/logo-turquoise-1.webp";
 import rocketIcon from "@/assets/images/icons/rocket.svg?url";
 import uranoIcon from "@/assets/images/icons/uranoIcon.svg?url";
+import RocketButton from "../ui/rocketButton";
 
 type MenuKey = "products" | "learn" | "community";
 
@@ -503,41 +504,7 @@ export default function Header() {
             />
           </Stack>
 
-          <Link component={NextLink} href="/profile" underline="none">
-            <Box
-              sx={{
-                background: theme.palette.uranoGradient,
-                border: `1px solid ${theme.palette.headerBorder.main}`,
-                borderRadius: 2,
-                px: { xs: 1.5, lg: 2 },
-                py: { xs: 1.5, lg: 1 },
-                mr: 1,
-                gap: 1,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                variant="body1"
-                fontWeight={400}
-                sx={{ color: theme.palette.background.default }}
-              >
-                Launch uApp
-              </Typography>
-
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="center"
-                width={16}
-                height={16}
-                component="div"
-              >
-                <Image src={rocketIcon} alt="Rocket Icon" width={16} height={16} />
-              </Stack>
-            </Box>
-          </Link>
+          <RocketButton />
         </Stack>
       </Stack>
 

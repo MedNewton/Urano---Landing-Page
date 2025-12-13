@@ -42,11 +42,23 @@ function ActionLink({ label }: { label: string; href: string }): ReactElement {
         py: 0.75,
         height: "fit-content",
         width: "fit-content",
-        "&:hover": { backgroundColor: "transparent" },
+        "&:hover": {
+          background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
+          borderBottom: `2px solid transparent`,
+          ".button-text": {
+            color: "#0E0E0E",
+          },
+          ".button-icon": {
+            filter: "invert(1)",
+            trasform: "rotate(45deg)",
+            transition: "transform 0.3s ease-in-out",
+          },
+        },
       }}
     >
       <Stack direction="row" alignItems="center" gap={5}>
         <Typography
+          className="button-text"
           variant="h6"
           sx={{
             fontSize: "1rem",
@@ -56,7 +68,7 @@ function ActionLink({ label }: { label: string; href: string }): ReactElement {
         >
           {label}
         </Typography>
-        <SouthEastIcon sx={{ fontSize: 20, color: theme.palette.text.primary }} />
+        <SouthEastIcon className="button-icon" sx={{ fontSize: 20, color: theme.palette.text.primary }} />
       </Stack>
     </Button>
   );
