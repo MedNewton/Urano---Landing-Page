@@ -164,7 +164,6 @@ function ImageCell({
   image?: StaticImageData | string;
   imageAlt?: string;
   fit?: "contain" | "cover";
-  /** For contain mode: scales the rendered image box (e.g. 0.5 = 50%). Ignored for cover. */
   scale?: number;
 }): ReactElement {
   const shouldScale = fit === "contain" && scale !== 1;
@@ -181,7 +180,6 @@ function ImageCell({
         />
       ) : shouldScale ? (
         <>
-          {/* keep Image optimized and still enforce 50% visual size */}
           <Box
             sx={{
               position: "absolute",
@@ -316,7 +314,7 @@ export default function ExploreEcosystemSection({
                     image={it.image}
                     imageAlt={it.imageAlt ?? ""}
                     fit={isLast ? "cover" : "contain"}
-                    scale={isLast ? 1 : 0.75} // ✅ first 3 at 50%, last is cover (no scaling)
+                    scale={isLast ? 1 : 0.75}
                   />
                 </Box>
               </Grid>

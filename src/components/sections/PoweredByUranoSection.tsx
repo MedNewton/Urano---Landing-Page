@@ -13,12 +13,12 @@ export type PoweredByUranoItem = Readonly<{
     title: string;
     description: string;
     side: "left" | "right";
-    bgImage: StaticImageData | string; // Subtract*.webp (transparent PNG/WebP)
+    bgImage: StaticImageData | string;
 }>;
 
 export type PoweredByUranoSectionProps = Readonly<{
     title?: string;
-    items: PoweredByUranoItem[]; // expect 4 items
+    items: PoweredByUranoItem[];
 }>;
 
 function PoweredCard({ item }: { item: PoweredByUranoItem }): ReactElement {
@@ -35,7 +35,6 @@ function PoweredCard({ item }: { item: PoweredByUranoItem }): ReactElement {
                 borderRadius: 6,
             }}
         >
-            {/* ✅ Card body image: 100% width/height of the card */}
             <Image
                 src={bgSrc}
                 alt=""
@@ -43,14 +42,13 @@ function PoweredCard({ item }: { item: PoweredByUranoItem }): ReactElement {
                 sizes="(max-width: 900px) 100vw, 50vw"
                 priority={false}
                 style={{
-                    objectFit: "fill", // ✅ THIS is the key change
+                    objectFit: "fill",
                     objectPosition: "center",
                     zIndex: 0,
                     pointerEvents: "none",
                 }}
             />
 
-            {/* Content */}
             <Stack
                 sx={{
                     position: "relative",
@@ -154,7 +152,6 @@ export default function PoweredByUranoSection({
                     {c ? <PoweredCard item={c} /> : null}
                     {d ? <PoweredCard item={d} /> : null}
 
-                    {/* Center circle (desktop only) */}
                     <Box
                         aria-hidden
                         sx={{

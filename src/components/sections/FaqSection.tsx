@@ -35,7 +35,7 @@ function FaqCard({
   open: boolean;
   onToggle: () => void;
 }): ReactElement {
-  const headerMinH = { xs: 96, md: 110 }; // ✅ consistent collapsed card height
+  const headerMinH = { xs: 96, md: 110 };
 
   return (
     <Box
@@ -49,7 +49,6 @@ function FaqCard({
         boxShadow: "0px 18px 60px rgba(0,0,0,0.35)",
       }}
     >
-      {/* Header (fixed height when collapsed) */}
       <Box
         role="button"
         tabIndex={0}
@@ -60,7 +59,7 @@ function FaqCard({
         sx={{
           cursor: "pointer",
           px: { xs: 2.25, md: 3 },
-          minHeight: headerMinH, // ✅
+          minHeight: headerMinH,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -77,7 +76,6 @@ function FaqCard({
             letterSpacing: "0.02em",
             color: theme.palette.uranoGreen1.main,
 
-            // ✅ keep all closed cards same height even if question is long
             display: "-webkit-box",
             WebkitBoxOrient: "vertical",
             WebkitLineClamp: 2,
@@ -114,13 +112,12 @@ function FaqCard({
         </IconButton>
       </Box>
 
-      {/* Expanded content */}
       <Collapse in={open} timeout={200} unmountOnExit>
         <Box
           sx={{
             px: { xs: 2.25, md: 3 },
             pb: { xs: 2.25, md: 2.6 },
-            mt: -1, // small tighten to match your screenshot density
+            mt: -1,
           }}
         >
           <Typography

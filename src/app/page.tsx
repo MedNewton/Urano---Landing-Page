@@ -78,7 +78,7 @@ export default function Home() {
       secondaryCtaHref: "/uapp",
       imageSide: "left",
       backdropWord: "uApp",
-      image: ecosystemImage1.src, // ✅ important
+      image: ecosystemImage1.src,
       imageAlt: "uApp preview",
     },
     {
@@ -92,7 +92,7 @@ export default function Home() {
       secondaryCtaHref: "/ushares",
       imageSide: "right",
       backdropWord: "uShares",
-      image: ecosystemImage2.src, // ✅
+      image: ecosystemImage2.src,
       imageAlt: "uShares preview",
     },
     {
@@ -106,7 +106,7 @@ export default function Home() {
       secondaryCtaHref: "/ustation",
       imageSide: "left",
       backdropWord: "uStation",
-      image: ecosystemImage3.src, // ✅
+      image: ecosystemImage3.src,
       imageAlt: "uStation preview",
     },
     {
@@ -120,7 +120,7 @@ export default function Home() {
       secondaryCtaHref: "/uassistant",
       imageSide: "right",
       backdropWord: "uAssistant",
-      image: ecosystemImage4.src, // ✅
+      image: ecosystemImage4.src,
       imageAlt: "uAssistant preview",
     },
   ];

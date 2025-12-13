@@ -50,11 +50,6 @@ function sanitizeSvgId(id: string): string {
   return id.replace(/[^a-zA-Z0-9\-_]/g, "");
 }
 
-/**
- * Applies Urano gradient to any SVG icon by injecting a <linearGradient> into the rendered SVG
- * and forcing shapes to paint with url(#gradient).
- * Works for Iconsax + MUI SvgIcon + react-icons (all render an <svg>).
- */
 function UranoGradientIcon({
   icon,
   size = 22,
