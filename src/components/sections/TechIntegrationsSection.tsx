@@ -15,7 +15,7 @@ export type TechIntegrationItem = Readonly<{
 
 export type TechIntegrationsSectionProps = Readonly<{
   title?: string;
-  items: readonly TechIntegrationItem[]; // typically 2 items (left/right)
+  items: readonly TechIntegrationItem[];
 }>;
 
 function TechCard({
@@ -38,7 +38,6 @@ function TechCard({
         backgroundColor: theme.palette.background.paper,
       }}
     >
-      {/* Image area */}
       <Box
         sx={{
           position: "relative",
@@ -68,7 +67,6 @@ function TechCard({
         />
       </Box>
 
-      {/* Caption bar */}
       <Box
         sx={{
           px: { xs: 2.25, md: 3 },

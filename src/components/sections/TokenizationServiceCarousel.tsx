@@ -4,7 +4,6 @@ import type { ReactElement } from "react";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 import theme from "@/theme/theme";
 import ServiceCard, {
@@ -65,11 +64,8 @@ export default function TokenizationAsAServiceCarousel({
 
     const trackPl = { xs: 2.5, md: 14 };
 
-    const BG_SHIFT_PX = { xs: 36, md: 100 };
-
     return (
         <Stack sx={{ width: "100%", pt: 6 }}>
-            {/* Full-bleed wrapper: background will be as tall as its content */}
             <Box
                 sx={{
                     position: "relative",
@@ -87,7 +83,6 @@ export default function TokenizationAsAServiceCarousel({
             >
 
 
-                {/* Content layer */}
                 <Box sx={{ position: "relative", zIndex: 1 }}>
                     <Typography
                         className="conthrax"
@@ -145,7 +140,6 @@ export default function TokenizationAsAServiceCarousel({
                                 </Box>
                             ))}
 
-                            {/* trailing space after the last card */}
                             <Box aria-hidden sx={{ flex: "0 0 auto", width: { xs: 16, md: 48 } }} />
                         </Box>
                     </Box>
