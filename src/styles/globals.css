@@ -1,6 +1,7 @@
 @font-face {
   font-family: "Conthrax";
   src: url("../assets/fonts/Conthrax-SemiBold.otf") format("opentype");
+  font-display: swap !important;
 }
 
 html, body {
