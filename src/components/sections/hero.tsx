@@ -129,7 +129,7 @@ const Hero = () => {
                     className="conthrax"
                     variant="h3"
                     sx={{
-                        fontSize: { xs: "1.4rem", lg: "2.5rem" },
+                        fontSize: { xs: "1.4rem", lg: "2.75rem" },
                         fontWeight: 700,
                         background: theme.palette.uranoGradient,
                         backgroundClip: "text",
@@ -142,7 +142,7 @@ const Hero = () => {
                 <Typography
                     variant="h6"
                     sx={{
-                        fontSize: { xs: "1rem", lg: "0.95rem" },
+                        fontSize: { xs: "1rem", lg: "1rem" },
                         fontWeight: { xs: 400, lg: 300 },
                         color: theme.palette.text.primary,
                         width: "37%",

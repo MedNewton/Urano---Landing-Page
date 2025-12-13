@@ -76,7 +76,7 @@ const themeOptions: ThemeOptions = {
       primary: { main: '#000000' },
       secondary: { main: '#2D2D2D' },
       darkerText: { main: '#DEDEDE' },
-      background: { default: '#131313', paper: '#151515' },
+      background: { default: '#0F0F0F', paper: '#151515' },
       text: { primary: '#ffffff', secondary: '#9F9F9F', disabled: '#F5F5F5' },
       error: { main: '#FF0000' },
       warning: { main: '#FFA500' },
