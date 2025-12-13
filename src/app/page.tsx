@@ -11,6 +11,7 @@ import type { PoweredByUranoItem } from "@/components/sections/PoweredByUranoSec
 import PoweredByUranoSection from "@/components/sections/PoweredByUranoSection";
 import type { FaqItem } from "@/components/sections/FaqSection";
 import FaqSection from "@/components/sections/FaqSection";
+import PartnersAndAdvisorsSection from "@/components/sections/PartnersAndAdvisorsSection";
 
 import ecosystemImage1 from "@/assets/images/ecosystem1.webp";
 import ecosystemImage2 from "@/assets/images/ecosystem2.webp";
@@ -233,6 +234,7 @@ export default function Home() {
       <ExploreEcosystemSection title="Explore the Urano Ecosystem" items={items2} />
       <PoweredByUranoSection title="Powered by Urano" items={poweredItems} />
       <TechIntegrationsSection title="Tech Integrations" items={techItems} />
+      <PartnersAndAdvisorsSection />
       <FaqSection title="FAQ" items={faqItems} />
       <Stack width="100%" height="20vh" />
     </Stack>
