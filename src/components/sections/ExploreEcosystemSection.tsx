@@ -255,7 +255,6 @@ function ContentCell({
             backgroundClip: "text",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
-            textTransform: "uppercase",
           }}
         >
           {title}

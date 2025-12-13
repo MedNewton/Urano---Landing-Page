@@ -6,6 +6,10 @@ import { Box } from "@mui/material";
 import AnimatedSVGPreloader from "@/components/layout/AnimatedSVGPreloader";
 import { Providers } from "@/components/layout/providers";
 import Header from "@/components/layout/header";
+import UranoFooter from "@/components/layout/footer";
+
+import logo from "@/assets/images/logos/logo-turquoise-1.webp";
+import arbitrum from "@/assets/images/arbdao.webp";
 
 export const metadata: Metadata = {
   title: "Urano - Ecosystem",
@@ -34,6 +38,7 @@ export default function RootLayout({
               textGapPx={20}
               textFadeMs={800}
             />
+            <UranoFooter logoImage={logo} arbitrumImage={arbitrum} />
           </Box>
         </Providers>
       </body>
