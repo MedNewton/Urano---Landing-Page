@@ -136,7 +136,7 @@ const Hero = () => {
                     gap: "0.75rem"
                 }}
             >
-                <Stack direction="row" alignItems="center" justifyContent="center" gap={1} mt={2}>
+                <Stack direction="row" alignItems="center" justifyContent="center" gap={0.5} mt={2}>
                     <Typography
                         className="conthrax"
                         variant="h6"
