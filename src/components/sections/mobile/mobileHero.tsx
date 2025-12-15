@@ -31,7 +31,7 @@ const Hero = () => {
                     inset: 0,
                     width: "100%",
                     height: "100%",
-                    mt: -5,
+                    mt: -6,
                     zIndex: 0,
                     pointerEvents: "none",
                 }}
