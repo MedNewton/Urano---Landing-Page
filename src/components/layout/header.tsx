@@ -5,6 +5,7 @@ import NextLink from "next/link";
 import Image from "next/image";
 import {
   Box,
+  Button,
   ButtonBase,
   Divider,
   Fade,
@@ -13,6 +14,7 @@ import {
   Popper,
   Stack,
   Typography,
+  IconButton,
 } from "@mui/material";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -32,6 +34,7 @@ import {
 
 import { RiTelegram2Fill } from "react-icons/ri";
 import { FaXTwitter } from "react-icons/fa6";
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 import theme from "@/theme/theme";
 import logo from "@/assets/images/logos/logo-turquoise-1.webp";
@@ -463,14 +466,16 @@ export default function Header() {
           right: 0,
           mx: "auto",
           zIndex: 1000,
-          width: "70%",
-          mt: 2,
-          borderRadius: "0.5rem",
-          border: GLASS_BORDER,
-          background: GLASS_BG,
-          backdropFilter: GLASS_BLUR,
+          width: { xs: "100%", lg: "70%" },
+          mt: { xs: 0, lg: 2 },
+          borderRadius: { xs: 0, lg: "0.5rem" },
+          border: { xs: "none", lg: GLASS_BORDER },
+          borderBottom: { xs: "1px solid rgba(85, 85, 85, 0.30)", lg: GLASS_BORDER },
+          background: {xs: "rgba(21, 21, 21, 0.8)", lg: GLASS_BG}, 
+          backdropFilter: { xs: "blur(11px)", lg: GLASS_BLUR },
           minHeight: "4.3125rem",
-          px: "0.8125rem",
+          px: { xs: 1, lg: "0.8125rem" },
+          py: { xs: 0.75, lg: 0 },
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
@@ -485,7 +490,7 @@ export default function Header() {
           <Image src={logo} alt="Logo" width={120} height={70} fetchPriority="high" loading="eager" />
         </Link>
 
-        <Stack direction="row" alignItems="center" gap={2}>
+        <Stack direction="row" alignItems="center" gap={2} display={{ xs: "none", lg: "flex" }}>
           <Stack direction="row" alignItems="center" gap={3} sx={{ pr: 0.5 }}>
             <NavTrigger
               label="PRODUCTS"
@@ -505,6 +510,43 @@ export default function Header() {
           </Stack>
 
           <RocketButton />
+        </Stack>
+        <Stack display={{ xs: "flex", lg: "none" }} direction="row" alignItems="center" justifyContent="center" gap={1}>
+          <Button variant="contained" color="primary" sx={{
+            background: theme.palette.uranoGradient,
+            border: `1px solid ${theme.palette.headerBorder.main}`,
+            borderRadius: 3,
+            px: { xs: 2, lg: 2 },
+            py: 1.25,
+            height: "fit-content",
+            width: "fit-content",
+            textTransform: "none",
+          }}>
+            <Stack direction="row" alignItems="center" justifyContent="center" gap={1}>
+              <Typography variant="h6" fontWeight={500} sx={{ color: theme.palette.background.default, fontSize: 18 }}>uApp</Typography>
+              <Image src={rocketIcon} alt="Rocket Icon" width={18} height={18} style={{ transform: "translateY(1px)" }} />
+            </Stack>
+          </Button>
+          <IconButton sx={{
+            background: "#2D2D2D",
+            borderRadius: 3,
+            px: 1.35,
+            py: 1.25,
+            height: "fit-content",
+            width: "fit-content",
+            textTransform: "none",
+            "&:hover": {
+              background: "#2D2D2D",
+            },
+            "&:active": {
+              background: "#2D2D2D",
+            },
+            "&:focus": {
+              background: "#2D2D2D",
+            },
+          }}>
+            <FilterListIcon sx={{ fontSize: 28, color: theme.palette.text.primary }} />
+          </IconButton>
         </Stack>
       </Stack>
 
