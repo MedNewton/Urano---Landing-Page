@@ -41,7 +41,7 @@ function FooterColumnList({
           fontWeight: 600,
           letterSpacing: "0.06em",
           textTransform: "uppercase",
-          fontSize: 13,
+          fontSize: { xs: 10, md: 13 },
           whiteSpace: "nowrap",
           px: 1.5,
         }}
@@ -75,10 +75,10 @@ function FooterColumnList({
                 color: "rgba(255,255,255,0.85)",
                 backgroundColor: "#1A1A1A",
                 "& .footer-link-text": {
-                    background: theme.palette.uranoGradient,
-                    backgroundClip: "text",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
+                  background: theme.palette.uranoGradient,
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
                 },
               },
             }}
@@ -89,6 +89,89 @@ function FooterColumnList({
           </MuiLink>
         ))}
       </Stack>
+    </Stack>
+  );
+}
+
+function MobileFooterColumn({
+  title,
+  links,
+  allowWrapLinks = false,
+  twoColLinks = false,
+}: {
+  title: string;
+  links: readonly FooterLink[];
+  allowWrapLinks?: boolean;
+  twoColLinks?: boolean;
+}): ReactElement {
+  return (
+    <Stack spacing={2} sx={{ minWidth: 0 }}>
+      <Typography
+        sx={{
+          color: "#EDEDED",
+          fontWeight: 700,
+          letterSpacing: "0.06em",
+          textTransform: "uppercase",
+          fontSize: 16,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {title}
+      </Typography>
+
+      <Box
+        sx={
+          twoColLinks
+            ? {
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                columnGap: 4,
+                rowGap: 3.25,
+                minWidth: 0,
+              }
+            : {
+                display: "flex",
+                flexDirection: "column",
+                gap: 3.25,
+                minWidth: 0,
+              }
+        }
+      >
+        {links.map((l, idx) => {
+          const shouldSpan =
+            twoColLinks && idx === links.length - 1 && links.length % 2 === 1;
+
+          return (
+            <MuiLink
+              key={l.label}
+              component={NextLink}
+              href={l.href}
+              underline="none"
+              sx={{
+                color: "rgba(255,255,255,0.55)",
+                fontSize: 16,
+                lineHeight: 1.15,
+                minWidth: 0,
+                width: "fit-content",
+                whiteSpace: allowWrapLinks ? "normal" : "nowrap",
+                ...(shouldSpan ? { gridColumn: "1 / -1" } : null),
+                "&:hover": {
+                  "& .mobile-footer-link-text": {
+                    background: theme.palette.uranoGradient,
+                    backgroundClip: "text",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  },
+                },
+              }}
+            >
+              <Typography className="mobile-footer-link-text" sx={{ fontSize: 16 }}>
+                {l.label}
+              </Typography>
+            </MuiLink>
+          );
+        })}
+      </Box>
     </Stack>
   );
 }
@@ -148,9 +231,26 @@ export default function UranoFooter({
   const hoverGradient = {
     background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
     color: "#0E0E0E",
-    "& .icon": {
-      filter: "invert(1)",
-    },
+    "& .icon": { filter: "invert(1)" },
+  } as const;
+
+  const mobileIconBtn = {
+    width: 56,
+    height: 56,
+    borderRadius: "0.4375rem",
+    backgroundColor: "#2A2A2A",
+    "&:hover": hoverGradient,
+  } as const;
+
+  const mobilePillBtn = {
+    height: 56,
+    borderRadius: "0.4375rem",
+    textTransform: "none",
+    fontWeight: 500,
+    backgroundColor: "#2A2A2A",
+    color: "#EDEDED",
+    boxShadow: "none",
+    "&:hover": hoverGradient,
   } as const;
 
   return (
@@ -165,11 +265,12 @@ export default function UranoFooter({
         minHeight: "100vh",
       }}
     >
+      {/* Watermark (DO NOT TOUCH) */}
       <Box
         sx={{
           position: "absolute",
           left: "50%",
-          top: { xs: 120, md: 20 },
+          top: { xs: 10, md: 20 },
           transform: "translateX(-50%)",
           width: "100%",
           pointerEvents: "none",
@@ -182,12 +283,11 @@ export default function UranoFooter({
           className="conthrax"
           sx={{
             textAlign: "center",
-            fontSize: { xs: 160, md: "15.52425rem" },
+            fontSize: { xs: 80, md: "15.52425rem" },
             fontWeight: 800,
             letterSpacing: "0.08em",
             lineHeight: "120%",
-            background:
-              "linear-gradient(180deg, #262626 0%, rgba(20, 20, 20, 0) 77%)",
+            background: "linear-gradient(180deg, #262626 0%, rgba(20, 20, 20, 0) 77%)",
             backgroundClip: "text",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
@@ -198,6 +298,7 @@ export default function UranoFooter({
         </Typography>
       </Box>
 
+      {/* Content wrapper */}
       <Box
         sx={{
           position: "relative",
@@ -206,239 +307,384 @@ export default function UranoFooter({
           display: "flex",
           flexDirection: "column",
           px: { xs: 3, md: 16 },
-          pt: { xs: 10, md: 12 },
+          pt: { xs: 0, md: 12 },
           pb: { xs: 6, md: 7 },
         }}
       >
-        <Stack
-          direction={{ xs: "column", md: "row" }}
-          alignItems="flex-start"
-          spacing={{ xs: 5, md: 6 }}
-          sx={{ mt: 16, mb: 4, minWidth: 0, width: "100%" }}
-        >
-          <Stack
-            spacing={0}
-            sx={{
-              minWidth: 0,
-              flex: { md: "0 0 260px" },
-              width: { xs: "100%", md: 260 },
-            }}
-          >
-            <Box sx={{ position: "relative", width: "100%", height: 84 }}>
+        {/* =========================
+            MOBILE LAYOUT (xs/sm)
+            ========================= */}
+        <Box width="100%" sx={{ display: { xs: "block", md: "none" }, mt: 4}}>
+          {/* Brand centered */}
+          <Stack spacing={3} alignItems="center">
+            <Box sx={{ position: "relative", width: "100%", maxWidth: 320, height: 84, display: { xs: "none", md: "block" } }}>
               <Image
                 src={logoImage}
                 alt="Urano"
                 fill
-                sizes="260px"
-                style={{ objectFit: "contain", objectPosition: "left top" }}
+                sizes="320px"
+                style={{ objectFit: "contain", objectPosition: "center top" }}
               />
             </Box>
 
-            <Stack
-              direction="row"
-              spacing={1.5}
-              alignItems="center"
-              sx={{ flexWrap: "nowrap" }}
+            <Box sx={{ position: "relative", width: "100%", maxWidth: 320, height: 120, display: { xs: "block", md: "none" } }}>
+              <Image
+                src={logoImage}
+                alt="Urano"
+                fill
+                sizes="50vw"
+                style={{ objectFit: "contain", objectPosition: "center top" }}
+              />
+            </Box>
+
+            <Stack width="100%" direction="row" spacing={1} alignItems="center" justifyContent="center" 
+            sx={{ 
+              flexWrap: "nowrap",  
+              transform: "translateY(-50%)",
+            }}
             >
-              <Typography
-                sx={{
-                  color: "rgba(255,255,255,0.55)",
-                  fontSize: 16,
-                  whiteSpace: "nowrap",
-                  flexShrink: 0,
-                }}
-              >
+              <Typography sx={{ color: "rgba(255,255,255,0.55)", fontSize: 20, whiteSpace: "nowrap" }}>
                 Powered by
               </Typography>
 
-              <Box
-                sx={{
-                  position: "relative",
-                  width: 140,
-                  height: 32,
-                  flexShrink: 0,
-                }}
-              >
+              <Box sx={{ position: "relative", width: 160, height: 56, flexShrink: 0 }}>
                 <Image
                   src={arbitrumImage}
                   alt="Arbitrum"
                   fill
-                  sizes="140px"
+                  sizes="100%"
                   style={{ objectFit: "contain", objectPosition: "left center" }}
                 />
               </Box>
             </Stack>
           </Stack>
 
-          <Stack
-            direction="row"
-            useFlexGap
-            sx={{
-              flex: { md: "1 1 auto" },
-              minWidth: 0,
-              pt: { md: 2.5 },
-              flexWrap: { xs: "wrap", md: "nowrap" },
-              justifyContent: "center",
-              alignItems: "flex-start",
-              gap: { xs: 4, md: 0 },
-            }}
-          >
-            {columns.map((c) => {
-              const isLegal = c.title === "LEGAL";
+          {/* Actions like the screenshot */}
+          <Stack spacing={2.5} sx={{ mt: 2 }}>
+            <Box sx={{ display: "flex", gap: 2, alignItems: "center", width: "100%" }}>
+              <IconButton aria-label="X" sx={mobileIconBtn}>
+                <FaXTwitter className="icon" size={26} color="#EDEDED" />
+              </IconButton>
 
-              return (
-                <Box
-                  key={c.title}
-                  sx={{
-                    flex: {
-                      xs: "1 1 45%",
-                      md: "0 0 auto",
-                    },
-                    width: {
-                      xs: "45%",
-                      md: isLegal ? 220 : 170,
-                    },
-                    minWidth: { xs: "45%", md: isLegal ? 220 : 100 },
-                    maxWidth: { md: isLegal ? 240 : 160 },
-                  }}
-                >
-                  <FooterColumnList col={c} allowWrapLinks={isLegal} />
-                </Box>
-              );
-            })}
-          </Stack>
-
-          <Box
-            sx={{
-              pt: { md: 2.5 },
-              flex: { md: "0 0 auto" },
-              width: { xs: "100%", md: "fit-content" },
-              ml: { md: "auto" },
-            }}
-          >
-            <Stack
-              spacing={2}
-              sx={{
-                width: { xs: "100%", md: "fit-content" },
-                alignItems: { xs: "stretch", md: "flex-end" },
-              }}
-            >
-              <Box
-                sx={{
-                  display: "inline-flex",
-                  gap: 1.5,
-                  alignItems: "center",
-                  justifyContent: "flex-end",
-                  width: "fit-content",
-                  maxWidth: "100%",
-                }}
-              >
-                <IconButton
-                  aria-label="X"
-                  sx={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 2,
-                    backgroundColor: "#2A2A2A",
-                    "&:hover": hoverGradient,
-                  }}
-                >
-                  <FaXTwitter className="icon" size={24} color="#EDEDED" />
-                </IconButton>
-
-                <IconButton
-                  aria-label="Telegram"
-                  sx={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 2,
-                    backgroundColor: "#2A2A2A",
-                    "&:hover": hoverGradient,
-                  }}
-                >
-                  <RiTelegram2Fill className="icon" size={24} color="#EDEDED" />
-                </IconButton>
-
-                <Button
-                  variant="contained"
-                  sx={{
-                    ...surfaceBtnSx,
-                    px: 2.25,
-                    minWidth: 170,
-                    whiteSpace: "nowrap",
-                    "&:hover": hoverGradient,
-                  }}
-                >
-                  Compliance Note
-                </Button>
-              </Box>
+              <IconButton aria-label="Telegram" sx={mobileIconBtn}>
+                <RiTelegram2Fill className="icon" size={28} color="#EDEDED" />
+              </IconButton>
 
               <Button
                 variant="contained"
-                startIcon={<Sms className="icon" size={24} color="#EDEDED" />}
                 sx={{
-                  ...surfaceBtnSx,
-                  width: "100%",
-                  minWidth: "unset",
+                  ...mobilePillBtn,
+                  flex: "1 1 auto",
+                  minWidth: 0,
                   justifyContent: "center",
-                  "&:hover": hoverGradient,
+                  fontSize: 18,
+                  whiteSpace: "nowrap",
                 }}
               >
-                Contact us
+                Compliance Note
               </Button>
-            </Stack>
-          </Box>
-        </Stack>
+            </Box>
 
-        <Box sx={{ flex: 1 }} />
-
-        <Divider sx={{ borderColor: "rgba(255,255,255,0.08)" }} />
-
-        <Box sx={{ pt: { xs: 4, md: 5 } }}>
-          <Typography
-            sx={{
-              color: "rgba(255,255,255,0.45)",
-              fontSize: 12.5,
-              lineHeight: 1.6,
-              textAlign: "center",
-              maxWidth: 980,
-              mx: "auto",
-            }}
-          >
-            The content of this page is provided for informational purposes only and does not constitute an offer or
-            solicitation to sell, or a recommendation to purchase, any financial instrument, security, or digital asset
-            within the meaning of applicable laws and regulations, including Regulation (EU) 2023/1114 on Markets in
-            Crypto-assets (MiCA).{" "}
-            <Box
-              component="span"
+            <Button
+              variant="contained"
+              startIcon={<Sms className="icon" size={26} color="#EDEDED" />}
               sx={{
-                color: "rgba(255,255,255,0.75)",
-                cursor: "pointer",
-                "&:hover": { color: "rgba(255,255,255,0.9)" },
+                ...mobilePillBtn,
+                gap: 0.5,
+                width: "100%",
+                justifyContent: "center",
+                fontSize: 18,
               }}
             >
-              Show more
-            </Box>
-          </Typography>
+              Contact us
+            </Button>
+          </Stack>
+
+          {/* 2x2 content columns grid */}
+          <Box
+            sx={{
+              mt: 6,
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              columnGap: 4,
+              rowGap: 6,
+            }}
+          >
+            <MobileFooterColumn title="PRODUCTS" links={columns[0]?.links ?? []} />
+            <MobileFooterColumn
+              title="LEARN"
+              links={[
+                // order to match the screenshot layout visually
+                { label: "Docs", href: "/docs" },
+                { label: "Audit", href: "/audit" },
+                { label: "FAQ", href: "/faq" },
+                { label: "uPaper", href: "/upaper" },
+                { label: "Github", href: "/github" },
+              ]}
+              twoColLinks
+            />
+            <MobileFooterColumn title="COMMUNITY" links={columns[2]?.links ?? []} />
+            <MobileFooterColumn title="LEGAL" links={columns[3]?.links ?? []} allowWrapLinks />
+          </Box>
+
+          <Box sx={{ mt: 7 }}>
+            <Typography
+              sx={{
+                color: "rgba(255,255,255,0.45)",
+                fontSize: 15,
+                lineHeight: 1.6,
+                textAlign: "left",
+              }}
+            >
+              The content of this page is provided for informational purposes only and does not constitute an offer or
+              solicitation to sell, or a recommendation to purchase, any financial instrument, security, or digital asset
+              within the meaning of applicable laws and regulations, including Regulation (EU) 2023/1114 on Markets in
+              Crypto-assets (MiCA).{" "}
+              <Box
+                component="span"
+                sx={{
+                  color: "rgba(255,255,255,0.75)",
+                  cursor: "pointer",
+                  "&:hover": { color: "rgba(255,255,255,0.9)" },
+                }}
+              >
+                Show more
+              </Box>
+            </Typography>
+
+            <Divider sx={{ mt: 4, borderColor: "rgba(255,255,255,0.08)" }} />
+
+            <Typography
+              sx={{
+                mt: 3,
+                color: "rgba(255,255,255,0.45)",
+                fontSize: 15,
+                textAlign: "center",
+              }}
+            >
+              Urano Ecosystem Sp. Z o.o. © 2025 <br />
+              Urano Ecosystem, All rights reserved.
+            </Typography>
+          </Box>
         </Box>
 
-        <Divider
-          sx={{
-            mt: { xs: 4, md: 5 },
-            borderColor: "rgba(255,255,255,0.08)",
-          }}
-        />
+        {/* =========================
+            DESKTOP/TABLET LAYOUT (md+)
+            EXACTLY AS YOU HAVE NOW
+            ========================= */}
+        <Box sx={{ display: { xs: "none", md: "block" } }}>
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            alignItems="flex-start"
+            spacing={{ xs: 5, md: 6 }}
+            sx={{ mt: 16, mb: 4, minWidth: 0, width: "100%" }}
+          >
+            <Stack
+              spacing={0}
+              sx={{
+                minWidth: 0,
+                flex: { md: "0 0 260px" },
+                width: { xs: "100%", md: 260 },
+              }}
+            >
+              <Box sx={{ position: "relative", width: "100%", height: 84 }}>
+                <Image
+                  src={logoImage}
+                  alt="Urano"
+                  fill
+                  sizes="260px"
+                  style={{ objectFit: "contain", objectPosition: "left top" }}
+                />
+              </Box>
 
-        <Typography
-          sx={{
-            mt: { xs: 3, md: 3 },
-            color: "rgba(255,255,255,0.45)",
-            fontSize: 13,
-            textAlign: "center",
-          }}
-        >
-          Urano Ecosystem Sp. Z o.o. © 2025 Urano Ecosystem, All rights reserved.
-        </Typography>
+              <Stack direction="row" spacing={1.5} alignItems="center" sx={{ flexWrap: "nowrap" }}>
+                <Typography
+                  sx={{
+                    color: "rgba(255,255,255,0.55)",
+                    fontSize: 16,
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
+                  }}
+                >
+                  Powered by
+                </Typography>
+
+                <Box sx={{ position: "relative", width: 140, height: 32, flexShrink: 0 }}>
+                  <Image
+                    src={arbitrumImage}
+                    alt="Arbitrum"
+                    fill
+                    sizes="140px"
+                    style={{ objectFit: "contain", objectPosition: "left center" }}
+                  />
+                </Box>
+              </Stack>
+            </Stack>
+
+            <Stack
+              direction="row"
+              useFlexGap
+              sx={{
+                flex: { md: "1 1 auto" },
+                minWidth: 0,
+                pt: { md: 2.5 },
+                flexWrap: { xs: "wrap", md: "nowrap" },
+                justifyContent: "center",
+                alignItems: "flex-start",
+                gap: { xs: 4, md: 0 },
+              }}
+            >
+              {columns.map((c) => {
+                const isLegal = c.title === "LEGAL";
+
+                return (
+                  <Box
+                    key={c.title}
+                    sx={{
+                      flex: { xs: "1 1 45%", md: "0 0 auto" },
+                      width: { xs: "45%", md: isLegal ? 220 : 170 },
+                      minWidth: { xs: "45%", md: isLegal ? 220 : 100 },
+                      maxWidth: { md: isLegal ? 240 : 160 },
+                    }}
+                  >
+                    <FooterColumnList col={c} allowWrapLinks={isLegal} />
+                  </Box>
+                );
+              })}
+            </Stack>
+
+            <Box
+              sx={{
+                pt: { md: 2.5 },
+                flex: { md: "0 0 auto" },
+                width: { xs: "100%", md: "fit-content" },
+                ml: { md: "auto" },
+              }}
+            >
+              <Stack
+                spacing={2}
+                sx={{
+                  width: { xs: "100%", md: "fit-content" },
+                  alignItems: { xs: "stretch", md: "flex-end" },
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "inline-flex",
+                    gap: 1.5,
+                    alignItems: "center",
+                    justifyContent: "flex-end",
+                    width: "fit-content",
+                    maxWidth: "100%",
+                  }}
+                >
+                  <IconButton
+                    aria-label="X"
+                    sx={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: 2,
+                      backgroundColor: "#2A2A2A",
+                      "&:hover": hoverGradient,
+                    }}
+                  >
+                    <FaXTwitter className="icon" size={24} color="#EDEDED" />
+                  </IconButton>
+
+                  <IconButton
+                    aria-label="Telegram"
+                    sx={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: 2,
+                      backgroundColor: "#2A2A2A",
+                      "&:hover": hoverGradient,
+                    }}
+                  >
+                    <RiTelegram2Fill className="icon" size={24} color="#EDEDED" />
+                  </IconButton>
+
+                  <Button
+                    variant="contained"
+                    sx={{
+                      ...surfaceBtnSx,
+                      px: 2.25,
+                      minWidth: 170,
+                      whiteSpace: "nowrap",
+                      "&:hover": hoverGradient,
+                    }}
+                  >
+                    Compliance Note
+                  </Button>
+                </Box>
+
+                <Button
+                  variant="contained"
+                  startIcon={<Sms className="icon" size={24} color="#EDEDED" />}
+                  sx={{
+                    ...surfaceBtnSx,
+                    width: "100%",
+                    minWidth: "unset",
+                    justifyContent: "center",
+                    "&:hover": hoverGradient,
+                  }}
+                >
+                  Contact us
+                </Button>
+              </Stack>
+            </Box>
+          </Stack>
+
+          <Box sx={{ flex: 1 }} />
+
+          <Divider sx={{ borderColor: "rgba(255,255,255,0.08)" }} />
+
+          <Box sx={{ pt: { xs: 4, md: 5 } }}>
+            <Typography
+              sx={{
+                color: "rgba(255,255,255,0.45)",
+                fontSize: 12.5,
+                lineHeight: 1.6,
+                textAlign: "center",
+                maxWidth: 980,
+                mx: "auto",
+              }}
+            >
+              The content of this page is provided for informational purposes only and does not constitute an offer or
+              solicitation to sell, or a recommendation to purchase, any financial instrument, security, or digital asset
+              within the meaning of applicable laws and regulations, including Regulation (EU) 2023/1114 on Markets in
+              Crypto-assets (MiCA).{" "}
+              <Box
+                component="span"
+                sx={{
+                  color: "rgba(255,255,255,0.75)",
+                  cursor: "pointer",
+                  "&:hover": { color: "rgba(255,255,255,0.9)" },
+                }}
+              >
+                Show more
+              </Box>
+            </Typography>
+          </Box>
+
+          <Divider
+            sx={{
+              mt: { xs: 4, md: 5 },
+              borderColor: "rgba(255,255,255,0.08)",
+            }}
+          />
+
+          <Typography
+            sx={{
+              mt: { xs: 3, md: 3 },
+              color: "rgba(255,255,255,0.45)",
+              fontSize: 13,
+              textAlign: "center",
+            }}
+          >
+            Urano Ecosystem Sp. Z o.o. © 2025 Urano Ecosystem, All rights reserved.
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );

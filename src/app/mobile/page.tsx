@@ -4,6 +4,8 @@ import MobileHero from "@/components/sections/mobile/mobileHero";
 import MobileTokenizationServiceCarousel from "@/components/sections/mobile/mobileTokenizationServiceCarousel";
 import MobileExploreEcosystemSection, { type MobileExploreEcosystemItem } from "@/components/sections/mobile/mobileExploreEcosystemSection";
 import MobileTechIntegrationsSection, { type MobileTechIntegrationItem } from "@/components/sections/mobile/mobileTechIntegrationsSection";
+import MobilePartnersAndAdvisorsSection from "@/components/sections/mobile/mobilePartnersAndAdvisorsSection";
+import MobileFaqSection, { type MobileFaqItem } from "@/components/sections/mobile/mobileFaqSection";
 
 import slider1 from "@/assets/images/slider/1.webp";
 import slider2 from "@/assets/images/slider/2.webp";
@@ -18,6 +20,8 @@ import ecosystemImage4 from "@/assets/images/mobileEcosystem4.webp";
 
 import tech1Image from "@/assets/images/tech1.webp";
 import tech2Image from "@/assets/images/tech2.webp";
+
+
 
 export default function Home() {
 
@@ -74,63 +78,114 @@ export default function Home() {
 
     const ecosystemItems: MobileExploreEcosystemItem[] = [
         {
-          id: "uapp",
-          title: "uApp",
-          description:
-            "Our Web 3.0-native platform, designed to let users buy and manage real-world assets, stake $URANO, and participate in decentralized governance, all within a single, seamless ecosystem.",
-          primaryCtaLabel: "LAUNCH",
-          primaryCtaHref: "/uapp",
-          secondaryCtaLabel: "DISCOVER",
-          secondaryCtaHref: "/uapp",
-          imageSide: "left",
-          backdropWord: "uApp",
-          image: ecosystemImage1.src,
-          imageAlt: "uApp preview",
+            id: "uapp",
+            title: "uApp",
+            description:
+                "Our Web 3.0-native platform, designed to let users buy and manage real-world assets, stake $URANO, and participate in decentralized governance, all within a single, seamless ecosystem.",
+            primaryCtaLabel: "LAUNCH",
+            primaryCtaHref: "/uapp",
+            secondaryCtaLabel: "DISCOVER",
+            secondaryCtaHref: "/uapp",
+            imageSide: "left",
+            backdropWord: "uApp",
+            image: ecosystemImage1.src,
+            imageAlt: "uApp preview",
         },
         {
-          id: "ushares",
-          title: "uShares",
-          description:
-            "From art and real estate to private equity — uShares transform these assets into fractionalized investment opportunities, accessible to everyone.",
-          primaryCtaLabel: "BUY",
-          primaryCtaHref: "/ushares",
-          secondaryCtaLabel: "DISCOVER",
-          secondaryCtaHref: "/ushares",
-          imageSide: "right",
-          backdropWord: "uShares",
-          image: ecosystemImage2.src,
-          imageAlt: "uShares preview",
+            id: "ushares",
+            title: "uShares",
+            description:
+                "From art and real estate to private equity — uShares transform these assets into fractionalized investment opportunities, accessible to everyone.",
+            primaryCtaLabel: "BUY",
+            primaryCtaHref: "/ushares",
+            secondaryCtaLabel: "DISCOVER",
+            secondaryCtaHref: "/ushares",
+            imageSide: "right",
+            backdropWord: "uShares",
+            image: ecosystemImage2.src,
+            imageAlt: "uShares preview",
         },
         {
-          id: "uassistant",
-          title: "uAssistant",
-          description:
-            "An AI agent built to guide you through Real World Assets, automate complex operations, and enhance your user experience.",
-          primaryCtaLabel: "LAUNCH",
-          primaryCtaHref: "/uassistant",
-          secondaryCtaLabel: "DISCOVER",
-          secondaryCtaHref: "/uassistant",
-          imageSide: "right",
-          backdropWord: "uAssistant",
-          image: ecosystemImage4.src,
-          imageAlt: "uAssistant preview",
+            id: "uassistant",
+            title: "uAssistant",
+            description:
+                "An AI agent built to guide you through Real World Assets, automate complex operations, and enhance your user experience.",
+            primaryCtaLabel: "LAUNCH",
+            primaryCtaHref: "/uassistant",
+            secondaryCtaLabel: "DISCOVER",
+            secondaryCtaHref: "/uassistant",
+            imageSide: "right",
+            backdropWord: "uAssistant",
+            image: ecosystemImage4.src,
+            imageAlt: "uAssistant preview",
         },
-      ];
+    ];
 
-      const techIntegrationsItems: MobileTechIntegrationItem[] = [
+    const techIntegrationsItems: MobileTechIntegrationItem[] = [
         {
-          id: "arbifuel",
-          image: tech1Image.src,
-          imageAlt: "ArbiFuel",
-          caption: "Gasless transactions powered by ArbiFuel",
+            id: "arbifuel",
+            image: tech1Image.src,
+            imageAlt: "ArbiFuel",
+            caption: "Gasless transactions powered by ArbiFuel",
         },
         {
-          id: "thirdweb",
-          image: tech2Image.src,
-          imageAlt: "Thirdweb",
-          caption: "Onboarding everyone seamlessly with Thirdweb",
+            id: "thirdweb",
+            image: tech2Image.src,
+            imageAlt: "Thirdweb",
+            caption: "Onboarding everyone seamlessly with Thirdweb",
         },
-      ];
+    ];
+
+    const faqItems: MobileFaqItem[] = [
+        {
+            id: "what-is-urano",
+            question: "What is Urano Ecosystem?",
+            answer:
+                "Urano is a Web3-native ecosystem that connects real-world assets to on-chain infrastructure through compliant tokenization and modular products.",
+        },
+        {
+            id: "secure-compliant",
+            question: "Is Urano secure and compliant with regulations?",
+            answer:
+                "Urano is designed with security-first principles and compliance tooling. Specific requirements may vary by jurisdiction and product.",
+        },
+        {
+            id: "which-chain",
+            question: "On which blockchain is Urano built?",
+            answer:
+                "Urano is deployed on an EVM-compatible stack. Network availability depends on the product you are accessing.",
+        },
+        {
+            id: "who-usestation",
+            question: "Who can use uStation to tokenize real-world assets?",
+            answer:
+                "Businesses and individuals can use uStation, subject to eligibility checks and jurisdictional constraints where applicable.",
+        },
+        {
+            id: "what-are-ushares",
+            question: "What are uShares?",
+            answer:
+                "uShares are fractionalized representations of tokenized assets, enabling broader access to investment opportunities.",
+        },
+        {
+            id: "need-kyc",
+            question: "Do I need to complete KYC to use Urano?",
+            answer:
+                "Some features may require KYC/verification depending on the asset type, region, and compliance requirements.",
+        },
+        {
+            id: "what-uapp",
+            question: "What can I do with the uApp?",
+            answer:
+                "Use the uApp to explore the ecosystem, manage assets, stake $URANO, and access governance features in one place.",
+        },
+        {
+            id: "who-can-access",
+            question: "Who can access and use the Urano platform?",
+            answer:
+                "Access depends on region and product availability. Some modules may have eligibility and verification requirements.",
+        },
+    ];
 
     return (
         <Stack component="main" width="100%" height="100%" minHeight="100dvh">
@@ -138,6 +193,8 @@ export default function Home() {
             <MobileTokenizationServiceCarousel items={servicesItems} />
             <MobileExploreEcosystemSection items={ecosystemItems} />
             <MobileTechIntegrationsSection items={techIntegrationsItems} />
+            <MobilePartnersAndAdvisorsSection />
+            <MobileFaqSection items={faqItems} />
             <Stack width="100%" height="100%" minHeight="100dvh">
 
             </Stack>
