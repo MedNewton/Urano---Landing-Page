@@ -24,7 +24,7 @@ const Hero = () => {
                 loop
                 playsInline
                 preload="metadata"
-                poster="/video/hero-poster.webp"
+                poster="/video/mobile-hero-poster.webp"
                 aria-hidden="true"
                 sx={{
                     position: "absolute",
