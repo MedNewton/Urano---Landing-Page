@@ -265,7 +265,6 @@ export default function UranoFooter({
         minHeight: "100vh",
       }}
     >
-      {/* Watermark (DO NOT TOUCH) */}
       <Box
         sx={{
           position: "absolute",
@@ -298,7 +297,6 @@ export default function UranoFooter({
         </Typography>
       </Box>
 
-      {/* Content wrapper */}
       <Box
         sx={{
           position: "relative",
@@ -311,11 +309,7 @@ export default function UranoFooter({
           pb: { xs: 6, md: 7 },
         }}
       >
-        {/* =========================
-            MOBILE LAYOUT (xs/sm)
-            ========================= */}
         <Box width="100%" sx={{ display: { xs: "block", md: "none" }, mt: 4}}>
-          {/* Brand centered */}
           <Stack spacing={3} alignItems="center">
             <Box sx={{ position: "relative", width: "100%", maxWidth: 320, height: 84, display: { xs: "none", md: "block" } }}>
               <Image
@@ -359,7 +353,6 @@ export default function UranoFooter({
             </Stack>
           </Stack>
 
-          {/* Actions like the screenshot */}
           <Stack spacing={2.5} sx={{ mt: 2 }}>
             <Box sx={{ display: "flex", gap: 2, alignItems: "center", width: "100%" }}>
               <IconButton aria-label="X" sx={mobileIconBtn}>
@@ -400,7 +393,6 @@ export default function UranoFooter({
             </Button>
           </Stack>
 
-          {/* 2x2 content columns grid */}
           <Box
             sx={{
               mt: 6,
@@ -414,7 +406,6 @@ export default function UranoFooter({
             <MobileFooterColumn
               title="LEARN"
               links={[
-                // order to match the screenshot layout visually
                 { label: "Docs", href: "/docs" },
                 { label: "Audit", href: "/audit" },
                 { label: "FAQ", href: "/faq" },
@@ -467,11 +458,6 @@ export default function UranoFooter({
             </Typography>
           </Box>
         </Box>
-
-        {/* =========================
-            DESKTOP/TABLET LAYOUT (md+)
-            EXACTLY AS YOU HAVE NOW
-            ========================= */}
         <Box sx={{ display: { xs: "none", md: "block" } }}>
           <Stack
             direction={{ xs: "column", md: "row" }}
