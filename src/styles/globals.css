@@ -1,7 +1,7 @@
 @font-face {
   font-family: "Conthrax";
   src: url("../assets/fonts/Conthrax-SemiBold.otf") format("opentype");
-  font-display: swap !important;
+  font-display: swap;
 }
 
 html, body {
@@ -20,5 +20,5 @@ html, body {
 }
 
 .conthrax {
-  font-family: "Conthrax", sans-serif !important;
+  font-family: var(--font-conthrax), sans-serif !important;
 }

@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Host_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import { Box } from "@mui/material";
 import AnimatedSVGPreloader from "@/components/layout/AnimatedSVGPreloader";
 import { Providers } from "@/components/layout/providers";
@@ -17,8 +18,15 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
+const conthrax = localFont({
+  src: "../assets/fonts/Conthrax-SemiBold.otf",
+  display: "swap",
+  variable: "--font-conthrax",
+});
+
 const hostGrotesk = Host_Grotesk({
   subsets: ["latin"],
+  display: "swap",
 });
 
 export default function RootLayout({
@@ -26,7 +34,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={hostGrotesk.className}>
+      <body className={`${hostGrotesk.className} ${conthrax.variable}`}>
         <Providers>
           <Box component="main" sx={{ position: "relative", minHeight: "100dvh" }}>
             <Header />
