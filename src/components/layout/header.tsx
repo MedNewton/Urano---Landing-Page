@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import MobileMenu from "@/components/layout/mobileMenu";
 
 import {
   Monitor,
@@ -419,6 +420,9 @@ export default function Header() {
   const [openKey, setOpenKey] = useState<MenuKey | null>(null);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const handleMobileMenuOpen = () => setIsMobileMenuOpen(true);
+  const handleMobileMenuClose = () => setIsMobileMenuOpen(false);
   const closeTimerRef = useRef<number | null>(null);
 
   const clearCloseTimer = () => {
@@ -471,7 +475,7 @@ export default function Header() {
           borderRadius: { xs: 0, lg: "0.5rem" },
           border: { xs: "none", lg: GLASS_BORDER },
           borderBottom: { xs: "1px solid rgba(85, 85, 85, 0.30)", lg: GLASS_BORDER },
-          background: {xs: "rgba(21, 21, 21, 0.8)", lg: GLASS_BG}, 
+          background: { xs: "rgba(21, 21, 21, 0.8)", lg: GLASS_BG },
           backdropFilter: { xs: "blur(11px)", lg: GLASS_BLUR },
           minHeight: "4.3125rem",
           px: { xs: 1, lg: "0.8125rem" },
@@ -527,24 +531,26 @@ export default function Header() {
               <Image src={rocketIcon} alt="Rocket Icon" width={18} height={18} style={{ transform: "translateY(1px)" }} />
             </Stack>
           </Button>
-          <IconButton sx={{
-            background: "#2D2D2D",
-            borderRadius: 3,
-            px: 1.35,
-            py: 1.25,
-            height: "fit-content",
-            width: "fit-content",
-            textTransform: "none",
-            "&:hover": {
+          <IconButton
+            onClick={handleMobileMenuOpen}
+            sx={{
               background: "#2D2D2D",
-            },
-            "&:active": {
-              background: "#2D2D2D",
-            },
-            "&:focus": {
-              background: "#2D2D2D",
-            },
-          }}>
+              borderRadius: 3,
+              px: 1.35,
+              py: 1.25,
+              height: "fit-content",
+              width: "fit-content",
+              textTransform: "none",
+              "&:hover": {
+                background: "#2D2D2D",
+              },
+              "&:active": {
+                background: "#2D2D2D",
+              },
+              "&:focus": {
+                background: "#2D2D2D",
+              },
+            }}>
             <FilterListIcon sx={{ fontSize: 28, color: theme.palette.text.primary }} />
           </IconButton>
         </Stack>
@@ -582,6 +588,14 @@ export default function Header() {
           </Fade>
         )}
       </Popper>
+      <MobileMenu
+        rocketIconSrc={rocketIcon}
+        open={isMobileMenuOpen}
+        onClose={handleMobileMenuClose}
+        logoSrc={logo}
+        logoAlt="Urano"
+        brandHref="https://www.uranoecosystem.com/"
+      />
     </>
   );
 }
