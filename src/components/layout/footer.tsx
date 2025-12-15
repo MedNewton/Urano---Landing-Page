@@ -263,6 +263,7 @@ export default function UranoFooter({
         backgroundColor: "#141414",
         overflowX: "clip",
         minHeight: "100vh",
+        mt: { xs: 10, md: 0 },
       }}
     >
       <Box

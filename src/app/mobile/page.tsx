@@ -195,9 +195,6 @@ export default function Home() {
             <MobileTechIntegrationsSection items={techIntegrationsItems} />
             <MobilePartnersAndAdvisorsSection />
             <MobileFaqSection items={faqItems} />
-            <Stack width="100%" height="100%" minHeight="100dvh">
-
-            </Stack>
         </Stack>
     );
 }
