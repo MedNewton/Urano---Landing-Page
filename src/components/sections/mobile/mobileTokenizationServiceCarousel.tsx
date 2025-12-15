@@ -6,7 +6,6 @@ import { Box, Stack } from "@mui/material";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-import theme from "@/theme/theme";
 import MobileServiceCard, {
     type MobileServiceCardProps,
 } from "@/components/sections/tokenizationAsAService/mobileServiceCard";
@@ -19,12 +18,10 @@ export type MobileTokenizationServiceCarouselItem = MobileServiceCardProps & {
 };
 
 export type MobileTokenizationServiceCarouselProps = Readonly<{
-    title: string;
     items: MobileTokenizationServiceCarouselItem[];
 }>;
 
 export default function MobileTokenizationServiceCarousel({
-    title,
     items,
 }: MobileTokenizationServiceCarouselProps): ReactElement {
     const viewportRef = useRef<HTMLDivElement | null>(null);
