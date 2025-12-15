@@ -28,58 +28,55 @@ export type MobileExploreEcosystemItem = Readonly<{
 }>;
 
 export type MobileExploreEcosystemSectionProps = Readonly<{
-  title?: string;
   items: MobileExploreEcosystemItem[];
 }>;
 
 function ActionLink({ label }: { label: string; href: string }): ReactElement {
   return (
-    <Button
-      sx={{
+    <Button sx={{
+        width: "45%",
         backgroundColor: "transparent",
         borderRadius: 0,
         borderBottom: `2px solid ${theme.palette.text.primary}`,
-        px: 0.5,
-        py: 0.75,
+        borderTop: "none",
+        borderLeft: "none",
+        borderRight: "none",
+        paddingX: 0.5,
+        paddingY: 0.75,
+        margin: 0,
         height: "fit-content",
-        width: "fit-content",
-        minWidth: 0,
+        transition: "background 0.3s ease-in-out, border-bottom 0.3s ease-in-out, color 0.3s ease-in-out, filter 0.3s ease-in-out",
         "&:hover": {
-          background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
-          borderBottom: "2px solid transparent",
+            background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
+            borderBottom: `2px solid transparent`,
+            ".button-text": {
+                color: "#0E0E0E",
+            },
+            ".button-icon": {
+                filter: "invert(1)",
+                trasform: "rotate(45deg)",
+                transition: "transform 0.3s ease-in-out",
+            },
         },
-        "&:hover .button-text": { color: "#0E0E0E" },
-        "&:hover .button-icon": {
-          color: "#0E0E0E",
-          transform: "rotate(45deg)",
-          transition: "transform 0.3s ease-in-out",
-        },
-      }}
-    >
-      <Stack direction="row" alignItems="center" gap={5}>
-        <Typography
-          className="button-text"
-          variant="h6"
-          sx={{
-            fontSize: "1rem",
-            fontWeight: 400,
-            color: theme.palette.text.primary,
-            lineHeight: 1,
-            whiteSpace: "nowrap",
-          }}
-        >
-          {label}
-        </Typography>
-
-        <SouthEastIcon
-          className="button-icon"
-          sx={{
-            fontSize: 20,
-            color: theme.palette.text.primary,
-            transition: "transform 0.3s ease-in-out",
-          }}
-        />
-      </Stack>
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    }}>
+        <Stack width="100%" direction="row" alignItems="center" gap={5} justifyContent="space-between">
+            <Typography
+                className="button-text"
+                variant="h6"
+                sx={{
+                    fontSize: { xs: "1.2rem", lg: "1.125rem" },
+                    fontWeight: { xs: 400, lg: 400 },
+                    color: theme.palette.text.primary,
+                }}
+            >
+                {label}
+            </Typography>
+            <SouthEastIcon className="button-icon" sx={{ fontSize: 20, color: theme.palette.text.primary, alignSelf: "flex-end" }} />
+        </Stack>
     </Button>
   );
 }
@@ -265,7 +262,7 @@ function ContentCell({
         <Typography
           className="conthrax"
           sx={{
-            fontSize: { xs: 18, md: 22 },
+            fontSize: { xs: 22, md: 22 },
             background: theme.palette.uranoGradient,
             backgroundClip: "text",
             WebkitBackgroundClip: "text",
@@ -277,7 +274,7 @@ function ContentCell({
 
         <Typography
           sx={{
-            fontSize: { xs: 13.5, md: 14.5 },
+            fontSize: { xs: "0.875rem", md: 14.5 },
             lineHeight: 1.5,
             color: theme.palette.text.secondary,
             maxWidth: 560,
@@ -286,7 +283,7 @@ function ContentCell({
           {description}
         </Typography>
 
-        <Stack direction="row" spacing={3} sx={{ pt: 0.5 }}>
+        <Stack width="100%" direction="row" spacing={3} justifyContent="space-between" sx={{ pt: 0.5, }}>
           <ActionLink label={primaryCtaLabel} href={primaryCtaHref} />
           <ActionLink label={secondaryCtaLabel} href={secondaryCtaHref} />
         </Stack>
@@ -296,7 +293,6 @@ function ContentCell({
 }
 
 export default function MobileExploreEcosystemSection({
-  title = "EXPLORE THE ECOSYSTEM",
   items,
 }: MobileExploreEcosystemSectionProps): ReactElement {
   return (

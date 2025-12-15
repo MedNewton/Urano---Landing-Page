@@ -3,6 +3,7 @@ import { Stack } from "@mui/material";
 import MobileHero from "@/components/sections/mobile/mobileHero";
 import MobileTokenizationServiceCarousel from "@/components/sections/mobile/mobileTokenizationServiceCarousel";
 import MobileExploreEcosystemSection, { type MobileExploreEcosystemItem } from "@/components/sections/mobile/mobileExploreEcosystemSection";
+import MobileTechIntegrationsSection, { type MobileTechIntegrationItem } from "@/components/sections/mobile/mobileTechIntegrationsSection";
 
 import slider1 from "@/assets/images/slider/1.webp";
 import slider2 from "@/assets/images/slider/2.webp";
@@ -13,8 +14,10 @@ import slider6 from "@/assets/images/slider/6.webp";
 
 import ecosystemImage1 from "@/assets/images/ecosystem1.webp";
 import ecosystemImage2 from "@/assets/images/ecosystem2.webp";
-import ecosystemImage3 from "@/assets/images/ecosystem3.webp";
 import ecosystemImage4 from "@/assets/images/mobileEcosystem4.webp";
+
+import tech1Image from "@/assets/images/tech1.webp";
+import tech2Image from "@/assets/images/tech2.webp";
 
 export default function Home() {
 
@@ -99,20 +102,6 @@ export default function Home() {
           imageAlt: "uShares preview",
         },
         {
-          id: "ustation",
-          title: "uStation",
-          description:
-            "Guiding business and individuals to bring real-world assets on-chain.",
-          primaryCtaLabel: "TOKENIZE NOW",
-          primaryCtaHref: "/ustation",
-          secondaryCtaLabel: "DISCOVER",
-          secondaryCtaHref: "/ustation",
-          imageSide: "left",
-          backdropWord: "uStation",
-          image: ecosystemImage3.src,
-          imageAlt: "uStation preview",
-        },
-        {
           id: "uassistant",
           title: "uAssistant",
           description:
@@ -128,11 +117,27 @@ export default function Home() {
         },
       ];
 
+      const techIntegrationsItems: MobileTechIntegrationItem[] = [
+        {
+          id: "arbifuel",
+          image: tech1Image.src,
+          imageAlt: "ArbiFuel",
+          caption: "Gasless transactions powered by ArbiFuel",
+        },
+        {
+          id: "thirdweb",
+          image: tech2Image.src,
+          imageAlt: "Thirdweb",
+          caption: "Onboarding everyone seamlessly with Thirdweb",
+        },
+      ];
+
     return (
         <Stack component="main" width="100%" height="100%" minHeight="100dvh">
             <MobileHero />
             <MobileTokenizationServiceCarousel items={servicesItems} />
             <MobileExploreEcosystemSection items={ecosystemItems} />
+            <MobileTechIntegrationsSection items={techIntegrationsItems} />
             <Stack width="100%" height="100%" minHeight="100dvh">
 
             </Stack>
