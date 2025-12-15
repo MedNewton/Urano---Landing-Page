@@ -14,7 +14,7 @@ const rocketFly = keyframes`
   35%  { transform: translate(16px, -16px) scale(var(--rocketScale)); opacity: 0; }
   36%  { transform: translate(-16px, 16px) scale(var(--rocketScale)); opacity: 0; }
   60%  { transform: translate(0px, 0px) scale(var(--rocketScale)); opacity: 1; }
-  100% { transform: translate(0px, 0px) scale(var(--rocketScale)); opacity: 1; } /* pause */
+  100% { transform: translate(0px, 0px) scale(var(--rocketScale)); opacity: 1; }
 `;
 
 
@@ -47,7 +47,6 @@ export default function LaunchUAppButton(): ReactElement {
           Launch uApp
         </Typography>
 
-        {/* 16x16 clip box */}
         <Stack
           direction="row"
           alignItems="center"

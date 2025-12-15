@@ -99,7 +99,6 @@ function MarqueeRow({
                     willChange: "transform",
                 }}
             >
-                {/* lane A */}
                 <Box
                     sx={{
                         display: "flex",
@@ -113,7 +112,6 @@ function MarqueeRow({
                     ))}
                 </Box>
 
-                {/* lane B (duplicate for seamless loop) */}
                 <Box
                     sx={{
                         display: "flex",
@@ -237,7 +235,6 @@ function MobileGradientStrokeTitle({
                         <stop offset="100%" stopColor="#6DE7C2" />
                     </linearGradient>
 
-                    {/* Mask = ONLY the stroke area (no fill) */}
                     <mask id="uranoTextStrokeMask" maskUnits="userSpaceOnUse">
                         <rect x="0" y="0" width="1200" height="120" fill="black" />
                         <text
@@ -261,7 +258,6 @@ function MobileGradientStrokeTitle({
                     </mask>
                 </defs>
 
-                {/* Paint gradient, reveal it ONLY where the stroke mask is */}
                 <rect
                     x="0"
                     y="0"

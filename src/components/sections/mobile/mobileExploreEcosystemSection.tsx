@@ -347,9 +347,6 @@ export default function MobileExploreEcosystemSection({
                 </Box>
               </Grid>
             );
-
-            // ✅ MOBILE: always Image then Content (stacked) per item
-            // ✅ DESKTOP: respect imageSide (left/right)
             const desktopOrder =
               it.imageSide === "left"
                 ? [imageNode, contentNode]
@@ -357,13 +354,11 @@ export default function MobileExploreEcosystemSection({
 
             return (
               <Box key={it.id} sx={{ display: "contents" }}>
-                {/* xs/sm: always image -> content */}
                 <Box sx={{ display: { xs: "contents", md: "none" } }}>
                 {contentNode}
                   {imageNode}
                 </Box>
 
-                {/* md+: left/right based on imageSide */}
                 <Box sx={{ display: { xs: "none", md: "contents" } }}>
                   {desktopOrder[0]}
                   {desktopOrder[1]}

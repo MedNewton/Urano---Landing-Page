@@ -99,7 +99,6 @@ function MarqueeRow({
                     willChange: "transform",
                 }}
             >
-                {/* lane A */}
                 <Box
                     sx={{
                         display: "flex",
@@ -113,7 +112,6 @@ function MarqueeRow({
                     ))}
                 </Box>
 
-                {/* lane B (duplicate for seamless loop) */}
                 <Box
                     sx={{
                         display: "flex",
