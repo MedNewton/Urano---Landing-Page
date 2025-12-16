@@ -13,10 +13,10 @@ import type { FaqItem } from "@/components/sections/FaqSection";
 import FaqSection from "@/components/sections/FaqSection";
 import PartnersAndAdvisorsSection from "@/components/sections/PartnersAndAdvisorsSection";
 
-import slider1 from "@/assets/images/slider/INSTITUTIONAL BACKING.webp";
+import slider1 from "@/assets/images/slider/IB.webp";
 import slider2 from "@/assets/images/slider/Notarization.webp";
 import slider3 from "@/assets/images/slider/Compliance.webp";
-import slider4 from "@/assets/images/slider/Real Estate.webp";
+import slider4 from "@/assets/images/slider/RE.webp";
 import slider5 from "@/assets/images/slider/IP.webp";
 import slider6 from "@/assets/images/slider/Art.webp";
 
