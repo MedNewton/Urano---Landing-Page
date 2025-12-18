@@ -338,10 +338,6 @@ export default function UranoFooter({
               transform: "translateY(-50%)",
             }}
             >
-              <Typography sx={{ color: "rgba(255,255,255,0.55)", fontSize: 20, whiteSpace: "nowrap" }}>
-                Powered by
-              </Typography>
-
               <Box sx={{ position: "relative", width: 160, height: 56, flexShrink: 0 }}>
                 <Image
                   src={arbitrumImage}
@@ -485,24 +481,13 @@ export default function UranoFooter({
               </Box>
 
               <Stack direction="row" spacing={1.5} alignItems="center" sx={{ flexWrap: "nowrap" }}>
-                <Typography
-                  sx={{
-                    color: "rgba(255,255,255,0.55)",
-                    fontSize: 16,
-                    whiteSpace: "nowrap",
-                    flexShrink: 0,
-                  }}
-                >
-                  Powered by
-                </Typography>
-
-                <Box sx={{ position: "relative", width: 140, height: 32, flexShrink: 0 }}>
+                <Box sx={{ position: "relative", width: 180, height: 36, flexShrink: 0 }}>
                   <Image
                     src={arbitrumImage}
                     alt="Arbitrum"
                     fill
-                    sizes="140px"
-                    style={{ objectFit: "contain", objectPosition: "left center" }}
+                    sizes="180px"
+                    style={{ objectFit: "contain", objectPosition: "left center", marginLeft: 14 }}
                   />
                 </Box>
               </Stack>

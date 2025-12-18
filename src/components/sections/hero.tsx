@@ -2,7 +2,7 @@ import theme from "@/theme/theme";
 import { Box, Stack, Typography, Button } from "@mui/material";
 import Image from "next/image";
 
-import arb from "@/assets/images/arbdao.webp";
+import arb from "@/assets/images/poweredByArbitrumLogos/Secondary-OneLine_BlueIcon.png";
 import SouthEastIcon from '@mui/icons-material/SouthEast';
 
 const Hero = () => {
@@ -151,18 +151,7 @@ const Hero = () => {
                     Urano Ecosystem is a full-stack platform powering secure and scalable tokenization of Real-World Assets
                 </Typography>
                 <Stack direction="row" alignItems="center" gap={1} mt={2}>
-                    <Typography
-                        className="conthrax"
-                        variant="h6"
-                        sx={{
-                            fontSize: { xs: "1rem", lg: "1.125rem" },
-                            fontWeight: 600,
-                            color: theme.palette.text.primary,
-                        }}
-                    >
-                        Powered by
-                    </Typography>
-                    <Image src={arb} alt="ArbDAO" width={150} height={48} />
+                    <Image src={arb} alt="ArbDAO" width={180} height={38} />
                 </Stack>
                 <Stack direction="row" alignItems="center" gap={5} mt={2}>
                     <Button sx={{

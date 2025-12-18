@@ -147,11 +147,13 @@ function MenuRow({
   icon,
   label,
   external,
+  endAdornment,
 }: {
   href: string;
   icon: React.ReactElement;
   label: string;
   external?: boolean;
+  endAdornment?: React.ReactNode;
 }): React.ReactElement {
   return (
     <ButtonBase
@@ -182,6 +184,9 @@ function MenuRow({
           "& .menu-item-label": {
             color: theme.palette.text.primary,
           },
+          "& .menu-item-pill": {
+            borderColor: "rgba(94,187,195,0.55)",
+          },
         },
       }}
     >
@@ -192,16 +197,32 @@ function MenuRow({
           height: 28,
           display: "grid",
           placeItems: "center",
+          flex: "0 0 auto",
         }}
       >
         {icon}
       </Box>
-      <Typography className="menu-item-label" sx={{ fontSize: "1.1rem" }}>
+
+      <Typography
+        className="menu-item-label"
+        sx={{
+          fontSize: "1.1rem",
+          flex: "1 1 auto",
+          minWidth: 0,
+        }}
+      >
         {label}
       </Typography>
+
+      {endAdornment ? (
+        <Box sx={{ flex: "0 0 auto", display: "inline-flex", alignItems: "center" }}>
+          {endAdornment}
+        </Box>
+      ) : null}
     </ButtonBase>
   );
 }
+
 
 function ProductsMenu(): React.ReactElement {
   const iconProps = {
@@ -335,14 +356,46 @@ function CommunityMenu(): React.ReactElement {
     variant: "Bold" as const,
   };
 
+  const comingSoonPill = (
+    <Box
+      className="menu-item-pill"
+      sx={{
+        px: 1.1,
+        py: 0.35,
+        borderRadius: 999,
+        border: "1px solid rgba(255,255,255,0.14)",
+        background: "rgba(255,255,255,0.06)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        lineHeight: 1,
+        display: "inline-flex",
+        alignItems: "center",
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: 11,
+          fontWeight: 600,
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
+          background: theme.palette.uranoGradient,
+          backgroundClip: "text",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Coming Soon
+      </Typography>
+    </Box>
+  );
+
   return (
     <Box sx={{ p: 2.25, width: "max-content", minWidth: 320 }}>
       <Stack gap={0.75}>
         <MenuRow
           href="/"
-          icon={
-            <Image src={uranoIcon} alt="Urano" width={22} height={22} />
-          }
+          icon={<Image src={uranoIcon} alt="Urano" width={22} height={22} />}
           label="$URANO"
         />
 
@@ -350,6 +403,7 @@ function CommunityMenu(): React.ReactElement {
           href="/airdrop"
           icon={<UranoGradientIcon icon={<Gift {...iconProps} />} size={22} />}
           label="Airdrop"
+          endAdornment={comingSoonPill}
         />
 
         <MenuRow
@@ -369,6 +423,7 @@ function CommunityMenu(): React.ReactElement {
     </Box>
   );
 }
+
 
 function PlaceholderMenu({ label }: { label: string }): React.ReactElement {
   return (
