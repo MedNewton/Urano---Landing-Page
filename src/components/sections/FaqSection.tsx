@@ -145,8 +145,7 @@ export default function FaqSection({
   const initial = defaultOpenId ?? firstId ?? "";
   const [openId, setOpenId] = useState<string>(initial);
 
-  const leftItems = useMemo(() => items.filter((_, i) => i % 2 === 0), [items]);
-  const rightItems = useMemo(() => items.filter((_, i) => i % 2 === 1), [items]);
+  const list = useMemo(() => items, [items]);
 
   return (
     <Box component="section" sx={{ width: "100%", pt: { xs: 7, md: 9 } }}>
@@ -168,36 +167,23 @@ export default function FaqSection({
           {title}
         </Typography>
 
-        <Box
+        <Stack
+          spacing={{ xs: 2.5, md: 3 }}
           sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
-            gap: { xs: 2.5, md: 3 },
-            alignItems: "start",
+            width: "100%",
+            maxWidth: 980, // keeps it looking premium on large screens
+            mx: "auto",
           }}
         >
-          <Stack spacing={{ xs: 2.5, md: 3 }}>
-            {leftItems.map((it) => (
-              <FaqCard
-                key={it.id}
-                item={it}
-                open={openId === it.id}
-                onToggle={() => setOpenId((prev) => (prev === it.id ? "" : it.id))}
-              />
-            ))}
-          </Stack>
-
-          <Stack spacing={{ xs: 2.5, md: 3 }}>
-            {rightItems.map((it) => (
-              <FaqCard
-                key={it.id}
-                item={it}
-                open={openId === it.id}
-                onToggle={() => setOpenId((prev) => (prev === it.id ? "" : it.id))}
-              />
-            ))}
-          </Stack>
-        </Box>
+          {list.map((it) => (
+            <FaqCard
+              key={it.id}
+              item={it}
+              open={openId === it.id}
+              onToggle={() => setOpenId((prev) => (prev === it.id ? "" : it.id))}
+            />
+          ))}
+        </Stack>
       </Container>
     </Box>
   );

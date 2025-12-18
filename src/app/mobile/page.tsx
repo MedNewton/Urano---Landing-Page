@@ -144,46 +144,16 @@ export default function Home() {
                 "Urano is a Web3-native ecosystem that connects real-world assets to on-chain infrastructure through compliant tokenization and modular products.",
         },
         {
-            id: "secure-compliant",
-            question: "Is Urano secure and compliant with regulations?",
-            answer:
-                "Urano is designed with security-first principles and compliance tooling. Specific requirements may vary by jurisdiction and product.",
-        },
-        {
-            id: "which-chain",
-            question: "On which blockchain is Urano built?",
-            answer:
-                "Urano is deployed on an EVM-compatible stack. Network availability depends on the product you are accessing.",
-        },
-        {
-            id: "who-usestation",
-            question: "Who can use uStation to tokenize real-world assets?",
-            answer:
-                "Businesses and individuals can use uStation, subject to eligibility checks and jurisdictional constraints where applicable.",
-        },
-        {
             id: "what-are-ushares",
             question: "What are uShares?",
             answer:
-                "uShares are fractionalized representations of tokenized assets, enabling broader access to investment opportunities.",
-        },
-        {
-            id: "need-kyc",
-            question: "Do I need to complete KYC to use Urano?",
-            answer:
-                "Some features may require KYC/verification depending on the asset type, region, and compliance requirements.",
-        },
-        {
-            id: "what-uapp",
-            question: "What can I do with the uApp?",
-            answer:
-                "Use the uApp to explore the ecosystem, manage assets, stake $URANO, and access governance features in one place.",
+                "uShares are fractional digital units representing the economic structure of tokenized assets, enabling broader access to real-world opportunities. ",
         },
         {
             id: "who-can-access",
             question: "Who can access and use the Urano platform?",
             answer:
-                "Access depends on region and product availability. Some modules may have eligibility and verification requirements.",
+                "Access depends on jurisdiction and product availability. Some modules require eligibility checks and identity verification.",
         },
     ];
 
