@@ -2,7 +2,7 @@
 
 import type { ReactElement } from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import Image, { type StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
 import theme from "@/theme/theme";
 
 export type ServiceCardProps = Readonly<{
@@ -16,8 +16,10 @@ export default function ServiceCard({
   title,
   description,
   image,
-  imageAlt = "",
 }: ServiceCardProps): ReactElement {
+  const bgUrl =
+    image ? (typeof image === "string" ? image : image.src) : "";
+
   return (
     <Box
       sx={{
@@ -31,39 +33,39 @@ export default function ServiceCard({
         flexDirection: "column",
       }}
     >
+      {/* 16:9 media */}
       <Box
         sx={{
           position: "relative",
           width: "100%",
-          aspectRatio: "1 / 1",
+          aspectRatio: "16 / 9",
           backgroundColor: "rgba(255,255,255,0.06)",
           flex: "0 0 auto",
-          backgroundImage: `url(${image ? (typeof image === "string" ? image : image.src) : ""})`,
+          backgroundImage: bgUrl ? `url(${bgUrl})` : "none",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
-      >
-        
-      </Box>
+      />
 
       <Stack
         sx={{
-          px: 3,
-          pt: 2.25,
-          pb: 2.5,
+          px: 2.5,
+          pt: 2,
+          pb: 2.25,
           gap: 1,
           flex: "1 1 auto",
+          justifyContent: "flex-start",
         }}
       >
         <Typography
           sx={{
-            fontSize: { xs: 18, md: 18 },
+            fontSize: { xs: 16, md: 16 },
             fontWeight: 800,
             letterSpacing: "0.01em",
             textTransform: "uppercase",
             color: theme.palette.text.primary,
-            lineHeight: 1.08,
+            lineHeight: 1.1,
           }}
         >
           {title}
@@ -71,10 +73,14 @@ export default function ServiceCard({
 
         <Typography
           sx={{
-            fontSize: { xs: 14, md: 16 },
+            fontSize: { xs: 13.5, md: 14.5 },
             fontWeight: 400,
             color: theme.palette.text.secondary,
-            lineHeight: 1.4,
+            lineHeight: 1.45,
+            display: "-webkit-box",
+            WebkitLineClamp: 4,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
           }}
         >
           {description}
