@@ -384,10 +384,12 @@ function NavTrigger({
   label,
   onMouseEnter,
   onMouseLeave,
+  isOpen = false,
 }: {
   label: string;
   onMouseEnter: (e: React.MouseEvent<HTMLElement>) => void;
   onMouseLeave: () => void;
+  isOpen?: boolean;
 }) {
   return (
     <ButtonBase
@@ -400,21 +402,33 @@ function NavTrigger({
         px: 1.5,
         py: 1,
         borderRadius: 1.5,
-        color: theme.palette.text.secondary,
+        color: isOpen ? theme.palette.text.primary : theme.palette.text.secondary,
         transition: "color 150ms ease, background-color 150ms ease",
+        backgroundColor: isOpen ? "rgba(0,0,0,0.25)" : "transparent",
+
         "&:hover": {
           color: theme.palette.text.primary,
           backgroundColor: "rgba(0,0,0,0.25)",
+        },
+
+        "& .navChevron": {
+          transition: "transform 180ms ease",
+          transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
         },
       }}
     >
       <Typography sx={{ fontSize: 14, letterSpacing: "0.10em" }}>
         {label}
       </Typography>
-      <KeyboardArrowDownRoundedIcon sx={{ fontSize: 20, opacity: 0.9 }} />
+
+      <KeyboardArrowDownRoundedIcon
+        className="navChevron"
+        sx={{ fontSize: 20, opacity: 0.9 }}
+      />
     </ButtonBase>
   );
 }
+
 
 export default function Header() {
   const [openKey, setOpenKey] = useState<MenuKey | null>(null);
@@ -500,16 +514,19 @@ export default function Header() {
               label="PRODUCTS"
               onMouseEnter={openMenu("products")}
               onMouseLeave={scheduleClose}
+              isOpen={openKey === "products"}
             />
             <NavTrigger
               label="LEARN"
               onMouseEnter={openMenu("learn")}
               onMouseLeave={scheduleClose}
+              isOpen={openKey === "learn"}
             />
             <NavTrigger
               label="COMMUNITY"
               onMouseEnter={openMenu("community")}
               onMouseLeave={scheduleClose}
+              isOpen={openKey === "community"}
             />
           </Stack>
 
