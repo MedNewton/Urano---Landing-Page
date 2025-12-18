@@ -39,14 +39,39 @@ export default function ServiceCard({
           position: "relative",
           width: "100%",
           aspectRatio: "16 / 9",
+          overflow: "hidden",
+          borderRadius: 3, // keep if you need rounded corners
           backgroundColor: "rgba(255,255,255,0.06)",
-          flex: "0 0 auto",
-          backgroundImage: bgUrl ? `url(${bgUrl})` : "none",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+
+          // image layer
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            backgroundImage: bgUrl ? `url(${bgUrl})` : "none",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            transform: "scale(1)",
+            transition: "transform 450ms ease",
+            willChange: "transform",
+          },
+
+          // optional subtle dark overlay (remove if not needed)
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.35) 100%)",
+            pointerEvents: "none",
+          },
+
+          "&:hover::before": {
+            transform: "scale(1.06)",
+          },
         }}
       />
+
 
       <Stack
         sx={{
