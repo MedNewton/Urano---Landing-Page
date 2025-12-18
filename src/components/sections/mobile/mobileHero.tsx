@@ -2,7 +2,7 @@ import theme from "@/theme/theme";
 import { Box, Stack, Typography, Button } from "@mui/material";
 import Image from "next/image";
 
-import arb from "@/assets/images/arbdao.webp";
+import arb from "@/assets/images/poweredByArbitrumLogos/Secondary-OneLine_BlueIcon.png";
 import SouthEastIcon from '@mui/icons-material/SouthEast';
 
 const Hero = () => {
@@ -137,18 +137,7 @@ const Hero = () => {
                 }}
             >
                 <Stack direction="row" alignItems="center" justifyContent="center" gap={0.5} mt={2}>
-                    <Typography
-                        className="conthrax"
-                        variant="h6"
-                        sx={{
-                            fontSize: { xs: "0.75rem", lg: "1.125rem" },
-                            fontWeight: 600,
-                            color: theme.palette.text.primary,
-                        }}
-                    >
-                        Powered by
-                    </Typography>
-                    <Image src={arb} alt="ArbDAO" width={120} height={36} />
+                    <Image src={arb} alt="ArbDAO" width={180} height={38} />
                 </Stack>
                 <Stack alignItems="center" gap={2}>
                     <Typography
