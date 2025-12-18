@@ -76,58 +76,64 @@ function MarqueeRow({
     durationSeconds,
     gapPx = 10,
     direction = "left",
-}: {
+  }: {
     items: readonly Logo[];
     durationSeconds: number;
     gapPx?: number;
     direction?: "left" | "right";
-}): ReactElement {
+  }): ReactElement {
     const laneItems = React.useMemo(() => {
-        const REPEAT = 8;
-        return Array.from({ length: REPEAT }, () => items).flat();
+      const REPEAT = 8;
+      return Array.from({ length: REPEAT }, () => items).flat();
     }, [items]);
-
+  
     const anim = direction === "left" ? marqueeLeft : marqueeRight;
-
+  
     return (
-        <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
-            <Box
-                sx={{
-                    display: "flex",
-                    width: "max-content",
-                    animation: `${anim} ${durationSeconds}s linear infinite`,
-                    willChange: "transform",
-                }}
-            >
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        columnGap: `${gapPx}px`,
-                        py: 1,
-                    }}
-                >
-                    {laneItems.map((l, idx) => (
-                        <LogoImage key={`a-${idx}`} logo={l} />
-                    ))}
-                </Box>
-
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        columnGap: `${gapPx}px`,
-                        py: 1,
-                    }}
-                >
-                    {laneItems.map((l, idx) => (
-                        <LogoImage key={`b-${idx}`} logo={l} />
-                    ))}
-                </Box>
-            </Box>
+      <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
+        <Box
+          sx={{
+            display: "flex",
+            width: "max-content",
+            animation: `${anim} ${durationSeconds}s linear infinite`,
+            willChange: "transform",
+  
+            // ✅ pause on hover (hovering logos also pauses because they’re inside)
+            "&:hover": {
+              animationPlayState: "paused",
+            },
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              columnGap: `${gapPx}px`,
+              py: 1,
+            }}
+          >
+            {laneItems.map((l, idx) => (
+              <LogoImage key={`a-${idx}`} logo={l} />
+            ))}
+          </Box>
+  
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              columnGap: `${gapPx}px`,
+              py: 1,
+            }}
+          >
+            {laneItems.map((l, idx) => (
+              <LogoImage key={`b-${idx}`} logo={l} />
+            ))}
+          </Box>
         </Box>
+      </Box>
     );
-}
+  }
+  
 
 export default function PartnersAndAdvisorsSection(): ReactElement {
     return (
@@ -144,7 +150,7 @@ export default function PartnersAndAdvisorsSection(): ReactElement {
                 <GradientStrokeTitle />
 
 
-                <Stack spacing={{ xs: 3, md: 2 }}>
+                <Stack spacing={{ xs: 3, md: 2 }} pt={10}>
                     <MarqueeRow items={ROW_1} durationSeconds={300} gapPx={8} direction="left" />
                     <MarqueeRow items={ROW_2} durationSeconds={360} gapPx={8} direction="right" />
                 </Stack>
@@ -163,7 +169,6 @@ export default function PartnersAndAdvisorsSection(): ReactElement {
                     src={partnersBg}
                     alt="Partners and Advisors Background"
                     fill
-                    sizes="100vw"
                     style={{ objectFit: "cover" }}
                 />
                 <Box sx={{
