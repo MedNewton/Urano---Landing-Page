@@ -109,7 +109,7 @@ export default function Home() {
             id: "uassistant",
             title: "uAssistant",
             description:
-                "An AI agent built to guide you through Real World Assets, automate complex operations, and enhance your user experience.",
+                "An AI agent designed to guide users through real-world assets, assist with complex operations, and enhance the overall platform experience.",
             primaryCtaLabel: "LAUNCH",
             primaryCtaHref: "/uassistant",
             secondaryCtaLabel: "DISCOVER",
