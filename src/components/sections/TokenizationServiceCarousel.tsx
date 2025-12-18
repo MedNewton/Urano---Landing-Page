@@ -5,7 +5,13 @@ import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import { motion, animate, useMotionValue, useMotionValueEvent } from "framer-motion";
+import {
+  motion,
+  animate,
+  useMotionValue,
+  useMotionValueEvent,
+  useInView,
+} from "framer-motion";
 import Image from "next/image";
 
 import theme from "@/theme/theme";
@@ -33,42 +39,39 @@ export default function TokenizationAsAServiceCarousel({
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
 
-  // x is the actual track position (0 = left edge)
-  const x = useMotionValue(0);
+  // ✅ observe a stable container (NOT the clipped border)
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const sectionInView = useInView(sectionRef, { once: true, amount: 0.35 });
 
-  // dragLeft is the max negative value you can drag to (right edge)
+  const x = useMotionValue(0);
   const [dragLeft, setDragLeft] = useState(0);
 
-  const [canGoLeft, setCanGoLeft] = useState(false);  // show left arrow
-  const [canGoRight, setCanGoRight] = useState(false); // show right arrow
+  const [canGoLeft, setCanGoLeft] = useState(false);
+  const [canGoRight, setCanGoRight] = useState(false);
 
   const recompute = () => {
     const viewport = viewportRef.current;
     const track = trackRef.current;
     if (!viewport || !track) return;
-  
+
     const viewportW = viewport.getBoundingClientRect().width;
     const trackW = track.scrollWidth;
-  
+
     const maxDrag = Math.max(0, trackW - viewportW);
     const nextLeftBound = -maxDrag;
-  
-    // Update drag constraints
+
     setDragLeft(nextLeftBound);
-  
-    // Clamp x into new bounds
+
     const curr = x.get();
     const clamped = clamp(curr, nextLeftBound, 0);
     if (clamped !== curr) x.set(clamped);
-  
-    // IMPORTANT: decide arrow visibility from measurements (not from previous state)
-    const EPS = 1; // px tolerance
+
+    const EPS = 1;
     const hasOverflow = maxDrag > EPS;
-  
+
     setCanGoLeft(hasOverflow && clamped < -EPS);
     setCanGoRight(hasOverflow && clamped > nextLeftBound + EPS);
   };
-  
 
   useLayoutEffect(() => {
     recompute();
@@ -90,7 +93,7 @@ export default function TokenizationAsAServiceCarousel({
   }, []);
 
   const updateArrowState = (xVal: number) => {
-    const EPS = 1; // px tolerance
+    const EPS = 1;
     const hasOverflow = dragLeft < -EPS;
 
     if (!hasOverflow) {
@@ -99,8 +102,6 @@ export default function TokenizationAsAServiceCarousel({
       return;
     }
 
-    // left edge => x ~ 0
-    // right edge => x ~ dragLeft (negative)
     setCanGoLeft(xVal < -EPS);
     setCanGoRight(xVal > dragLeft + EPS);
   };
@@ -156,9 +157,19 @@ export default function TokenizationAsAServiceCarousel({
     },
   } as const;
 
+  // ✅ framer mask reveal (left -> right)
+  const borderReveal = {
+    hidden: { clipPath: "inset(0 100% 0 0)" as const },
+    show: {
+      clipPath: "inset(0 0% 0 0)" as const,
+      transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] as const },
+    },
+  };
+
   return (
     <Stack sx={{ width: "100%", pt: 6 }}>
       <Box
+        ref={sectionRef}
         sx={{
           position: "relative",
           width: "105vw",
@@ -184,16 +195,35 @@ export default function TokenizationAsAServiceCarousel({
             {title}
           </Typography>
 
-          <Image src={SliderBorderTop} alt="Slider Border" width={100} height={100}
-            style={{
+          {/* ✅ TOP border — SAME position/styles, just animated clipPath */}
+          <Box
+            component={motion.div}
+            variants={borderReveal}
+            initial="hidden"
+            animate={sectionInView ? "show" : "hidden"}
+            sx={{
               position: "absolute",
               top: 0,
               left: 0,
               width: "105vw",
               height: "auto",
-              marginTop: 30,
+              paddingTop: 4,
+              overflow: "hidden",
+              pointerEvents: "none",
+              userSelect: "none",
             }}
-          />
+          >
+            <Image
+              src={SliderBorderTop}
+              alt="Slider Border"
+              width={100}
+              height={100}
+              style={{
+                width: "105vw",
+                height: "auto",
+              }}
+            />
+          </Box>
 
           <Box
             ref={viewportRef}
@@ -204,7 +234,6 @@ export default function TokenizationAsAServiceCarousel({
               position: "relative",
             }}
           >
-            {/* Arrows (only when needed) */}
             {canGoLeft ? (
               <Box
                 sx={{
@@ -228,10 +257,10 @@ export default function TokenizationAsAServiceCarousel({
 
             {canGoRight ? (
               <Box
-              id="right-arrow"
+                id="right-arrow"
                 sx={{
                   position: "absolute",
-                  right: { xs: 10, md: 18},
+                  right: { xs: 10, md: 18 },
                   left: "91%",
                   top: "50%",
                   transform: "translateY(-50%)",
@@ -239,7 +268,7 @@ export default function TokenizationAsAServiceCarousel({
                 }}
               >
                 <IconButton
-                id="right-arrow-button"
+                  id="right-arrow-button"
                   aria-label="Scroll right"
                   onClick={handleRight}
                   onPointerDown={(e) => e.stopPropagation()}
@@ -262,7 +291,7 @@ export default function TokenizationAsAServiceCarousel({
               sx={{
                 display: "flex",
                 alignItems: "stretch",
-                gap: { xs: 2, md: 3 }, // slightly tighter
+                gap: { xs: 2, md: 3 },
                 cursor: "grab",
                 pl: trackPl,
                 pb: 2,
@@ -274,7 +303,6 @@ export default function TokenizationAsAServiceCarousel({
                   key={item.id}
                   sx={{
                     flex: "0 0 auto",
-                    // smaller + more landscape feel
                     width: { xs: 270, sm: 310, md: 360 },
                     height: { xs: 320, sm: 340, md: 390 },
                     display: "flex",
@@ -293,16 +321,35 @@ export default function TokenizationAsAServiceCarousel({
             </Box>
           </Box>
 
-          <Image src={SliderBorderBottom} alt="Slider Border" width={100} height={100}
-            style={{
+          {/* ✅ BOTTOM border — SAME position/styles, just animated clipPath */}
+          <Box
+            component={motion.div}
+            variants={borderReveal}
+            initial="hidden"
+            animate={sectionInView ? "show" : "hidden"}
+            sx={{
               position: "absolute",
               bottom: 0,
               left: 0,
               width: "105vw",
-                height: "auto",
-                marginBottom: 20,
+              height: "auto",
+              paddingTop: 20,
+              overflow: "hidden",
+              pointerEvents: "none",
+              userSelect: "none",
             }}
-          />
+          >
+            <Image
+              src={SliderBorderBottom}
+              alt="Slider Border"
+              width={100}
+              height={100}
+              style={{
+                width: "105vw",
+                height: "auto",
+              }}
+            />
+          </Box>
         </Box>
       </Box>
     </Stack>
