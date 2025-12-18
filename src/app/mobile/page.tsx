@@ -95,7 +95,7 @@ export default function Home() {
             id: "ushares",
             title: "uShares",
             description:
-                "From art and real estate to private equity — uShares transform these assets into fractionalized investment opportunities, accessible to everyone.",
+                "From art and real estate to private equity, uShares represent real-world assets in a fractionalized on-chain format, enabling broader access through compliant digital instruments.",
             primaryCtaLabel: "BUY",
             primaryCtaHref: "/ushares",
             secondaryCtaLabel: "DISCOVER",
