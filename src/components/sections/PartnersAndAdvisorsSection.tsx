@@ -52,7 +52,7 @@ function LogoImage({ logo }: { logo: Logo }): ReactElement {
     return (
         <Box
             sx={{
-                height: { xs: 110, md: 130 },
+                height: { xs: 110, md: 100 },
                 aspectRatio: CARD_ASPECT,
                 width: "auto",
                 position: "relative",
