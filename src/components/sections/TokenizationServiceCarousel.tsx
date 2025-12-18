@@ -6,10 +6,12 @@ import { Box, IconButton, Stack, Typography } from "@mui/material";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import { motion, animate, useMotionValue, useMotionValueEvent } from "framer-motion";
+import Image from "next/image";
 
 import theme from "@/theme/theme";
 import ServiceCard, { type ServiceCardProps } from "@/components/sections/tokenizationAsAService/serviceCard";
-import backingImage from "@/assets/images/bg1.webp";
+import SliderBorderTop from "@/assets/images/sliderBorder.svg?url";
+import SliderBorderBottom from "@/assets/images/sliderBorder2.svg?url";
 
 export type TokenizationAsAServiceCarouselItem = ServiceCardProps & {
   id: string;
@@ -165,13 +167,9 @@ export default function TokenizationAsAServiceCarousel({
           transform: "translateY(-40px)",
           zIndex: 12,
           backgroundColor: "transparent",
-          backgroundImage: `url(${backingImage.src})`,
-          backgroundSize: "cover",
-          backgroundPosition: "70% center",
-          backgroundRepeat: "no-repeat",
         }}
       >
-        <Box sx={{ position: "relative", zIndex: 1 }}>
+        <Box sx={{ position: "relative", zIndex: 1, pb: 10 }}>
           <Typography
             className="conthrax"
             sx={{
@@ -186,12 +184,23 @@ export default function TokenizationAsAServiceCarousel({
             {title}
           </Typography>
 
+          <Image src={SliderBorderTop} alt="Slider Border" width={100} height={100}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "105vw",
+              height: "auto",
+              marginTop: 30,
+            }}
+          />
+
           <Box
             ref={viewportRef}
             sx={{
               width: "100%",
               overflow: "hidden",
-              mb: 8,
+              mt: 8,
               position: "relative",
             }}
           >
@@ -283,6 +292,17 @@ export default function TokenizationAsAServiceCarousel({
               <Box aria-hidden sx={{ flex: "0 0 auto", width: { xs: 14, md: 40 } }} />
             </Box>
           </Box>
+
+          <Image src={SliderBorderBottom} alt="Slider Border" width={100} height={100}
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              width: "105vw",
+                height: "auto",
+                marginBottom: 20,
+            }}
+          />
         </Box>
       </Box>
     </Stack>
