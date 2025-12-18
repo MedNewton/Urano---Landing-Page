@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactElement } from "react";
+import { useMemo, useState } from "react";
 import NextLink from "next/link";
 import Image, { type StaticImageData } from "next/image";
 import {
@@ -26,6 +27,32 @@ export type UranoFooterProps = Readonly<{
   arbitrumImage: StaticImageData | string;
 }>;
 
+function ComingSoonPill(): ReactElement {
+  return (
+    <Box
+      component="span"
+      sx={{
+        px: 1.1,
+        py: 0.45,
+        borderRadius: 999,
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: "0.06em",
+        textTransform: "uppercase",
+        lineHeight: 1,
+        color: "rgba(255,255,255,0.78)",
+        border: "1px solid rgba(255,255,255,0.16)",
+        background:
+          "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))",
+        whiteSpace: "nowrap",
+        flex: "0 0 auto",
+      }}
+    >
+      Coming soon
+    </Box>
+  );
+}
+
 function FooterColumnList({
   col,
   allowWrapLinks = false,
@@ -50,44 +77,56 @@ function FooterColumnList({
       </Typography>
 
       <Stack spacing={1.15} sx={{ minWidth: 0 }}>
-        {col.links.map((l) => (
-          <MuiLink
-            key={l.label}
-            component={NextLink}
-            href={l.href}
-            underline="none"
-            sx={{
-              pl: 1.5,
-              pr: 2,
-              py: 1,
-              display: "block",
-              minWidth: 0,
-              width: "fit-content",
-              color: "rgba(255,255,255,0.55)",
-              fontSize: 16,
-              borderRadius: 2,
-              lineHeight: 1.25,
-              whiteSpace: allowWrapLinks ? "normal" : "nowrap",
-              overflow: "visible",
-              textOverflow: "clip",
+        {col.links.map((l) => {
+          const isAirdrop = l.label.toLowerCase() === "airdrop";
 
-              "&:hover": {
-                color: "rgba(255,255,255,0.85)",
-                backgroundColor: "#1A1A1A",
-                "& .footer-link-text": {
-                  background: theme.palette.uranoGradient,
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+          return (
+            <MuiLink
+              key={l.label}
+              component={NextLink}
+              href={l.href}
+              underline="none"
+              sx={{
+                pl: 1.5,
+                pr: 2,
+                py: 1,
+                display: "block",
+                minWidth: 0,
+                width: "fit-content",
+                color: "rgba(255,255,255,0.55)",
+                fontSize: 16,
+                borderRadius: 2,
+                lineHeight: 1.25,
+                whiteSpace: allowWrapLinks ? "normal" : "nowrap",
+                overflow: "visible",
+                textOverflow: "clip",
+          
+                "&:hover": {
+                  color: "rgba(255,255,255,0.85)",
+                  backgroundColor: "#1A1A1A",
+                  "& .footer-link-text": {
+                    background: theme.palette.uranoGradient,
+                    backgroundClip: "text",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  },
                 },
-              },
-            }}
-          >
-            <Typography className="footer-link-text" sx={{ fontSize: 16 }}>
-              {l.label}
-            </Typography>
-          </MuiLink>
-        ))}
+              }}
+            >
+              <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 0.8 }}>
+                <Typography className="footer-link-text" sx={{ fontSize: 16 }}>
+                  {l.label}
+                </Typography>
+          
+                {isAirdrop ? (
+                  <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 0.8 }}>
+                    <ComingSoonPill />
+                  </Box>
+                ) : null}
+              </Box>
+            </MuiLink>
+          );
+        })}
       </Stack>
     </Stack>
   );
@@ -138,6 +177,7 @@ function MobileFooterColumn({
         }
       >
         {links.map((l, idx) => {
+          const isAirdrop = l.label.toLowerCase() === "airdrop";
           const shouldSpan =
             twoColLinks && idx === links.length - 1 && links.length % 2 === 1;
 
@@ -165,9 +205,12 @@ function MobileFooterColumn({
                 },
               }}
             >
-              <Typography className="mobile-footer-link-text" sx={{ fontSize: 16 }}>
-                {l.label}
-              </Typography>
+              <Box sx={{ display: "inline-flex", alignItems: "center" }}>
+                <Typography className="mobile-footer-link-text" sx={{ fontSize: 16 }}>
+                  {l.label}
+                </Typography>
+                {isAirdrop ? <ComingSoonPill /> : null}
+              </Box>
             </MuiLink>
           );
         })}
@@ -253,6 +296,20 @@ export default function UranoFooter({
     "&:hover": hoverGradient,
   } as const;
 
+  const fullDisclaimer =
+    "The content of this page is provided for informational purposes only and does not constitute an offer or solicitation to sell, or a recommendation to purchase, any financial instrument, security, or digital asset within the meaning of applicable laws and regulations, including Regulation (EU) 2023/1114 on Markets in Crypto-assets (MiCA).";
+
+  // A short preview that still reads cleanly (no CSS line-clamp surprises).
+  const previewDisclaimer = useMemo(() => {
+    const maxChars = 180;
+    if (fullDisclaimer.length <= maxChars) return fullDisclaimer;
+    const slice = fullDisclaimer.slice(0, maxChars);
+    const lastSpace = slice.lastIndexOf(" ");
+    return `${slice.slice(0, Math.max(0, lastSpace))}…`;
+  }, [fullDisclaimer]);
+
+  const [showMore, setShowMore] = useState(false);
+
   return (
     <Box
       component="footer"
@@ -310,19 +367,18 @@ export default function UranoFooter({
           pb: { xs: 6, md: 7 },
         }}
       >
-        <Box width="100%" sx={{ display: { xs: "block", md: "none" }, mt: 4}}>
+        {/* MOBILE */}
+        <Box width="100%" sx={{ display: { xs: "block", md: "none" }, mt: 4 }}>
           <Stack spacing={3} alignItems="center">
-            <Box sx={{ position: "relative", width: "100%", maxWidth: 320, height: 84, display: { xs: "none", md: "block" } }}>
-              <Image
-                src={logoImage}
-                alt="Urano"
-                fill
-                sizes="320px"
-                style={{ objectFit: "contain", objectPosition: "center top" }}
-              />
-            </Box>
-
-            <Box sx={{ position: "relative", width: "100%", maxWidth: 320, height: 120, display: { xs: "block", md: "none" } }}>
+            <Box
+              sx={{
+                position: "relative",
+                width: "100%",
+                maxWidth: 320,
+                height: 120,
+                display: { xs: "block", md: "none" },
+              }}
+            >
               <Image
                 src={logoImage}
                 alt="Urano"
@@ -332,11 +388,16 @@ export default function UranoFooter({
               />
             </Box>
 
-            <Stack width="100%" direction="row" spacing={1} alignItems="center" justifyContent="center" 
-            sx={{ 
-              flexWrap: "nowrap",  
-              transform: "translateY(-50%)",
-            }}
+            <Stack
+              width="100%"
+              direction="row"
+              spacing={1}
+              alignItems="center"
+              justifyContent="center"
+              sx={{
+                flexWrap: "nowrap",
+                transform: "translateY(-50%)",
+              }}
             >
               <Box sx={{ position: "relative", width: 160, height: 56, flexShrink: 0 }}>
                 <Image
@@ -424,19 +485,23 @@ export default function UranoFooter({
                 textAlign: "left",
               }}
             >
-              The content of this page is provided for informational purposes only and does not constitute an offer or
-              solicitation to sell, or a recommendation to purchase, any financial instrument, security, or digital asset
-              within the meaning of applicable laws and regulations, including Regulation (EU) 2023/1114 on Markets in
-              Crypto-assets (MiCA).{" "}
+              {showMore ? fullDisclaimer : previewDisclaimer}{" "}
               <Box
-                component="span"
+                component="button"
+                type="button"
+                onClick={() => setShowMore((v) => !v)}
                 sx={{
+                  border: "none",
+                  background: "transparent",
+                  p: 0,
+                  m: 0,
                   color: "rgba(255,255,255,0.75)",
                   cursor: "pointer",
+                  font: "inherit",
                   "&:hover": { color: "rgba(255,255,255,0.9)" },
                 }}
               >
-                Show more
+                {showMore ? "Show less" : "Show more"}
               </Box>
             </Typography>
 
@@ -455,6 +520,8 @@ export default function UranoFooter({
             </Typography>
           </Box>
         </Box>
+
+        {/* DESKTOP (unchanged layout; only Show more + Airdrop pill are added) */}
         <Box sx={{ display: { xs: "none", md: "block" } }}>
           <Stack
             direction={{ xs: "column", md: "row" }}
@@ -622,19 +689,23 @@ export default function UranoFooter({
                 mx: "auto",
               }}
             >
-              The content of this page is provided for informational purposes only and does not constitute an offer or
-              solicitation to sell, or a recommendation to purchase, any financial instrument, security, or digital asset
-              within the meaning of applicable laws and regulations, including Regulation (EU) 2023/1114 on Markets in
-              Crypto-assets (MiCA).{" "}
+              {showMore ? fullDisclaimer : previewDisclaimer}{" "}
               <Box
-                component="span"
+                component="button"
+                type="button"
+                onClick={() => setShowMore((v) => !v)}
                 sx={{
+                  border: "none",
+                  background: "transparent",
+                  p: 0,
+                  m: 0,
                   color: "rgba(255,255,255,0.75)",
                   cursor: "pointer",
+                  font: "inherit",
                   "&:hover": { color: "rgba(255,255,255,0.9)" },
                 }}
               >
-                Show more
+                {showMore ? "Show less" : "Show more"}
               </Box>
             </Typography>
           </Box>
