@@ -119,7 +119,7 @@ export default function Home() {
       id: "ustation",
       title: "uStation",
       description:
-        "Guiding business and individuals to bring real-world assets on-chain.",
+        "Supporting businesses and individuals throughout the process of bringing real-world assets on-chain.",
       primaryCtaLabel: "TOKENIZE NOW",
       primaryCtaHref: "/ustation",
       secondaryCtaLabel: "DISCOVER",
