@@ -33,6 +33,10 @@ import Subtract1 from "@/assets/images/Subtract1.webp";
 import Subtract2 from "@/assets/images/Subtract2.webp";
 import Subtract3 from "@/assets/images/Subtract3.webp";
 import Subtract4 from "@/assets/images/Subtract4.webp";
+import hoverSubtract1 from "@/assets/images/hoverSubstract1.webp";
+import hoverSubtract2 from "@/assets/images/hoverSubstract2.webp";
+import hoverSubtract3 from "@/assets/images/hoverSubstract3.webp";
+import hoverSubtract4 from "@/assets/images/hoverSubstract4.webp";
 
 export default function Home() {
   const items = [
@@ -165,33 +169,37 @@ export default function Home() {
       id: "governance",
       title: "Governance",
       description:
-        "Shape the Urano ecosystem through on-chain governance. $URANO holders vote on proposals, protocol upgrades, and ecosystem allocations",
+        "Shape the Urano ecosystem through on-chain governance. $URANO holders vote on proposals, protocol upgrades and ecosystem allocations, contributing to the evolution of the protocol.",
       side: "left",
       bgImage: Subtract1,
+      hoverBgImage: hoverSubtract1,
     },
     {
       id: "staking",
-      title: "Staking Rewards",
+      title: "Staking",
       description:
-        "Stake your $URANO to secure protocol integrity and earn sustainable yields – combining network security with real-asset performance",
+        "Stake your $URANO to support protocol integrity, access participation-based benefits and receive protocol rewards.",
       side: "right",
       bgImage: Subtract2,
+      hoverBgImage: hoverSubtract2,
     },
     {
       id: "priority",
       title: "Priority  Access",
       description:
-        "Unlock early access to curated tokenizations, strategic launches, and ecosystem programs – exclusively available to verified $URANO holders.",
+        "Access curated tokenizations, strategic launches and ecosystem programs, available to verified $URANO holders.",
       side: "left",
       bgImage: Subtract3,
+      hoverBgImage: hoverSubtract3,
     },
     {
       id: "revenue",
-      title: "Revenue Sharing",
+      title: "Ecosystem Rewards Pool",
       description:
-        "Benefit from Urano’s growth. Holders receive dynamic revenue allocations tied to protocol fee performance, aligning community incentives with long-term value.",
+        "Benefit from Urano’s ecosystem activity through a shared rewards pool that supports active participation across the network.",
       side: "right",
       bgImage: Subtract4,
+      hoverBgImage: hoverSubtract4,
     },
   ];
 
