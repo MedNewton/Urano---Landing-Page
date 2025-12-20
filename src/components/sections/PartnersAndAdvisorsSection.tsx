@@ -150,7 +150,7 @@ export default function PartnersAndAdvisorsSection(): ReactElement {
                 <GradientStrokeTitle />
 
 
-                <Stack spacing={{ xs: 3, md: 2 }} pt={10}>
+                <Stack spacing={{ xs: 3, md: 2 }} pt={12}>
                     <MarqueeRow items={ROW_1} durationSeconds={300} gapPx={8} direction="left" />
                     <MarqueeRow items={ROW_2} durationSeconds={360} gapPx={8} direction="right" />
                 </Stack>
