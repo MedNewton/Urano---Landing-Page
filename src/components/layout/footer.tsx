@@ -364,7 +364,7 @@ export default function UranoFooter({
           flexDirection: "column",
           px: { xs: 3, md: 16 },
           pt: { xs: 0, md: 12 },
-          pb: { xs: 6, md: 7 },
+          pb: { xs: 6, md: 2 },
         }}
       >
         {/* MOBILE */}
@@ -689,24 +689,7 @@ export default function UranoFooter({
                 mx: "auto",
               }}
             >
-              {showMore ? fullDisclaimer : previewDisclaimer}{" "}
-              <Box
-                component="button"
-                type="button"
-                onClick={() => setShowMore((v) => !v)}
-                sx={{
-                  border: "none",
-                  background: "transparent",
-                  p: 0,
-                  m: 0,
-                  color: "rgba(255,255,255,0.75)",
-                  cursor: "pointer",
-                  font: "inherit",
-                  "&:hover": { color: "rgba(255,255,255,0.9)" },
-                }}
-              >
-                {showMore ? "Show less" : "Show more"}
-              </Box>
+              {fullDisclaimer}
             </Typography>
           </Box>
 
