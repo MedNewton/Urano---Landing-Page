@@ -219,7 +219,7 @@ export default function TokenizationAsAServiceCarousel({
               width={100}
               height={100}
               style={{
-                width: "105vw",
+                width: "100vw",
                 height: "auto",
               }}
             />
@@ -304,7 +304,7 @@ export default function TokenizationAsAServiceCarousel({
                   sx={{
                     flex: "0 0 auto",
                     width: { xs: 270, sm: 310, md: 360 },
-                    height: { xs: 320, sm: 340, md: 390 },
+                    height: { xs: 320, sm: 340, md: 300 },
                     display: "flex",
                   }}
                 >
@@ -345,7 +345,7 @@ export default function TokenizationAsAServiceCarousel({
               width={100}
               height={100}
               style={{
-                width: "105vw",
+                width: "100vw",
                 height: "auto",
               }}
             />

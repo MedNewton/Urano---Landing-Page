@@ -17,8 +17,7 @@ export default function ServiceCard({
   description,
   image,
 }: ServiceCardProps): ReactElement {
-  const bgUrl =
-    image ? (typeof image === "string" ? image : image.src) : "";
+  const bgUrl = image ? (typeof image === "string" ? image : image.src) : "";
 
   return (
     <Box
@@ -33,17 +32,15 @@ export default function ServiceCard({
         flexDirection: "column",
       }}
     >
-      {/* 16:9 media */}
+      {/* Taller media (slightly higher than 16:9) */}
       <Box
         sx={{
           position: "relative",
           width: "100%",
-          aspectRatio: "16 / 9",
+          aspectRatio: "16 / 8.5", // was 16/9 → a bit taller
           overflow: "hidden",
-          borderRadius: 3, // keep if you need rounded corners
           backgroundColor: "rgba(255,255,255,0.06)",
 
-          // image layer
           "&::before": {
             content: '""',
             position: "absolute",
@@ -57,12 +54,12 @@ export default function ServiceCard({
             willChange: "transform",
           },
 
-          // optional subtle dark overlay (remove if not needed)
           "&::after": {
             content: '""',
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.35) 100%)",
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.32) 100%)",
             pointerEvents: "none",
           },
 
@@ -72,20 +69,19 @@ export default function ServiceCard({
         }}
       />
 
-
+      {/* More compact content */}
       <Stack
         sx={{
-          px: 2.5,
-          pt: 2,
-          pb: 2.25,
-          gap: 1,
-          flex: "1 1 auto",
-          justifyContent: "flex-start",
+          px: 2.25,
+          pt: 1.6,
+          pb: 1.6, // reduce bottom padding
+          gap: 0.75, // tighter spacing between title/desc
+          flex: "0 0 auto", // don't stretch; prevents “dead space”
         }}
       >
         <Typography
           sx={{
-            fontSize: { xs: 16, md: 16 },
+            fontSize: 16,
             fontWeight: 800,
             letterSpacing: "0.01em",
             textTransform: "uppercase",

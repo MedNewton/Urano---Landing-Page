@@ -95,7 +95,7 @@ export default function Home() {
       id: "uapp",
       title: "uApp",
       description:
-        "Our Web3-native platform designed to let users access and manage real-world asset representations, stake URANO, and participate in decentralized governance within a single, seamless ecosystem.",
+        "Our Web3-native platform designed to let users access and manage real-world asset representations, stake $URANO, and participate in decentralized governance within a single, seamless ecosystem.",
       primaryCtaLabel: "LAUNCH",
       primaryCtaHref: "/uapp",
       secondaryCtaLabel: "DISCOVER",
