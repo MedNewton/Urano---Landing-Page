@@ -6,6 +6,7 @@ import MobileExploreEcosystemSection, { type MobileExploreEcosystemItem } from "
 import MobileTechIntegrationsSection, { type MobileTechIntegrationItem } from "@/components/sections/mobile/mobileTechIntegrationsSection";
 import MobilePartnersAndAdvisorsSection from "@/components/sections/mobile/mobilePartnersAndAdvisorsSection";
 import MobileFaqSection, { type MobileFaqItem } from "@/components/sections/mobile/mobileFaqSection";
+import MobilePoweredByUranoSection, { type MobilePoweredByUranoItem } from "@/components/sections/mobile/MobilePoweredByUranoSection";
 
 import slider1 from "@/assets/images/slider/1.webp";
 import slider2 from "@/assets/images/slider/2.webp";
@@ -20,6 +21,15 @@ import ecosystemImage4 from "@/assets/images/mobileEcosystem4.webp";
 
 import tech1Image from "@/assets/images/tech1.webp";
 import tech2Image from "@/assets/images/tech2.webp";
+
+import Subtract1 from "@/assets/images/Subtract1.webp";
+import Subtract2 from "@/assets/images/Subtract2.webp";
+import Subtract3 from "@/assets/images/Subtract3.webp";
+import Subtract4 from "@/assets/images/Subtract4.webp";
+import hoverSubtract1 from "@/assets/images/hoverSubstract1.webp";
+import hoverSubtract2 from "@/assets/images/hoverSubstract2.webp";
+import hoverSubtract3 from "@/assets/images/hoverSubstract3.webp";
+import hoverSubtract4 from "@/assets/images/hoverSubstract4.webp";
 
 
 
@@ -136,6 +146,37 @@ export default function Home() {
         },
     ];
 
+    const poweredItems: MobilePoweredByUranoItem[] = [
+        {
+            id: "governance",
+            title: "Governance",
+            description:
+                "Shape the Urano ecosystem through on-chain governance. $URANO holders vote on proposals,protocol upgrades, and ecosystem allocations.",
+        },
+        {
+            id: "staking",
+            title: "Staking Rewards",
+            description:
+                "Stake your $URANO to secure protocol integrity and earn sustainable yields - combining network security with real-asset performance",
+
+        },
+        {
+            id: "priority",
+            title: "Priority  Access",
+            description:
+                "Unlock early access to curated tokenizations, strategic launches, and ecosystem programs - exclusive to verified $URANO holders.",
+
+        },
+        {
+            id: "revenue",
+            title: "Revenue Sharing",
+            description:
+                "Benefit from Urano’s growth. Holders earn revenue allocations tied to protocol fees, aligning incentives for long-term value.",
+
+        },
+    ];
+
+
     const faqItems: MobileFaqItem[] = [
         {
             id: "what-is-urano",
@@ -162,6 +203,7 @@ export default function Home() {
             <MobileHero />
             <MobileTokenizationServiceCarousel items={servicesItems} />
             <MobileExploreEcosystemSection items={ecosystemItems} />
+            <MobilePoweredByUranoSection items={poweredItems} />
             <MobileTechIntegrationsSection items={techIntegrationsItems} />
             <MobilePartnersAndAdvisorsSection />
             <MobileFaqSection items={faqItems} />
