@@ -144,7 +144,7 @@ export default function MobilePoweredByUranoSection({
     const bottomRowExtraTopPadPx = 56;
 
     return (
-        <Box component="section" sx={{ width: "100%", pt: 6, pb: 2 }}>
+        <Box component="section" sx={{ width: "100%", pt: 6, pb: 0 }}>
             <Typography
                 className="conthrax"
                 sx={{
@@ -171,7 +171,7 @@ export default function MobilePoweredByUranoSection({
                         position: "relative",
                         width: "100%",
                         mx: "auto",
-                        aspectRatio: "1376 / 2450", // ✅ a bit higher than your 10% (try 2250)
+                        aspectRatio: "1376 / 2000", // ✅ a bit higher than your 10% (try 2250)
                     }}
                 >
                     {/* Inner frame: keep exact PNG ratio so overlay stays aligned */}
