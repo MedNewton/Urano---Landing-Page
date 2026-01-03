@@ -37,7 +37,7 @@ function resolveSrc(img: StaticImageData | string): string {
 }
 
 function PoweredCard({ item }: { item: PoweredByUranoItem }): ReactElement {
-  const href = item.href ? item.href : undefined;
+  const href = item.href ?? undefined;
   const isRight = item.side === "right";
   const baseSrc = resolveSrc(item.bgImage);
   const hoverSrc = item.hoverBgImage ? resolveSrc(item.hoverBgImage) : null;
