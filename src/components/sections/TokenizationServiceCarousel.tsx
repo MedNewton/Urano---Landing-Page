@@ -2,7 +2,7 @@
 
 import type { ReactElement } from "react";
 import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { Box, IconButton, Link, Stack, Typography } from "@mui/material";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import {
@@ -296,11 +296,18 @@ export default function TokenizationAsAServiceCarousel({
                 pl: trackPl,
                 pb: 2,
                 pr: { xs: 1.5, md: 2 },
+                position: "relative",
+                zIndex: 10,
               }}
             >
               {cards.map((item) => (
                 <Box
                   key={item.id}
+                  component={Link}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="none"
                   sx={{
                     flex: "0 0 auto",
                     width: { xs: 270, sm: 310, md: 360 },

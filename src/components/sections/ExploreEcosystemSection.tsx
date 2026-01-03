@@ -519,7 +519,7 @@ export default function ExploreEcosystemSection({
   items,
 }: ExploreEcosystemSectionProps): ReactElement {
   return (
-    <Box component="section" sx={{ width: "100%", pt: { xs: 4, md: 6 } }}>
+    <Box component="section" id="explore-the-ecosystem" sx={{ width: "100%", pt: { xs: 4, md: 6 } }}>
       <Box sx={{ width: "100vw", ml: "calc(50% - 50vw)" }}>
         <Container maxWidth={false} sx={{ px: { xs: 2.5, md: 16 } }}>
           <Typography
@@ -568,6 +568,7 @@ export default function ExploreEcosystemSection({
                 key={`${it.id}-content`}
                 size={{ xs: 12, md: 6 }}
                 sx={{ p: 0 }}
+                id={it.id}
               >
                 <Box sx={{ height: { xs: 360, sm: 420, md: 520 } }}>
                   <ContentCell

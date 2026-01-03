@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import theme from "@/theme/theme";
 
-import { Sms } from "iconsax-reactjs";
+import { Link, Sms } from "iconsax-reactjs";
 import { RiTelegram2Fill } from "react-icons/ri";
 import { FaXTwitter } from "react-icons/fa6";
 
@@ -100,7 +100,7 @@ function FooterColumnList({
                 whiteSpace: allowWrapLinks ? "normal" : "nowrap",
                 overflow: "visible",
                 textOverflow: "clip",
-          
+
                 "&:hover": {
                   color: "rgba(255,255,255,0.85)",
                   backgroundColor: "#1A1A1A",
@@ -117,7 +117,7 @@ function FooterColumnList({
                 <Typography className="footer-link-text" sx={{ fontSize: 16 }}>
                   {l.label}
                 </Typography>
-          
+
                 {isAirdrop ? (
                   <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 0.8 }}>
                     <ComingSoonPill />
@@ -162,18 +162,18 @@ function MobileFooterColumn({
         sx={
           twoColLinks
             ? {
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                columnGap: 4,
-                rowGap: 3.25,
-                minWidth: 0,
-              }
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              columnGap: 4,
+              rowGap: 3.25,
+              minWidth: 0,
+            }
             : {
-                display: "flex",
-                flexDirection: "column",
-                gap: 3.25,
-                minWidth: 0,
-              }
+              display: "flex",
+              flexDirection: "column",
+              gap: 3.25,
+              minWidth: 0,
+            }
         }
       >
         {links.map((l, idx) => {
@@ -227,35 +227,35 @@ export default function UranoFooter({
     {
       title: "PRODUCTS",
       links: [
-        { label: "uApp", href: "/uapp" },
-        { label: "uShares", href: "/ushares" },
-        { label: "uAssistant", href: "/uassistant" },
-        { label: "uStation", href: "/ustation" },
+        { label: "uApp", href: "https://docs.uranoecosystem.com/ecosystem/uapp" },
+        { label: "uShares", href: "https://docs.uranoecosystem.com/ecosystem/ushares" },
+        { label: "uAssistant", href: "https://docs.uranoecosystem.com/ecosystem/uassistant" },
+        { label: "uStation", href: "https://docs.uranoecosystem.com/ecosystem/ustation" },
       ],
     },
     {
       title: "LEARN",
       links: [
-        { label: "Docs", href: "/docs" },
-        { label: "FAQ", href: "/faq" },
-        { label: "Github", href: "/github" },
-        { label: "Audit", href: "/audit" },
-        { label: "uPaper", href: "/upaper" },
+        { label: "Docs", href: "https://docs.uranoecosystem.com/" },
+        { label: "FAQ", href: "https://docs.uranoecosystem.com/more/faqs" },
+        { label: "Github", href: "https://github.com/uranoecosystem2024" },
+        { label: "Audit", href: "https://docs.uranoecosystem.com/more/audit" },
+        { label: "uPaper", href: "https://docs.uranoecosystem.com/more/upaper" },
       ],
     },
     {
       title: "COMMUNITY",
       links: [
-        { label: "$URANO", href: "/urano" },
+        { label: "$URANO", href: "https://docs.uranoecosystem.com/ecosystem/uranotoken" },
         { label: "Airdrop", href: "/airdrop" },
       ],
     },
     {
       title: "LEGAL",
       links: [
-        { label: "Terms and Conditions", href: "/terms" },
-        { label: "Privacy Policy", href: "/privacy" },
-        { label: "Cookie Policy", href: "/cookies" },
+        { label: "Terms and Conditions", href: "https://www.uranoecosystem.com/terms-conditions" },
+        { label: "Privacy Policy", href: "https://www.uranoecosystem.com/privacy-policy" },
+        { label: "Cookie Policy", href: "https://www.uranoecosystem.com/cookie-policy" },
       ],
     },
   ];
@@ -379,13 +379,15 @@ export default function UranoFooter({
                 display: { xs: "block", md: "none" },
               }}
             >
-              <Image
-                src={logoImage}
-                alt="Urano"
-                fill
-                sizes="50vw"
-                style={{ objectFit: "contain", objectPosition: "center top" }}
-              />
+              <MuiLink href="/" target="_blank" rel="noopener noreferrer" underline="none">
+                <Image
+                  src={logoImage}
+                  alt="Urano"
+                  fill
+                  sizes="50vw"
+                  style={{ objectFit: "contain", objectPosition: "center top" }}
+                />
+              </MuiLink>
             </Box>
 
             <Stack
@@ -400,13 +402,15 @@ export default function UranoFooter({
               }}
             >
               <Box sx={{ position: "relative", width: 160, height: 56, flexShrink: 0 }}>
-                <Image
-                  src={arbitrumImage}
-                  alt="Arbitrum"
-                  fill
-                  sizes="100%"
-                  style={{ objectFit: "contain", objectPosition: "left center" }}
-                />
+                <MuiLink href="https://arbitrum.io/" target="_blank" rel="noopener noreferrer" underline="none">
+                  <Image
+                    src={arbitrumImage}
+                    alt="Arbitrum"
+                    fill
+                    sizes="100%"
+                    style={{ objectFit: "contain", objectPosition: "left center" }}
+                  />
+                </MuiLink>
               </Box>
             </Stack>
           </Stack>
@@ -414,11 +418,15 @@ export default function UranoFooter({
           <Stack spacing={2.5} sx={{ mt: 2 }}>
             <Box sx={{ display: "flex", gap: 2, alignItems: "center", width: "100%" }}>
               <IconButton aria-label="X" sx={mobileIconBtn}>
-                <FaXTwitter className="icon" size={26} color="#EDEDED" />
+                <MuiLink href="https://x.com/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
+                  <FaXTwitter className="icon" size={26} color="#EDEDED" />
+                </MuiLink>
               </IconButton>
 
               <IconButton aria-label="Telegram" sx={mobileIconBtn}>
-                <RiTelegram2Fill className="icon" size={28} color="#EDEDED" />
+                <MuiLink href="https://t.me/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
+                  <RiTelegram2Fill className="icon" size={28} color="#EDEDED" />
+                </MuiLink>
               </IconButton>
 
               <Button
@@ -538,6 +546,7 @@ export default function UranoFooter({
               }}
             >
               <Box sx={{ position: "relative", width: "100%", height: 84 }}>
+                <MuiLink href="/" target="_blank" rel="noopener noreferrer" underline="none">
                 <Image
                   src={logoImage}
                   alt="Urano"
@@ -545,10 +554,12 @@ export default function UranoFooter({
                   sizes="260px"
                   style={{ objectFit: "contain", objectPosition: "left top" }}
                 />
+                </MuiLink>
               </Box>
 
               <Stack direction="row" spacing={1.5} alignItems="center" sx={{ flexWrap: "nowrap" }}>
                 <Box sx={{ position: "relative", width: 180, height: 36, flexShrink: 0 }}>
+                  <MuiLink href="https://arbitrum.io/" target="_blank" rel="noopener noreferrer" underline="none">
                   <Image
                     src={arbitrumImage}
                     alt="Arbitrum"
@@ -556,6 +567,7 @@ export default function UranoFooter({
                     sizes="180px"
                     style={{ objectFit: "contain", objectPosition: "left center", marginLeft: 14 }}
                   />
+                  </MuiLink>
                 </Box>
               </Stack>
             </Stack>
@@ -627,7 +639,9 @@ export default function UranoFooter({
                       "&:hover": hoverGradient,
                     }}
                   >
-                    <FaXTwitter className="icon" size={24} color="#EDEDED" />
+                    <MuiLink href="https://x.com/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
+                      <FaXTwitter className="icon" size={24} color="#EDEDED" />
+                    </MuiLink>
                   </IconButton>
 
                   <IconButton
@@ -640,7 +654,9 @@ export default function UranoFooter({
                       "&:hover": hoverGradient,
                     }}
                   >
-                    <RiTelegram2Fill className="icon" size={24} color="#EDEDED" />
+                    <MuiLink href="https://t.me/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
+                      <RiTelegram2Fill className="icon" size={24} color="#EDEDED" />
+                    </MuiLink>
                   </IconButton>
 
                   <Button

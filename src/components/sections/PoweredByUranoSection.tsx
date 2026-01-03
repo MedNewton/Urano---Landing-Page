@@ -2,7 +2,7 @@
 
 import type { CSSProperties, ReactElement } from "react";
 import Image, { type StaticImageData } from "next/image";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Link, Stack, Typography } from "@mui/material";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import { keyframes } from "@emotion/react";
 
@@ -24,6 +24,7 @@ export type PoweredByUranoItem = Readonly<{
   side: "left" | "right";
   bgImage: StaticImageData | string;
   hoverBgImage?: StaticImageData | string;
+  href?: string;
 }>;
 
 export type PoweredByUranoSectionProps = Readonly<{
@@ -36,76 +37,61 @@ function resolveSrc(img: StaticImageData | string): string {
 }
 
 function PoweredCard({ item }: { item: PoweredByUranoItem }): ReactElement {
+  const href = item.href ? item.href : undefined;
   const isRight = item.side === "right";
   const baseSrc = resolveSrc(item.bgImage);
   const hoverSrc = item.hoverBgImage ? resolveSrc(item.hoverBgImage) : null;
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        width: "100%",
-        height: "100%",
-        overflow: "hidden",
-        borderRadius: 6,
+    <Link href={href ?? "#"} target="_blank" rel="noopener noreferrer" underline="none">
+      <Box
+        component="div"
+        sx={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          borderRadius: 6,
 
-        // hover crossfade triggers
-        "& .bgBase": {
-          opacity: 1,
-          transform: "scale(1)",
-          transition: "opacity 260ms ease, transform 520ms ease",
-        },
-        "& .bgHover": {
-          opacity: 0,
-          transform: "scale(1.03)",
-          transition: "opacity 260ms ease, transform 520ms ease",
-        },
-        "&:hover .bgBase": {
-          opacity: hoverSrc ? 0 : 1,
-          transform: hoverSrc ? "scale(1.02)" : "scale(1)",
-        },
-        "&:hover .bgHover": {
-          opacity: hoverSrc ? 1 : 0,
-          transform: "scale(1)",
-        },
+          // hover crossfade triggers
+          "& .bgBase": {
+            opacity: 1,
+            transform: "scale(1)",
+            transition: "opacity 260ms ease, transform 520ms ease",
+          },
+          "& .bgHover": {
+            opacity: 0,
+            transform: "scale(1.03)",
+            transition: "opacity 260ms ease, transform 520ms ease",
+          },
+          "&:hover .bgBase": {
+            opacity: hoverSrc ? 0 : 1,
+            transform: hoverSrc ? "scale(1.02)" : "scale(1)",
+          },
+          "&:hover .bgHover": {
+            opacity: hoverSrc ? 1 : 0,
+            transform: "scale(1)",
+          },
 
-        // content filter on hover
-        "& .contentWrap": {
-          filter: "none",
-          transition: "filter 260ms ease",
-        },
-        "&:hover .contentWrap": {
-          filter: hoverSrc ? "brightness(0)" : "none",
-        },
+          // content filter on hover
+          "& .contentWrap": {
+            filter: "none",
+            transition: "filter 260ms ease",
+          },
+          "&:hover .contentWrap": {
+            filter: hoverSrc ? "brightness(0)" : "none",
+          },
 
-        // ✅ apply rocket-like animation to arrow icon on card hover
-        "&:hover .poweredArrow": {
-          animation: `${arrowFly} 1500ms ease-in-out infinite`,
-        },
-      }}
-    >
-      {/* Base background */}
-      <Box className="bgBase" sx={{ position: "absolute", inset: 0, zIndex: 0 }}>
-        <Image
-          src={baseSrc}
-          alt=""
-          fill
-          sizes="(max-width: 900px) 100vw, 50vw"
-          priority={false}
-          style={{
-            objectFit: "cover",
-            objectPosition: "center",
-            pointerEvents: "none",
-            userSelect: "none",
-          }}
-        />
-      </Box>
-
-      {/* Hover background */}
-      {hoverSrc ? (
-        <Box className="bgHover" sx={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          // ✅ apply rocket-like animation to arrow icon on card hover
+          "&:hover .poweredArrow": {
+            animation: `${arrowFly} 1500ms ease-in-out infinite`,
+          },
+        }}
+      >
+        {/* Base background */}
+        <Box className="bgBase" sx={{ position: "absolute", inset: 0, zIndex: 0 }}>
           <Image
-            src={hoverSrc}
+            src={baseSrc}
             alt=""
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
@@ -118,80 +104,99 @@ function PoweredCard({ item }: { item: PoweredByUranoItem }): ReactElement {
             }}
           />
         </Box>
-      ) : null}
 
-      {/* Content */}
-      <Stack
-        className="contentWrap"
-        sx={{
-          position: "relative",
-          zIndex: 1,
-          height: "100%",
-          px: { xs: 3, md: 5 },
-          py: { xs: 3, md: 0 },
-          justifyContent: "center",
-          alignItems: isRight ? "flex-end" : "flex-start",
-          textAlign: isRight ? "right" : "left",
-          gap: 1.75,
-        }}
-      >
-        {/* Arrow icon (animated on hover) */}
-        <Box
+        {/* Hover background */}
+        {hoverSrc ? (
+          <Box className="bgHover" sx={{ position: "absolute", inset: 0, zIndex: 0 }}>
+            <Image
+              src={hoverSrc}
+              alt=""
+              fill
+              sizes="(max-width: 900px) 100vw, 50vw"
+              priority={false}
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+                pointerEvents: "none",
+                userSelect: "none",
+              }}
+            />
+          </Box>
+        ) : null}
+
+        {/* Content */}
+        <Stack
+          className="contentWrap"
           sx={{
-            position: "absolute",
-            top: { xs: 18, md: 32 },
-            left: isRight ? "auto" : { xs: 18, md: 36 },
-            right: isRight ? { xs: 18, md: 32 } : "auto",
-            opacity: 0.9,
-
-            // keeps the animation clipped nicely (same idea as your rocket wrapper)
-            width: 26,
-            height: 26,
-            display: "grid",
-            placeItems: "center",
-            overflow: "hidden",
+            position: "relative",
+            zIndex: 1,
+            height: "100%",
+            px: { xs: 3, md: 5 },
+            py: { xs: 3, md: 0 },
+            justifyContent: "center",
+            alignItems: isRight ? "flex-end" : "flex-start",
+            textAlign: isRight ? "right" : "left",
+            gap: 1.75,
           }}
         >
-          <NorthEastIcon
-            className="poweredArrow"
+          {/* Arrow icon (animated on hover) */}
+          <Box
             sx={{
-              fontSize: 26,
-              display: "block",
-              transformOrigin: "center",
-              transform: "translate(0px, 0px) scale(var(--arrowScale))",
-              willChange: "transform, opacity",
-              color: "#fff",
+              position: "absolute",
+              top: { xs: 18, md: 32 },
+              left: isRight ? "auto" : { xs: 18, md: 36 },
+              right: isRight ? { xs: 18, md: 32 } : "auto",
+              opacity: 0.9,
+
+              // keeps the animation clipped nicely (same idea as your rocket wrapper)
+              width: 26,
+              height: 26,
+              display: "grid",
+              placeItems: "center",
+              overflow: "hidden",
             }}
-            style={{ ["--arrowScale" as keyof CSSProperties]: 1 }}
-          />
-        </Box>
+          >
+            <NorthEastIcon
+              className="poweredArrow"
+              sx={{
+                fontSize: 26,
+                display: "block",
+                transformOrigin: "center",
+                transform: "translate(0px, 0px) scale(var(--arrowScale))",
+                willChange: "transform, opacity",
+                color: "#fff",
+              }}
+              style={{ ["--arrowScale" as keyof CSSProperties]: 1 }}
+            />
+          </Box>
 
-        <Typography
-          sx={{
-            mt: { xs: 3.5, md: 4 },
-            fontSize: { xs: 26, md: "1.75rem" },
-            fontWeight: 700,
-            background: theme.palette.uranoGradient,
-            backgroundClip: "text",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}
-        >
-          {item.title}
-        </Typography>
+          <Typography
+            sx={{
+              mt: { xs: 3.5, md: 4 },
+              fontSize: { xs: 26, md: "1.75rem" },
+              fontWeight: 700,
+              background: theme.palette.uranoGradient,
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            {item.title}
+          </Typography>
 
-        <Typography
-          sx={{
-            fontSize: { xs: 14.5, md: "1rem" },
-            lineHeight: 1.55,
-            color: "rgba(255,255,255,0.70)",
-            maxWidth: { xs: 250, md: 300, lg: 400, xl: 420 },
-          }}
-        >
-          {item.description}
-        </Typography>
-      </Stack>
-    </Box>
+          <Typography
+            sx={{
+              fontSize: { xs: 14.5, md: "1rem" },
+              lineHeight: 1.55,
+              color: "rgba(255,255,255,0.70)",
+              maxWidth: { xs: 250, md: 300, lg: 400, xl: 420 },
+            }}
+          >
+            {item.description}
+          </Typography>
+        </Stack>
+      </Box>
+    </Link>
   );
 }
 
@@ -204,6 +209,7 @@ export default function PoweredByUranoSection({
   return (
     <Box
       component="section"
+      id="powered-by-urano"
       sx={{
         width: "100%",
         maxWidth: 1180,

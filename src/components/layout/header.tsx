@@ -247,17 +247,17 @@ function ProductsMenu(): React.ReactElement {
           </Typography>
 
           <MenuRow
-            href="/uapp"
+            href="/#uapp"
             icon={<UranoGradientIcon icon={<Monitor {...iconProps} />} size={22} />}
             label="uApp"
           />
           <MenuRow
-            href="/ushares"
+            href="/#ushares"
             icon={<UranoGradientIcon icon={<Share {...iconProps} />} size={22} />}
             label="uShares"
           />
           <MenuRow
-            href="/uassistant"
+            href="/#uassistant"
             icon={<UranoGradientIcon icon={<Triangle {...iconProps} />} size={22} />}
             label="uAssistant"
           />
@@ -282,12 +282,12 @@ function ProductsMenu(): React.ReactElement {
           </Typography>
 
           <MenuRow
-            href="/ustation"
+            href="/#ustation"
             icon={<UranoGradientIcon icon={<I3Dcube {...iconProps} />} size={22} />}
             label="uStation"
           />
           <MenuRow
-            href="/contact"
+            href="mailto:info@uranoecosystem.com"
             icon={<UranoGradientIcon icon={<MessageText1 {...iconProps} />} size={22} />}
             label="Contact us"
           />
@@ -309,17 +309,17 @@ function LearnMenu(): React.ReactElement {
       <Stack direction="row" alignItems="stretch" gap={2.25}>
         <Stack sx={{ minWidth: 240 }} gap={1.25}>
           <MenuRow
-            href="/docs"
+            href="https://docs.uranoecosystem.com/"
             icon={<UranoGradientIcon icon={<Notepad2 {...iconProps} />} size={22} />}
             label="Docs"
           />
           <MenuRow
-            href="/faq"
+            href="/#faq"
             icon={<UranoGradientIcon icon={<MessageQuestion {...iconProps} />} size={22} />}
             label="FAQ"
           />
           <MenuRow
-            href="https://github.com"
+            href="https://github.com/uranoecosystem2024"
             icon={<UranoGradientIcon icon={<GitHubIcon />} size={22} />}
             label="Github"
             external
@@ -334,12 +334,12 @@ function LearnMenu(): React.ReactElement {
 
         <Stack sx={{ minWidth: 240 }} gap={1.25}>
           <MenuRow
-            href="/audit"
+            href="https://docs.uranoecosystem.com/more/audit"
             icon={<UranoGradientIcon icon={<ShieldSearch {...iconProps} />} size={22} />}
             label="Audit"
           />
           <MenuRow
-            href="/upaper"
+            href="https://docs.uranoecosystem.com/more/upaper"
             icon={<UranoGradientIcon icon={<ClipboardText {...iconProps} />} size={22} />}
             label="uPaper"
           />
@@ -394,7 +394,7 @@ function CommunityMenu(): React.ReactElement {
     <Box sx={{ p: 2.25, width: "max-content", minWidth: 320 }}>
       <Stack gap={0.75}>
         <MenuRow
-          href="/"
+          href="/#powered-by-urano"
           icon={<Image src={uranoIcon} alt="Urano" width={22} height={22} />}
           label="$URANO"
         />
@@ -407,14 +407,14 @@ function CommunityMenu(): React.ReactElement {
         />
 
         <MenuRow
-          href="https://t.me/"
+          href="https://t.me/UranoEcosystem"
           icon={<UranoGradientIcon icon={<RiTelegram2Fill size={22} />} size={22} />}
           label="Telegram"
           external
         />
 
         <MenuRow
-          href="https://x.com/"
+          href="https://x.com/uranoecosystem"
           icon={<UranoGradientIcon icon={<FaXTwitter size={22} />} size={22} />}
           label="X (Twitter)"
           external
@@ -555,9 +555,7 @@ export default function Header() {
         }}
       >
         <Link
-          href="https://www.uranoecosystem.com/"
-          target="_blank"
-          rel="noreferrer"
+          href="/"
           sx={{ display: "inline-flex", alignItems: "center" }}
         >
           <Image src={logo} alt="Logo" width={120} height={70} fetchPriority="high" loading="eager" />

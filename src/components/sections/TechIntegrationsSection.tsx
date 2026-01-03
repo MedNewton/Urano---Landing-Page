@@ -2,7 +2,7 @@
 
 import type { ReactElement } from "react";
 import Image, { type StaticImageData } from "next/image";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Link, Typography } from "@mui/material";
 
 import theme from "@/theme/theme";
 
@@ -11,6 +11,7 @@ export type TechIntegrationItem = Readonly<{
   image: StaticImageData | string;
   imageAlt?: string;
   caption: string;
+  href?: string;
 }>;
 
 export type TechIntegrationsSectionProps = Readonly<{
@@ -22,13 +23,17 @@ function TechCard({
   image,
   imageAlt = "",
   caption,
+  href,
 }: {
   image: StaticImageData | string;
   imageAlt?: string;
   caption: string;
+  href?: string;
 }): ReactElement {
   return (
+    <Link href={href} target="_blank" rel="noopener noreferrer" underline="none">
     <Box
+      component="div"
       sx={{
         borderRadius: 3,
         px: 0.5,
@@ -91,6 +96,7 @@ function TechCard({
         </Typography>
       </Box>
     </Box>
+    </Link>
   );
 }
 
@@ -121,7 +127,7 @@ export default function TechIntegrationsSection({
         <Grid container spacing={{ xs: 2.5, md: 4 }}>
           {items.slice(0, 2).map((it) => (
             <Grid key={it.id} size={{ xs: 12, md: 6 }}>
-              <TechCard image={it.image} imageAlt={it.imageAlt} caption={it.caption} />
+              <TechCard image={it.image} imageAlt={it.imageAlt} caption={it.caption} href={it.href} />
             </Grid>
           ))}
         </Grid>

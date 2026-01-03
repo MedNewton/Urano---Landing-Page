@@ -39,7 +39,7 @@ import hoverSubtract3 from "@/assets/images/hoverSubstract3.webp";
 import hoverSubtract4 from "@/assets/images/hoverSubstract4.webp";
 
 export default function Home() {
-  const items = [
+  const carouselItems = [
     {
       id: "backing",
       title: "INSTITUTIONAL BACKING",
@@ -47,6 +47,7 @@ export default function Home() {
         "Supported and trusted by BlockSuisse AG a SPV Holding serving as an anchor investor.",
       image: slider1.src,
       imageAlt: "Slider 1",
+      href: "https://docs.uranoecosystem.com/the-legal-structure-of-urano/blocksuisse-ag",
     },
     {
       id: "notarization",
@@ -55,6 +56,7 @@ export default function Home() {
         "Tamper-proof certification for digital and tokenized assets with instant on-chain verification.",
       image: slider2.src,
       imageAlt: "Slider 2",
+      href: "https://notarify.io/",
     },
     {
       id: "compliance",
@@ -63,6 +65,7 @@ export default function Home() {
         "Full regulatory transparency and security, ensuring all tokenized assets meet compliance standards.",
       image: slider3.src,
       imageAlt: "Slider 3",
+      href: "https://withpersona.com/"
     },
     {
       id: "real-estate",
@@ -71,6 +74,7 @@ export default function Home() {
         "From bricks to tokens: access institutional-grade fractional real estate.",
       image: slider4.src,
       imageAlt: "Slider 4",
+      href: "https://docs.uranoecosystem.com/core-concepts/use-cases-of-tokenization#real-estate"
     },
     {
       id: "intellectual-properties",
@@ -79,6 +83,7 @@ export default function Home() {
         "Early access to tomorrow’s unicorns: IP, patents, and emerging startups.",
       image: slider5.src,
       imageAlt: "Slider 5",
+      href: "https://docs.uranoecosystem.com/core-concepts/use-cases-of-tokenization#intellectual-property-ip"
     },
     {
       id: "art",
@@ -87,10 +92,11 @@ export default function Home() {
         "Tokenize fine Arts, track provenance on-chain and open new opportunities for creators.",
       image: slider6.src,
       imageAlt: "Slider 6",
+      href: "https://docs.uranoecosystem.com/core-concepts/use-cases-of-tokenization#art-and-collectibles"
     },
   ];
 
-  const items2: ExploreEcosystemItem[] = [
+  const ecosystemItems: ExploreEcosystemItem[] = [
     {
       id: "uapp",
       title: "uApp",
@@ -125,7 +131,7 @@ export default function Home() {
       description:
         "Supporting businesses and individuals throughout the process of bringing real-world assets on-chain.",
       primaryCtaLabel: "TOKENIZE NOW",
-      primaryCtaHref: "/ustation",
+      primaryCtaHref: "mailto:info@uranoecosystem.com",
       secondaryCtaLabel: "DISCOVER",
       secondaryCtaHref: "https://docs.uranoecosystem.com/ecosystem/ustation",
       imageSide: "left",
@@ -155,12 +161,14 @@ export default function Home() {
       image: tech1Image.src,
       imageAlt: "ArbiFuel",
       caption: "Gasless transactions powered by ArbiFuel",
+      href: "https://docs.uranoecosystem.com/arbitrum/arbifuel-program",
     },
     {
       id: "thirdweb",
       image: tech2Image.src,
       imageAlt: "Thirdweb",
       caption: "Onboarding everyone seamlessly with Thirdweb",
+      href: "https://thirdweb.com/",
     },
   ];
 
@@ -173,6 +181,7 @@ export default function Home() {
       side: "left",
       bgImage: Subtract1,
       hoverBgImage: hoverSubtract1,
+      href: "https://docs.uranoecosystem.com/ecosystem/uranotoken/governance",
     },
     {
       id: "staking",
@@ -182,6 +191,7 @@ export default function Home() {
       side: "right",
       bgImage: Subtract2,
       hoverBgImage: hoverSubtract2,
+      href: "https://docs.uranoecosystem.com/ecosystem/uranotoken/staking"
     },
     {
       id: "priority",
@@ -191,6 +201,7 @@ export default function Home() {
       side: "left",
       bgImage: Subtract3,
       hoverBgImage: hoverSubtract3,
+      href: "https://docs.uranoecosystem.com/ecosystem/uranotoken#strategic-benefits-of-holding-usdurano"
     },
     {
       id: "revenue",
@@ -200,6 +211,7 @@ export default function Home() {
       side: "right",
       bgImage: Subtract4,
       hoverBgImage: hoverSubtract4,
+      href: "https://docs.uranoecosystem.com/ecosystem/uranotoken/ecosystem-rewards-pool"
     },
   ];
 
@@ -227,8 +239,8 @@ export default function Home() {
   return (
     <Stack component="main" width="100%" height="100%" minHeight="100dvh">
       <Hero />
-      <TokenizationAsAServiceCarousel title="Tokenization as a Service" items={items} />
-      <ExploreEcosystemSection title="Explore the Urano Ecosystem" items={items2} />
+      <TokenizationAsAServiceCarousel title="Tokenization as a Service" items={carouselItems} />
+      <ExploreEcosystemSection title="Explore the Urano Ecosystem" items={ecosystemItems} />
       <PoweredByUranoSection title="Powered by Urano" items={poweredItems} />
       <TechIntegrationsSection title="Tech Integrations" items={techItems} />
       <PartnersAndAdvisorsSection />

@@ -148,7 +148,7 @@ export default function FaqSection({
   const list = useMemo(() => items, [items]);
 
   return (
-    <Box component="section" sx={{ width: "100%", pt: { xs: 7, md: 9 } }}>
+    <Box component="section" id="faq" sx={{ width: "100%", pt: { xs: 7, md: 9 } }}>
       <Container maxWidth={false} sx={{ px: { xs: 2.5, md: 14 } }}>
         <Typography
           className="conthrax"

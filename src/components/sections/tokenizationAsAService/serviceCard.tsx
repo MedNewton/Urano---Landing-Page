@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactElement } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Link, Stack, Typography } from "@mui/material";
 import type { StaticImageData } from "next/image";
 import theme from "@/theme/theme";
 
@@ -10,12 +10,14 @@ export type ServiceCardProps = Readonly<{
   description: string;
   image?: StaticImageData | string;
   imageAlt?: string;
+  href?: string;
 }>;
 
 export default function ServiceCard({
   title,
   description,
   image,
+  href,
 }: ServiceCardProps): ReactElement {
   const bgUrl = image ? (typeof image === "string" ? image : image.src) : "";
 
@@ -31,6 +33,7 @@ export default function ServiceCard({
         display: "flex",
         flexDirection: "column",
       }}
+      
     >
       {/* Taller media (slightly higher than 16:9) */}
       <Box
