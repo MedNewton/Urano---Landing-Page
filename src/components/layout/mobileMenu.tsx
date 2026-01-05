@@ -26,11 +26,17 @@ import { FaXTwitter } from "react-icons/fa6";
 
 import theme from "@/theme/theme";
 
-export type MobileMenuLink = Readonly<{
+export type MobileMenuPill = Readonly<{
+    text: string;
+  }>;
+  
+  export type MobileMenuLink = Readonly<{
     label: string;
     href: string;
     external?: boolean;
-}>;
+    pill?: MobileMenuPill;
+  }>;
+  
 
 export type MobileMenuSection = Readonly<{
     title: string;
@@ -78,7 +84,7 @@ const DEFAULT_SECTIONS: readonly MobileMenuSection[] = [
         title: "COMMUNITY",
         links: [
             { label: "$URANO", href: "/urano" },
-            { label: "Airdrop", href: "/airdrop" },
+            { label: "Airdrop", href: "/airdrop", pill: { text: "Coming Soon" } },
             { label: "Telegram", href: "https://t.me/", external: true },
             { label: "X (Twitter)", href: "https://x.com/", external: true },
         ],
@@ -88,46 +94,85 @@ const DEFAULT_SECTIONS: readonly MobileMenuSection[] = [
 function MenuLinkRow({
     link,
     onNavigate,
-}: {
+  }: {
     link: MobileMenuLink;
     onNavigate: () => void;
-}): ReactElement {
-    return (
-        <ButtonBase
-            component={link.external ? "a" : NextLink}
-            href={link.href}
-            target={link.external ? "_blank" : undefined}
-            rel={link.external ? "noreferrer" : undefined}
-            onClick={onNavigate}
-            sx={{
-                width: "100%",
-                justifyContent: "space-between",
-                alignItems: "center",
-                px: 2,
-                py: 1.35,
-                borderRadius: 2,
-                transition: "background-color 150ms ease",
-                "&:hover": {
-                    backgroundColor: "rgba(255,255,255,0.06)",
-                },
-            }}
+  }): ReactElement {
+    const pill = link.pill ? (
+      <Box
+        sx={{
+          px: 1.1,
+          py: 0.35,
+          borderRadius: 999,
+          border: "1px solid rgba(255,255,255,0.14)",
+          background: "rgba(255,255,255,0.06)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          lineHeight: 1,
+          display: "inline-flex",
+          alignItems: "center",
+          flex: "0 0 auto",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: 11,
+            fontWeight: 600,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            background: theme.palette.uranoGradient,
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            whiteSpace: "nowrap",
+          }}
         >
-            <Typography sx={{ color: "rgba(255,255,255,0.78)", fontSize: 18 }}>
-                {link.label}
-            </Typography>
-            <Box
-                aria-hidden
-                sx={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: 999,
-                    background: "rgba(109,231,194,0.55)",
-                    opacity: 0.25,
-                }}
-            />
-        </ButtonBase>
+          {link.pill.text}
+        </Typography>
+      </Box>
+    ) : (
+      <Box
+        aria-hidden
+        sx={{
+          width: 6,
+          height: 6,
+          borderRadius: 999,
+          background: "rgba(109,231,194,0.55)",
+          opacity: 0.25,
+          flex: "0 0 auto",
+        }}
+      />
     );
-}
+  
+    return (
+      <ButtonBase
+        component={link.external ? "a" : NextLink}
+        href={link.href}
+        target={link.external ? "_blank" : undefined}
+        rel={link.external ? "noreferrer" : undefined}
+        onClick={onNavigate}
+        sx={{
+          width: "100%",
+          justifyContent: "space-between",
+          alignItems: "center",
+          px: 2,
+          py: 1.35,
+          borderRadius: 2,
+          transition: "background-color 150ms ease",
+          "&:hover": {
+            backgroundColor: "rgba(255,255,255,0.06)",
+          },
+        }}
+      >
+        <Typography sx={{ color: "rgba(255,255,255,0.78)", fontSize: 18 }}>
+          {link.label}
+        </Typography>
+  
+        {pill}
+      </ButtonBase>
+    );
+  }
+  
 
 export default function MobileMenu({
     open,

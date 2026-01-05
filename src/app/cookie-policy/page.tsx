@@ -146,7 +146,7 @@ export default function CookiePolicy() {
             </Typography>
 
             <Typography variant="body1" paragraph>
-              In particular, the CookieConsent cookie is used to store the user's consent status in
+              In particular, the CookieConsent cookie is used to store the user&apos;s consent status in
               relation to the use of cookies on the domain.
             </Typography>
 
@@ -168,7 +168,7 @@ export default function CookiePolicy() {
                       <TableCell>uranoecosystem.com</TableCell>
                       <TableCell>HTTP</TableCell>
                       <TableCell>1 year</TableCell>
-                      <TableCell>Stores the user's cookie consent state for the domain</TableCell>
+                      <TableCell>Stores the user&apos;s cookie consent state for the domain</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -177,7 +177,7 @@ export default function CookiePolicy() {
 
             <Typography variant="body1" paragraph sx={{ mt: 2 }}>
               These cookies do not collect personal data for profiling or marketing purposes and do not
-              require the user's prior consent, as they are strictly necessary for the provision of the
+              require the user&apos;s prior consent, as they are strictly necessary for the provision of the
               Website and compliance with applicable regulations.
             </Typography>
 
