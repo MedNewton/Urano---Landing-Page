@@ -10,7 +10,7 @@ const Hero = () => {
         <Stack
             component="section"
             width="100%"
-            height="65dvh"
+            height="80dvh"
             sx={{
                 position: "relative",
                 overflow: "hidden",
@@ -31,7 +31,7 @@ const Hero = () => {
                     inset: 0,
                     width: "100%",
                     height: "100%",
-                    mt: -6,
+                    mt: -13,
                     zIndex: 0,
                     pointerEvents: "none",
                 }}
@@ -124,14 +124,14 @@ const Hero = () => {
                     position: "absolute",
                     zIndex: 10,
                     width: "100%",
-                    minHeight: "65dvh",
+                    minHeight: "80dvh",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "space-between",
+                    justifyContent: "end",
                     alignContent: "center",
                     left: 0,
                     right: 0,
-                    pt: 10,
+                    pt: 20,
                     mx: "auto",
                     gap: "0.75rem"
                 }}
