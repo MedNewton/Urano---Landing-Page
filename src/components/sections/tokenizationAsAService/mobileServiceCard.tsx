@@ -2,7 +2,7 @@
 
 import type { ReactElement } from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import Image, { type StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
 import theme from "@/theme/theme";
 
 export type MobileServiceCardProps = Readonly<{
@@ -16,8 +16,9 @@ export default function MobileServiceCard({
   title,
   description,
   image,
-  imageAlt = "",
 }: MobileServiceCardProps): ReactElement {
+  const bgUrl = image ? (typeof image === "string" ? image : image.src) : "";
+
   return (
     <Box
       sx={{
@@ -31,21 +32,43 @@ export default function MobileServiceCard({
         flexDirection: "column",
       }}
     >
+      {/* Same media styling as ServiceCard (ratio adjusted for mobile) */}
       <Box
         sx={{
           position: "relative",
           width: "100%",
-          aspectRatio: "1 / 1",
+          aspectRatio: "16 / 10", // change to "16 / 8.5" to match desktop exactly
+          overflow: "hidden",
           backgroundColor: "rgba(255,255,255,0.06)",
           flex: "0 0 auto",
-          backgroundImage: `url(${image ? (typeof image === "string" ? image : image.src) : ""})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            backgroundImage: bgUrl ? `url(${bgUrl})` : "none",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            transform: "scale(1)",
+            transition: "transform 450ms ease",
+            willChange: "transform",
+          },
+
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.32) 100%)",
+            pointerEvents: "none",
+          },
+
+          "&:hover::before": {
+            transform: "scale(1.06)",
+          },
         }}
-      >
-        
-      </Box>
+      />
 
       <Stack
         sx={{

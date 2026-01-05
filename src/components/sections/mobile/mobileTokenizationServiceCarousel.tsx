@@ -71,7 +71,7 @@ export default function MobileTokenizationServiceCarousel({
                     width: "105vw",
                     ml: "calc(50% - 50vw)",
                     overflow: "hidden",
-                    transform: "translateY(-40px)",
+                    transform: "translateY(-35px)",
                     zIndex: 12,
                     backgroundColor: "transparent",
                 }}
@@ -116,7 +116,7 @@ export default function MobileTokenizationServiceCarousel({
                                     sx={{
                                         flex: "0 0 auto",
                                         width: { xs: 300, sm: 340, md: 420 },
-                                        height: { xs: 445, sm: 480, md: 535 },
+                                        height: { xs: 320, sm: 340, md: 535 },
                                         display: "flex",
                                     }}
                                 >
