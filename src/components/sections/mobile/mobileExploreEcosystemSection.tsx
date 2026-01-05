@@ -1,10 +1,11 @@
 "use client";
 
 import type { ReactElement, ReactNode } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { Box, Button, Container, Stack, Typography, Grid } from "@mui/material";
-
 import SouthEastIcon from "@mui/icons-material/SouthEast";
+import { motion } from "framer-motion";
 
 import theme from "@/theme/theme";
 
@@ -31,9 +32,11 @@ export type MobileExploreEcosystemSectionProps = Readonly<{
   items: MobileExploreEcosystemItem[];
 }>;
 
-function ActionLink({ label }: { label: string; href: string }): ReactElement {
+function ActionLink({ label, href }: { label: string; href: string }): ReactElement {
   return (
-    <Button sx={{
+    <Button
+      href={href}
+      sx={{
         width: "45%",
         backgroundColor: "transparent",
         borderRadius: 0,
@@ -41,42 +44,53 @@ function ActionLink({ label }: { label: string; href: string }): ReactElement {
         borderTop: "none",
         borderLeft: "none",
         borderRight: "none",
-        paddingX: 0.5,
-        paddingY: 0.75,
-        margin: 0,
+        px: 0.5,
+        py: 0.75,
+        m: 0,
         height: "fit-content",
-        transition: "background 0.3s ease-in-out, border-bottom 0.3s ease-in-out, color 0.3s ease-in-out, filter 0.3s ease-in-out",
+        transition:
+          "background 0.3s ease-in-out, border-bottom 0.3s ease-in-out, color 0.3s ease-in-out, filter 0.3s ease-in-out",
         "&:hover": {
-            background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
-            borderBottom: `2px solid transparent`,
-            ".button-text": {
-                color: "#0E0E0E",
-            },
-            ".button-icon": {
-                filter: "invert(1)",
-                trasform: "rotate(45deg)",
-                transition: "transform 0.3s ease-in-out",
-            },
+          background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
+          borderBottom: "2px solid transparent",
+          ".button-text": { color: "#0E0E0E" },
+          ".button-icon": {
+            filter: "invert(1)",
+            transform: "rotate(45deg)",
+            transition: "transform 0.3s ease-in-out",
+          },
         },
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-    }}>
-        <Stack width="100%" direction="row" alignItems="center" gap={5} justifyContent="space-between">
-            <Typography
-                className="button-text"
-                variant="h6"
-                sx={{
-                    fontSize: { xs: "1.2rem", lg: "1.125rem" },
-                    fontWeight: { xs: 400, lg: 400 },
-                    color: theme.palette.text.primary,
-                }}
-            >
-                {label}
-            </Typography>
-            <SouthEastIcon className="button-icon" sx={{ fontSize: 20, color: theme.palette.text.primary, alignSelf: "flex-end" }} />
-        </Stack>
+        textTransform: "none",
+      }}
+    >
+      <Stack
+        width="100%"
+        direction="row"
+        alignItems="center"
+        gap={5}
+        justifyContent="space-between"
+      >
+        <Typography
+          className="button-text"
+          variant="h6"
+          sx={{
+            fontSize: { xs: "1.2rem", lg: "1.125rem" },
+            fontWeight: 400,
+            color: theme.palette.text.primary,
+          }}
+        >
+          {label}
+        </Typography>
+
+        <SouthEastIcon
+          className="button-icon"
+          sx={{ fontSize: 20, color: theme.palette.text.primary, alignSelf: "flex-end" }}
+        />
+      </Stack>
     </Button>
   );
 }
@@ -146,16 +160,8 @@ function ImageBottomGlow(): ReactElement {
             colorInterpolationFilters="sRGB"
           >
             <feFlood floodOpacity="0" result="BackgroundImageFix" />
-            <feBlend
-              mode="normal"
-              in="SourceGraphic"
-              in2="BackgroundImageFix"
-              result="shape"
-            />
-            <feGaussianBlur
-              stdDeviation="108.45"
-              result="effect1_foregroundBlur_512_855"
-            />
+            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+            <feGaussianBlur stdDeviation="108.45" result="effect1_foregroundBlur_512_855" />
           </filter>
           <linearGradient
             id="paint0_linear_512_855"
@@ -174,29 +180,225 @@ function ImageBottomGlow(): ReactElement {
   );
 }
 
+/** ✅ Mobile version of the animated “AI conversation” overlay (loops forever) */
+function AssistantConversationOverlay(): ReactElement {
+  const MSG1 = "Hi, I’m uAssistant! How can I help you?";
+  const MSG2 = "Stake 1,000 $URANO!";
+
+  const [step, setStep] = useState<0 | 1 | 2 | 3>(0); // 0 typing1, 1 pause1, 2 typing2, 3 pause2
+  const [t1, setT1] = useState("");
+  const [t2, setT2] = useState("");
+
+  const timersRef = useRef<number[]>([]);
+
+  const clearTimers = (): void => {
+    timersRef.current.forEach((id) => window.clearTimeout(id));
+    timersRef.current = [];
+  };
+
+  useEffect(() => {
+    clearTimers();
+
+    if (step === 0) {
+      setT1("");
+      setT2("");
+
+      let i = 0;
+      const tick = () => {
+        i += 1;
+        setT1(MSG1.slice(0, i));
+
+        if (i < MSG1.length) {
+          const id = window.setTimeout(tick, 26);
+          timersRef.current.push(id);
+        } else {
+          const id = window.setTimeout(() => setStep(1), 650);
+          timersRef.current.push(id);
+        }
+      };
+
+      const id = window.setTimeout(tick, 220);
+      timersRef.current.push(id);
+      return () => clearTimers();
+    }
+
+    if (step === 1) {
+      const id = window.setTimeout(() => setStep(2), 350);
+      timersRef.current.push(id);
+      return () => clearTimers();
+    }
+
+    if (step === 2) {
+      let i = 0;
+      const tick = () => {
+        i += 1;
+        setT2(MSG2.slice(0, i));
+
+        if (i < MSG2.length) {
+          const id = window.setTimeout(tick, 28);
+          timersRef.current.push(id);
+        } else {
+          const id = window.setTimeout(() => setStep(3), 950);
+          timersRef.current.push(id);
+        }
+      };
+
+      const id = window.setTimeout(tick, 240);
+      timersRef.current.push(id);
+      return () => clearTimers();
+    }
+
+    const id = window.setTimeout(() => setStep(0), 800);
+    timersRef.current.push(id);
+    return () => clearTimers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
+
+  const showSecond = step >= 2;
+
+  return (
+    <Box
+      aria-hidden
+      sx={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 3,
+        pointerEvents: "none",
+        userSelect: "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        pl: { xs: 4, sm: 2 },
+        pr: { xs: 12, sm: 5 },
+      }}
+    >
+      <Stack sx={{ width: "100%", maxWidth: 360, gap: 1.1 }}>
+        <Box
+          component={motion.div}
+          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
+          sx={{
+            alignSelf: "flex-start",
+            width: "fit-content",
+            maxWidth: "100%",
+            px: 2,
+            py: 1.2,
+            borderRadius: 3,
+            backgroundColor: "rgba(18,18,18,0.62)",
+            border: "1px solid rgba(255,255,255,0.12)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            boxShadow: "0px 18px 60px rgba(0,0,0,0.35)",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: 13.5,
+              lineHeight: 1.35,
+              color: "rgba(255,255,255,0.92)",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {t1}
+            {step === 0 ? (
+              <Box
+                component="span"
+                sx={{
+                  display: "inline-block",
+                  width: 8,
+                  ml: 0.35,
+                  color: "rgba(255,255,255,0.85)",
+                  animation: "blink 1s step-end infinite",
+                  "@keyframes blink": {
+                    "0%, 50%": { opacity: 1 },
+                    "50.01%, 100%": { opacity: 0 },
+                  },
+                }}
+              >
+                |
+              </Box>
+            ) : null}
+          </Typography>
+        </Box>
+
+        <Box
+          component={motion.div}
+          initial={false}
+          animate={
+            showSecond
+              ? { opacity: 1, y: 0, scale: 1 }
+              : { opacity: 0, y: 10, scale: 0.98 }
+          }
+          transition={{ duration: 0.28, ease: "easeOut" }}
+          sx={{
+            alignSelf: "flex-end",
+            width: "fit-content",
+            maxWidth: "100%",
+            px: 2,
+            py: 1.2,
+            borderRadius: 3,
+            background:
+              "linear-gradient(90deg, rgba(94,187,195,0.35) 0%, rgba(109,231,194,0.30) 100%)",
+            border: "1px solid rgba(255,255,255,0.16)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            boxShadow: "0px 18px 60px rgba(0,0,0,0.35)",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: 13.5,
+              lineHeight: 1.35,
+              color: "rgba(255,255,255,0.95)",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {t2}
+            {step === 2 ? (
+              <Box
+                component="span"
+                sx={{
+                  display: "inline-block",
+                  width: 8,
+                  ml: 0.35,
+                  color: "rgba(255,255,255,0.85)",
+                  animation: "blink2 1s step-end infinite",
+                  "@keyframes blink2": {
+                    "0%, 50%": { opacity: 1 },
+                    "50.01%, 100%": { opacity: 0 },
+                  },
+                }}
+              >
+                |
+              </Box>
+            ) : null}
+          </Typography>
+        </Box>
+      </Stack>
+    </Box>
+  );
+}
+
 function ImageCell({
   image,
   imageAlt = "",
   fit = "contain",
   scale = 1,
+  overlay,
 }: {
   image?: StaticImageData | string;
   imageAlt?: string;
   fit?: "contain" | "cover";
   scale?: number;
+  overlay?: ReactNode;
 }): ReactElement {
   const shouldScale = fit === "contain" && scale !== 1;
 
   return (
     <CellShell bg="#191919">
       {!image ? (
-        <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "red",
-          }}
-        />
+        <Box sx={{ position: "absolute", inset: 0, backgroundColor: "rgba(255,255,255,0.06)" }} />
       ) : shouldScale ? (
         <Box
           sx={{
@@ -213,7 +415,12 @@ function ImageCell({
             alt={imageAlt}
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
-            style={{ objectFit: "contain", objectPosition: "center", scale: 1.15, transform: "translateY(-8%)" }}
+            style={{
+              objectFit: "contain",
+              objectPosition: "center",
+              scale: 1.15,
+              transform: "translateY(-8%)",
+            }}
             priority={false}
           />
         </Box>
@@ -227,6 +434,9 @@ function ImageCell({
           priority={false}
         />
       )}
+
+      {/* ✅ overlay inside image card */}
+      {overlay ?? null}
 
       <ImageBottomGlow />
     </CellShell>
@@ -283,7 +493,13 @@ function ContentCell({
           {description}
         </Typography>
 
-        <Stack width="100%" direction="row" spacing={3} justifyContent="space-between" sx={{ pt: 0.5, }}>
+        <Stack
+          width="100%"
+          direction="row"
+          spacing={3}
+          justifyContent="space-between"
+          sx={{ pt: 0.5 }}
+        >
           <ActionLink label={primaryCtaLabel} href={primaryCtaHref} />
           <ActionLink label={secondaryCtaLabel} href={secondaryCtaHref} />
         </Stack>
@@ -312,13 +528,20 @@ export default function MobileExploreEcosystemSection({
               mb: { xs: 6, md: 6 },
             }}
           >
-            EXPLORE<br />THE ECOSYSTEM
+            EXPLORE
+            <br />
+            THE ECOSYSTEM
           </Typography>
         </Container>
 
         <Grid container spacing={0} sx={{ width: "100%", m: 0 }}>
           {items.map((it, idx) => {
             const isLast = idx === items.length - 1;
+
+            const isAssistantCard =
+              idx === 3 ||
+              it.id.toLowerCase().includes("assistant") ||
+              it.title.toLowerCase().includes("assistant");
 
             const imageNode = (
               <Grid key={`${it.id}-img`} size={{ xs: 12, md: 6 }} sx={{ p: 0 }}>
@@ -328,6 +551,7 @@ export default function MobileExploreEcosystemSection({
                     imageAlt={it.imageAlt ?? ""}
                     fit={isLast ? "cover" : "contain"}
                     scale={isLast ? 1 : 0.75}
+                    overlay={isAssistantCard ? <AssistantConversationOverlay /> : undefined}
                   />
                 </Box>
               </Grid>
@@ -347,15 +571,15 @@ export default function MobileExploreEcosystemSection({
                 </Box>
               </Grid>
             );
+
+            // Mobile is always: content then image (as in your current file)
             const desktopOrder =
-              it.imageSide === "left"
-                ? [imageNode, contentNode]
-                : [imageNode, contentNode];
+              it.imageSide === "left" ? [imageNode, contentNode] : [imageNode, contentNode];
 
             return (
               <Box key={it.id} sx={{ display: "contents" }}>
                 <Box sx={{ display: { xs: "contents", md: "none" } }}>
-                {contentNode}
+                  {contentNode}
                   {imageNode}
                 </Box>
 
