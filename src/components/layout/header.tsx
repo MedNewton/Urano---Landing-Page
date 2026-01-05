@@ -41,7 +41,9 @@ import theme from "@/theme/theme";
 import logo from "@/assets/images/logos/logo-turquoise-1.webp";
 import rocketIcon from "@/assets/images/icons/rocket.svg?url";
 import uranoIcon from "@/assets/images/icons/uranoIcon.svg?url";
-import RocketButton from "../ui/rocketButton";
+import RocketButton from "@/components/ui/rocketButton";
+
+import ErrorModal from "@/components/ui/ErrorModal"
 
 type MenuKey = "products" | "learn" | "community";
 
@@ -222,7 +224,6 @@ function MenuRow({
     </ButtonBase>
   );
 }
-
 
 function ProductsMenu(): React.ReactElement {
   const iconProps = {
@@ -424,7 +425,6 @@ function CommunityMenu(): React.ReactElement {
   );
 }
 
-
 function PlaceholderMenu({ label }: { label: string }): React.ReactElement {
   return (
     <Box sx={{ p: 2.25, width: "max-content" }}>
@@ -484,7 +484,6 @@ function NavTrigger({
   );
 }
 
-
 export default function Header() {
   const [openKey, setOpenKey] = useState<MenuKey | null>(null);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -493,6 +492,17 @@ export default function Header() {
   const handleMobileMenuOpen = () => setIsMobileMenuOpen(true);
   const handleMobileMenuClose = () => setIsMobileMenuOpen(false);
   const closeTimerRef = useRef<number | null>(null);
+
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorModalTitle, setErrorModalTitle] = useState("");
+  const [errorModalMessage, setErrorModalMessage] = useState("");
+
+  const showLockError = (title: string, message: string) => {
+    setErrorModalTitle(title);
+    setErrorModalMessage(message);
+    setErrorModalOpen(true);
+  };
+
 
   const clearCloseTimer = () => {
     if (closeTimerRef.current !== null) {
@@ -583,7 +593,13 @@ export default function Header() {
             />
           </Stack>
 
-          <RocketButton />
+          <RocketButton onPress={(e)=>{
+            e.preventDefault();
+            showLockError(
+              "The uApp is currently under development.",
+              "Stay tuned — the testnet version is coming soon."
+            );
+          }} />
         </Stack>
         <Stack display={{ xs: "flex", lg: "none" }} direction="row" alignItems="center" justifyContent="center" gap={1}>
           <Button variant="contained" color="primary" sx={{
@@ -658,6 +674,12 @@ export default function Header() {
           </Fade>
         )}
       </Popper>
+      <ErrorModal
+        open={errorModalOpen}
+        onClose={() => setErrorModalOpen(false)}
+        errorTitle={errorModalTitle}
+        errorMessage={errorModalMessage}
+      />
       <MobileMenu
         rocketIconSrc={rocketIcon}
         open={isMobileMenuOpen}

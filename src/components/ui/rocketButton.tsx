@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, ReactElement } from "react";
+import type { CSSProperties, MouseEvent, ReactElement } from "react";
 import NextLink from "next/link";
 import Image from "next/image";
 import { Box, Link, Stack, Typography } from "@mui/material";
@@ -17,10 +17,25 @@ const rocketFly = keyframes`
   100% { transform: translate(0px, 0px) scale(var(--rocketScale)); opacity: 1; }
 `;
 
+type LaunchUAppButtonProps = Readonly<{
+  onPress?: (event: MouseEvent<HTMLAnchorElement>) => void;
+  href?: string; // optional, defaults to /profile
+}>;
 
-export default function LaunchUAppButton(): ReactElement {
+export default function LaunchUAppButton({
+  onPress,
+  href = "/profile",
+}: LaunchUAppButtonProps): ReactElement {
   return (
-    <Link component={NextLink} href="/profile" underline="none" sx={{ display: "inline-flex" }}>
+    <Link
+      component={NextLink}
+      href={"#"}
+      underline="none"
+      onClick={(e) => {
+        onPress?.(e);
+      }}
+      sx={{ display: "inline-flex" }}
+    >
       <Box
         sx={{
           background: theme.palette.uranoGradient,
@@ -42,7 +57,11 @@ export default function LaunchUAppButton(): ReactElement {
         <Typography
           variant="body1"
           fontWeight={400}
-          sx={{ color: theme.palette.background.default, lineHeight: 1, whiteSpace: "nowrap" }}
+          sx={{
+            color: theme.palette.background.default,
+            lineHeight: 1,
+            whiteSpace: "nowrap",
+          }}
         >
           Launch uApp
         </Typography>
