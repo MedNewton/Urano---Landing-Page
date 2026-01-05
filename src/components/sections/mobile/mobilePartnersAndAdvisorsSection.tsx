@@ -52,7 +52,7 @@ function LogoImage({ logo }: { logo: Logo }): ReactElement {
     return (
         <Box
             sx={{
-                height: { xs: 80, md: 130 },
+                height: { xs: 60, md: 130 },
                 aspectRatio: CARD_ASPECT,
                 width: "auto",
                 position: "relative",
@@ -76,58 +76,62 @@ function MarqueeRow({
     durationSeconds,
     gapPx = 10,
     direction = "left",
-}: {
+  }: {
     items: readonly Logo[];
     durationSeconds: number;
     gapPx?: number;
     direction?: "left" | "right";
-}): ReactElement {
+  }): ReactElement {
     const laneItems = React.useMemo(() => {
-        const REPEAT = 8;
-        return Array.from({ length: REPEAT }, () => items).flat();
+      const REPEAT = 8;
+      return Array.from({ length: REPEAT }, () => items).flat();
     }, [items]);
-
+  
     const anim = direction === "left" ? marqueeLeft : marqueeRight;
-
+  
     return (
-        <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
-            <Box
-                sx={{
-                    display: "flex",
-                    width: "max-content",
-                    animation: `${anim} ${durationSeconds}s linear infinite`,
-                    willChange: "transform",
-                }}
-            >
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        columnGap: `${gapPx}px`,
-                        py: 1,
-                    }}
-                >
-                    {laneItems.map((l, idx) => (
-                        <LogoImage key={`a-${idx}`} logo={l} />
-                    ))}
-                </Box>
-
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        columnGap: `${gapPx}px`,
-                        py: 1,
-                    }}
-                >
-                    {laneItems.map((l, idx) => (
-                        <LogoImage key={`b-${idx}`} logo={l} />
-                    ))}
-                </Box>
-            </Box>
+      <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
+        <Box
+          sx={{
+            display: "flex",
+            width: "max-content",
+            animation: `${anim} ${durationSeconds}s linear infinite`,
+            willChange: "transform",
+  
+            // ✅ important: spacing between the 2 duplicated blocks (the seam)
+            columnGap: `${gapPx}px`,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              columnGap: `${gapPx}px`,
+              py: 1,
+            }}
+          >
+            {laneItems.map((l, idx) => (
+              <LogoImage key={`a-${idx}`} logo={l} />
+            ))}
+          </Box>
+  
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              columnGap: `${gapPx}px`,
+              py: 1,
+            }}
+          >
+            {laneItems.map((l, idx) => (
+              <LogoImage key={`b-${idx}`} logo={l} />
+            ))}
+          </Box>
         </Box>
+      </Box>
     );
-}
+  }
+  
 
 export default function MobilePartnersAndAdvisorsSection(): ReactElement {
     return (
@@ -144,7 +148,7 @@ export default function MobilePartnersAndAdvisorsSection(): ReactElement {
                 <MobileGradientStrokeTitle />
 
 
-                <Stack spacing={{ xs: 3, md: 2 }}>
+                <Stack spacing={{ xs: 0, md: 0 }} pt={14}>
                     <MarqueeRow items={ROW_1} durationSeconds={300} gapPx={8} direction="left" />
                     <MarqueeRow items={ROW_2} durationSeconds={360} gapPx={8} direction="right" />
                 </Stack>
