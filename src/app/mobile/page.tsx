@@ -166,27 +166,27 @@ export default function Home() {
             id: "governance",
             title: "Governance",
             description:
-                "Shape the Urano ecosystem through on-chain governance. $URANO holders vote on proposals,protocol upgrades, and ecosystem allocations.",
+                "Shape the Urano ecosystem through on-chain governance. $URANO holders vote on proposals, protocol upgrades and ecosystem allocations, contributing to the evolution of the protocol.",
         },
         {
             id: "staking",
-            title: "Staking Rewards",
+            title: "Staking",
             description:
-                "Stake your $URANO to secure protocol integrity and earn sustainable yields - combining network security with real-asset performance",
+                "Stake your $URANO to support protocol integrity, access participation-based benefits and receive protocol rewards.",
 
         },
         {
             id: "priority",
             title: "Priority  Access",
             description:
-                "Unlock early access to curated tokenizations, strategic launches, and ecosystem programs - exclusive to verified $URANO holders.",
+                "Access curated tokenizations, strategic launches and ecosystem programs, available to verified $URANO holders.",
 
         },
         {
             id: "revenue",
-            title: "Revenue Sharing",
+            title: "Ecosystem Rewards Pool",
             description:
-                "Benefit from Urano’s growth. Holders earn revenue allocations tied to protocol fees, aligning incentives for long-term value.",
+                "Benefit from Urano’s ecosystem activity through a shared rewards pool that supports active participation across the network.",
 
         },
     ];
