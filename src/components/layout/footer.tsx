@@ -253,9 +253,9 @@ export default function UranoFooter({
     {
       title: "LEGAL",
       links: [
-        { label: "Terms and Conditions", href: "https://www.uranoecosystem.com/terms-conditions" },
-        { label: "Privacy Policy", href: "https://www.uranoecosystem.com/privacy-policy" },
-        { label: "Cookie Policy", href: "https://www.uranoecosystem.com/cookie-policy" },
+        { label: "Terms and Conditions", href: "/terms-conditions" },
+        { label: "Privacy Policy", href: "/privacy-policy" },
+        { label: "Cookie Policy", href: "/cookie-policy" },
       ],
     },
   ];
