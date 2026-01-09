@@ -52,7 +52,7 @@ function LogoImage({ logo }: { logo: Logo }): ReactElement {
         <Link href={logo.href} target="_blank" rel="noopener noreferrer" underline="none">
             <Box
                 sx={{
-                    height: { xs: 60, md: 130 },
+                    height: { xs: 65, md: 130 },
                     aspectRatio: CARD_ASPECT,
                     width: "auto",
                     position: "relative",
