@@ -192,6 +192,11 @@ function MobileFooterColumn({
               component={NextLink}
               href={l.href}
               underline="none"
+              onClick={(e)=>{
+                if(isAirdrop){
+                  e.preventDefault()
+                }
+              }}
               sx={{
                 color: "rgba(255,255,255,0.55)",
                 fontSize: 16,
