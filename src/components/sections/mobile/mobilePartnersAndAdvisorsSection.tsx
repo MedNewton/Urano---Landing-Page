@@ -143,13 +143,14 @@ export default function MobilePartnersAndAdvisorsSection(): ReactElement {
                 height: "100svh",
                 position: "relative",
                 py: { xs: 10, md: 14 },
+                mb: 6
             }}
         >
             <Stack spacing={{ xs: 6, md: 7 }} sx={{ px: { xs: 3, md: 16 } }}>
                 <MobileGradientStrokeTitle />
 
 
-                <Stack spacing={{ xs: 0, md: 0 }} pt={14}>
+                <Stack spacing={{ xs: 0, md: 0 }} pt={"14vh"}>
                     <MarqueeRow items={ROW_1} durationSeconds={300} gapPx={8} direction="left" />
                     <MarqueeRow items={ROW_2} durationSeconds={360} gapPx={8} direction="right" />
                 </Stack>
@@ -174,7 +175,7 @@ export default function MobilePartnersAndAdvisorsSection(): ReactElement {
                         objectFit: "contain",
                         pointerEvents: "none",
                         userSelect: "none",
-                        transform: "scaleY(1.5)", // <- taller (15%)
+                        transform: "scaleY(1.8)", // <- taller (15%)
                         transformOrigin: "center",
                       }}
                 />
