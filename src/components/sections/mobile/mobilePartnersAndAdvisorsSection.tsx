@@ -140,17 +140,17 @@ export default function MobilePartnersAndAdvisorsSection(): ReactElement {
             component="section"
             sx={{
                 width: "100%",
-                height: "100svh",
+                height: "66vh",
                 position: "relative",
                 py: { xs: 10, md: 14 },
-                mb: 6
+                mb: 12
             }}
         >
             <Stack spacing={{ xs: 6, md: 7 }} sx={{ px: { xs: 3, md: 16 } }}>
                 <MobileGradientStrokeTitle />
 
 
-                <Stack spacing={{ xs: 0, md: 0 }} pt={"14vh"}>
+                <Stack spacing={{ xs: 0, md: 0 }}>
                     <MarqueeRow items={ROW_1} durationSeconds={300} gapPx={8} direction="left" />
                     <MarqueeRow items={ROW_2} durationSeconds={360} gapPx={8} direction="right" />
                 </Stack>
