@@ -379,7 +379,7 @@ export default function UranoFooter({
       >
         {/* MOBILE */}
         <Box width="100%" sx={{ display: { xs: "block", lg: "none" }, mt: 4 }}>
-          <Stack spacing={3} alignItems="center">
+          <Stack spacing={3} direction={"row"} alignItems="end">
             <Box
               sx={{
                 position: "relative",
@@ -395,7 +395,7 @@ export default function UranoFooter({
                   alt="Urano"
                   fill
                   sizes="50vw"
-                  style={{ objectFit: "contain", objectPosition: "center top" }}
+                  style={{ objectFit: "contain", objectPosition: "center top", marginTop: 8 }}
                 />
               </MuiLink>
             </Box>
