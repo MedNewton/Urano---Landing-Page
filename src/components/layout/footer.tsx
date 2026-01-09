@@ -650,7 +650,7 @@ export default function UranoFooter({
                     }}
                   >
                     <MuiLink href="https://x.com/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
-                      <FaXTwitter className="icon" size={24} color="#EDEDED" />
+                      <FaXTwitter className="icon" size={24} color="#EDEDED" style={{marginTop: 5}} />
                     </MuiLink>
                   </IconButton>
 
@@ -665,7 +665,7 @@ export default function UranoFooter({
                     }}
                   >
                     <MuiLink href="https://t.me/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
-                      <RiTelegram2Fill className="icon" size={24} color="#EDEDED" />
+                      <RiTelegram2Fill className="icon" size={24} color="#EDEDED" style={{marginTop: 5}} />
                     </MuiLink>
                   </IconButton>
 
