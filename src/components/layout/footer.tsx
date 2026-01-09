@@ -86,8 +86,8 @@ function FooterColumnList({
               component={NextLink}
               href={l.href}
               underline="none"
-              onClick={(e)=>{
-                if(isAirdrop){
+              onClick={(e) => {
+                if (isAirdrop) {
                   e.preventDefault()
                 }
               }}
@@ -192,8 +192,8 @@ function MobileFooterColumn({
               component={NextLink}
               href={l.href}
               underline="none"
-              onClick={(e)=>{
-                if(isAirdrop){
+              onClick={(e) => {
+                if (isAirdrop) {
                   e.preventDefault()
                 }
               }}
@@ -378,7 +378,7 @@ export default function UranoFooter({
         }}
       >
         {/* MOBILE */}
-        <Box width="100%" sx={{ display: { xs: "block", md: "none" }, mt: 4 }}>
+        <Box width="100%" sx={{ display: { xs: "block", lg: "none" }, mt: 4 }}>
           <Stack spacing={3} alignItems="center">
             <Box
               sx={{
@@ -533,50 +533,50 @@ export default function UranoFooter({
                 textAlign: "center",
               }}
             >
-              Urano Ecosystem Sp. Z o.o. © 2025 <br />
-              Urano Ecosystem, All rights reserved.
+              Urano Ecosystem Sp. z o.o. © 2026<br />
+              Urano Ecosystem. All rights reserved.
             </Typography>
           </Box>
         </Box>
 
         {/* DESKTOP (unchanged layout; only Show more + Airdrop pill are added) */}
-        <Box sx={{ display: { xs: "none", md: "block" } }}>
+        <Box sx={{ display: { xs: "none", lg: "flex" }, width: "100%", flexDirection: "column" }}>
           <Stack
             direction={{ xs: "column", md: "row" }}
             alignItems="flex-start"
-            spacing={{ xs: 5, md: 6 }}
+            spacing={{ xs: 5, md: 0 }}
             sx={{ mt: 16, mb: 4, minWidth: 0, width: "100%" }}
           >
             <Stack
               spacing={0}
               sx={{
                 minWidth: 0,
-                flex: { md: "0 0 260px" },
-                width: { xs: "100%", md: 260 },
+                flex: { md: "0 0 auto" },
+                width: { xs: "100%", md: "fit-content" },
               }}
             >
               <Box sx={{ position: "relative", width: "100%", height: 84 }}>
                 <MuiLink href="/" target="_blank" rel="noopener noreferrer" underline="none">
-                <Image
-                  src={logoImage}
-                  alt="Urano"
-                  fill
-                  sizes="260px"
-                  style={{ objectFit: "contain", objectPosition: "left top" }}
-                />
+                  <Image
+                    src={logoImage}
+                    alt="Urano"
+                    fill
+                    sizes="260px"
+                    style={{ objectFit: "contain", objectPosition: "left top" }}
+                  />
                 </MuiLink>
               </Box>
 
               <Stack direction="row" spacing={1.5} alignItems="center" sx={{ flexWrap: "nowrap" }}>
                 <Box sx={{ position: "relative", width: 180, height: 36, flexShrink: 0 }}>
                   <MuiLink href="https://arbitrum.io/" target="_blank" rel="noopener noreferrer" underline="none">
-                  <Image
-                    src={arbitrumImage}
-                    alt="Arbitrum"
-                    fill
-                    sizes="180px"
-                    style={{ objectFit: "contain", objectPosition: "left center", marginLeft: 14 }}
-                  />
+                    <Image
+                      src={arbitrumImage}
+                      alt="Arbitrum"
+                      fill
+                      sizes="180px"
+                      style={{ objectFit: "contain", objectPosition: "left center", marginLeft: 14 }}
+                    />
                   </MuiLink>
                 </Box>
               </Stack>
@@ -592,7 +592,7 @@ export default function UranoFooter({
                 flexWrap: { xs: "wrap", md: "nowrap" },
                 justifyContent: "center",
                 alignItems: "flex-start",
-                gap: { xs: 4, md: 0 },
+                gap: { xs: 4, md: 4 },
               }}
             >
               {columns.map((c) => {
@@ -650,7 +650,7 @@ export default function UranoFooter({
                     }}
                   >
                     <MuiLink href="https://x.com/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
-                      <FaXTwitter className="icon" size={24} color="#EDEDED" style={{marginTop: 5}} />
+                      <FaXTwitter className="icon" size={24} color="#EDEDED" style={{ marginTop: 5 }} />
                     </MuiLink>
                   </IconButton>
 
@@ -665,24 +665,29 @@ export default function UranoFooter({
                     }}
                   >
                     <MuiLink href="https://t.me/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
-                      <RiTelegram2Fill className="icon" size={24} color="#EDEDED" style={{marginTop: 5}} />
+                      <RiTelegram2Fill className="icon" size={24} color="#EDEDED" style={{ marginTop: 5 }} />
                     </MuiLink>
                   </IconButton>
 
-                  <Button
-                    variant="contained"
-                    sx={{
-                      ...surfaceBtnSx,
-                      px: 2.25,
-                      minWidth: 170,
-                      whiteSpace: "nowrap",
-                      "&:hover": hoverGradient,
-                    }}
-                  >
-                    Compliance Note
-                  </Button>
+                  <MuiLink href="https://docs.uranoecosystem.com/the-legal-structure-of-urano" target="_blank" rel="noopener noreferrer" underline="none">
+                    <Button
+                      variant="contained"
+                      sx={{
+                        ...surfaceBtnSx,
+                        px: 2.25,
+                        minWidth: 170,
+                        whiteSpace: "nowrap",
+                        "&:hover": hoverGradient,
+                      }}
+                    >
+                      Compliance Note
+                    </Button>
+                  </MuiLink>
                 </Box>
 
+                <MuiLink href="mailto:info@uranoecosystem.com" target="_blank" rel="noopener noreferrer" underline="none" sx={{
+                  width: "100%"
+                }}>
                 <Button
                   variant="contained"
                   startIcon={<Sms className="icon" size={24} color="#EDEDED" />}
@@ -696,6 +701,7 @@ export default function UranoFooter({
                 >
                   Contact us
                 </Button>
+                </MuiLink>
               </Stack>
             </Box>
           </Stack>
@@ -734,7 +740,7 @@ export default function UranoFooter({
               textAlign: "center",
             }}
           >
-            Urano Ecosystem Sp. Z o.o. © 2025 Urano Ecosystem, All rights reserved.
+            Urano Ecosystem Sp. z o.o. © 2026 Urano Ecosystem. All rights reserved.
           </Typography>
         </Box>
       </Box>
