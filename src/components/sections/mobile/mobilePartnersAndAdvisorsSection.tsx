@@ -3,7 +3,7 @@
 import type { ReactElement } from "react";
 import React from "react";
 import Image, { type StaticImageData } from "next/image";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Link } from "@mui/material";
 import { keyframes } from "@emotion/react";
 
 import p1 from "@/assets/images/logos/partners/1.webp";
@@ -19,23 +19,22 @@ import p9 from "@/assets/images/logos/partners/9.webp";
 
 import partnersBg from "@/assets/images/mobilePartnerBg.webp";
 
-type Logo = Readonly<{ src: StaticImageData; alt: string }>;
+type Logo = Readonly<{ src: StaticImageData; alt: string, href: string }>;
 
 const ROW_1: readonly Logo[] = [
-    { src: p1, alt: "Partner 1" },
-    { src: p2, alt: "Partner 2" },
-    { src: p3, alt: "Partner 3" },
-    { src: p4, alt: "Partner 4" },
-    { src: p5, alt: "Partner 5" },
+    { src: p1, alt: "Partner 1", href: "https://www.crypticweb3.com/" },
+    { src: p2, alt: "Partner 2", href: "https://moodglobalservices.com/" },
+    { src: p3, alt: "Partner 3", href: "https://www.nexlabs.io/" },
+    { src: p4, alt: "Partner 4", href: "https://www.hrcdigitalasset.com/" },
+    { src: p5, alt: "Partner 5", href: "https://notarify.io/" },
 ];
 
 const ROW_2: readonly Logo[] = [
-    { src: p6, alt: "Partner 6" },
-    { src: p7, alt: "Partner 7" },
-    { src: p8, alt: "Partner 8" },
-    { src: p9, alt: "Partner 9" },
+    { src: p6, alt: "Partner 6", href: "https://www.thompsonstein.com/en/" },
+    { src: p7, alt: "Partner 7", href: "https://withpersona.com/" },
+    { src: p8, alt: "Partner 8", href: "https://thirdweb.com/" },
+    { src: p9, alt: "Partner 9", href: "https://triwei.io/" },
 ];
-
 const marqueeLeft = keyframes`
   0% { transform: translate3d(0,0,0); }
   100% { transform: translate3d(-50%,0,0); }
@@ -50,24 +49,26 @@ const CARD_ASPECT = "852 / 448";
 
 function LogoImage({ logo }: { logo: Logo }): ReactElement {
     return (
-        <Box
-            sx={{
-                height: { xs: 60, md: 130 },
-                aspectRatio: CARD_ASPECT,
-                width: "auto",
-                position: "relative",
-                flex: "0 0 auto",
-            }}
-        >
-            <Image
-                src={logo.src}
-                alt={logo.alt}
-                fill
-                sizes="(max-width: 900px) 210px, 248px"
-                style={{ objectFit: "contain" }}
-                priority={false}
-            />
-        </Box>
+        <Link href={logo.href} target="_blank" rel="noopener noreferrer" underline="none">
+            <Box
+                sx={{
+                    height: { xs: 60, md: 130 },
+                    aspectRatio: CARD_ASPECT,
+                    width: "auto",
+                    position: "relative",
+                    flex: "0 0 auto",
+                }}
+            >
+                <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    fill
+                    sizes="(max-width: 900px) 210px, 248px"
+                    style={{ objectFit: "contain" }}
+                    priority={false}
+                />
+            </Box>
+        </Link>
     );
 }
 
@@ -76,62 +77,62 @@ function MarqueeRow({
     durationSeconds,
     gapPx = 10,
     direction = "left",
-  }: {
+}: {
     items: readonly Logo[];
     durationSeconds: number;
     gapPx?: number;
     direction?: "left" | "right";
-  }): ReactElement {
+}): ReactElement {
     const laneItems = React.useMemo(() => {
-      const REPEAT = 8;
-      return Array.from({ length: REPEAT }, () => items).flat();
+        const REPEAT = 8;
+        return Array.from({ length: REPEAT }, () => items).flat();
     }, [items]);
-  
+
     const anim = direction === "left" ? marqueeLeft : marqueeRight;
-  
+
     return (
-      <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
-        <Box
-          sx={{
-            display: "flex",
-            width: "max-content",
-            animation: `${anim} ${durationSeconds}s linear infinite`,
-            willChange: "transform",
-  
-            // ✅ important: spacing between the 2 duplicated blocks (the seam)
-            columnGap: `${gapPx}px`,
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              columnGap: `${gapPx}px`,
-              py: 1,
-            }}
-          >
-            {laneItems.map((l, idx) => (
-              <LogoImage key={`a-${idx}`} logo={l} />
-            ))}
-          </Box>
-  
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              columnGap: `${gapPx}px`,
-              py: 1,
-            }}
-          >
-            {laneItems.map((l, idx) => (
-              <LogoImage key={`b-${idx}`} logo={l} />
-            ))}
-          </Box>
+        <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    width: "max-content",
+                    animation: `${anim} ${durationSeconds}s linear infinite`,
+                    willChange: "transform",
+
+                    // ✅ important: spacing between the 2 duplicated blocks (the seam)
+                    columnGap: `${gapPx}px`,
+                }}
+            >
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        columnGap: `${gapPx}px`,
+                        py: 1,
+                    }}
+                >
+                    {laneItems.map((l, idx) => (
+                        <LogoImage key={`a-${idx}`} logo={l} />
+                    ))}
+                </Box>
+
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        columnGap: `${gapPx}px`,
+                        py: 1,
+                    }}
+                >
+                    {laneItems.map((l, idx) => (
+                        <LogoImage key={`b-${idx}`} logo={l} />
+                    ))}
+                </Box>
+            </Box>
         </Box>
-      </Box>
     );
-  }
-  
+}
+
 
 export default function MobilePartnersAndAdvisorsSection(): ReactElement {
     return (
@@ -162,6 +163,7 @@ export default function MobilePartnersAndAdvisorsSection(): ReactElement {
                 right: 0,
                 bottom: 0,
                 zIndex: 12,
+                pointerEvents: "none !important"
             }}>
                 <Image
                     src={partnersBg}
