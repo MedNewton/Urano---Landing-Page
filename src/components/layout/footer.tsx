@@ -429,13 +429,13 @@ export default function UranoFooter({
             <Box sx={{ display: "flex", gap: 2, alignItems: "center", width: "100%" }}>
               <IconButton aria-label="X" sx={mobileIconBtn}>
                 <MuiLink href="https://x.com/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
-                  <FaXTwitter className="icon" size={26} color="#EDEDED" />
+                  <FaXTwitter className="icon" size={26} color="#EDEDED" style={{marginTop: 5}} />
                 </MuiLink>
               </IconButton>
 
               <IconButton aria-label="Telegram" sx={mobileIconBtn}>
                 <MuiLink href="https://t.me/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
-                  <RiTelegram2Fill className="icon" size={28} color="#EDEDED" />
+                  <RiTelegram2Fill className="icon" size={28} color="#EDEDED" style={{marginTop: 5}}  />
                 </MuiLink>
               </IconButton>
 
