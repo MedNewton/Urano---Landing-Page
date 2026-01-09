@@ -86,6 +86,11 @@ function FooterColumnList({
               component={NextLink}
               href={l.href}
               underline="none"
+              onClick={(e)=>{
+                if(isAirdrop){
+                  e.preventDefault()
+                }
+              }}
               sx={{
                 pl: 1.5,
                 pr: 2,
