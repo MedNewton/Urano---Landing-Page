@@ -3,146 +3,243 @@
 import type { ReactElement } from "react";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Box, Stack } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, useDragControls, useMotionValue, animate } from "framer-motion";
 import Image from "next/image";
 
 import MobileServiceCard, {
-    type MobileServiceCardProps,
+  type MobileServiceCardProps,
 } from "@/components/sections/tokenizationAsAService/mobileServiceCard";
 
 import MobileSliderTopBorder from "@/assets/images/slider/mobileSliderTopBorder.svg?url";
 import MobileSliderBottomBorder from "@/assets/images/slider/mobileSliderBottomBorder.svg?url";
 
 export type MobileTokenizationServiceCarouselItem = MobileServiceCardProps & {
-    id: string;
+  id: string;
 };
 
 export type MobileTokenizationServiceCarouselProps = Readonly<{
-    items: MobileTokenizationServiceCarouselItem[];
+  items: MobileTokenizationServiceCarouselItem[];
 }>;
 
 export default function MobileTokenizationServiceCarousel({
-    items,
+  items,
 }: MobileTokenizationServiceCarouselProps): ReactElement {
-    const viewportRef = useRef<HTMLDivElement | null>(null);
-    const trackRef = useRef<HTMLDivElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
 
-    const [dragLeft, setDragLeft] = useState(0);
+  // Framer motion: make dragging start from anywhere (viewport), not only the track.
+  const dragControls = useDragControls();
 
-    const recompute = () => {
-        const viewport = viewportRef.current;
-        const track = trackRef.current;
-        if (!viewport || !track) return;
+  // Keep current position stable (no snap-back on rerenders).
+  const x = useMotionValue(0);
 
-        const viewportW = viewport.getBoundingClientRect().width;
-        const trackW = track.scrollWidth;
+  const [dragLeft, setDragLeft] = useState(0);
 
-        const maxDrag = Math.max(0, trackW - viewportW);
-        setDragLeft(-maxDrag);
+  // Used to prevent accidental click navigation when user was dragging.
+  const blockClickRef = useRef(false);
+  const unblockTimerRef = useRef<number | null>(null);
+
+  const clampX = (leftBound: number) => {
+    const current = x.get();
+    const next = Math.min(0, Math.max(leftBound, current));
+    if (next !== current) x.set(next);
+  };
+
+  const recompute = () => {
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    if (!viewport || !track) return;
+
+    const viewportW = viewport.getBoundingClientRect().width;
+    const trackW = track.scrollWidth;
+
+    const maxDrag = Math.max(0, trackW - viewportW);
+    const nextLeft = -maxDrag;
+
+    setDragLeft(nextLeft);
+    // Ensure current x is still inside constraints after resize/items changes.
+    requestAnimationFrame(() => clampX(nextLeft));
+  };
+
+  useLayoutEffect(() => {
+    recompute();
+
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    if (!viewport || !track) return;
+
+    const ro = new ResizeObserver(() => recompute());
+    ro.observe(viewport);
+    ro.observe(track);
+
+    window.addEventListener("resize", recompute);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", recompute);
     };
+    // Intentionally run once; ResizeObserver handles changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    useLayoutEffect(() => {
-        recompute();
+  const cards = useMemo(() => items, [items]);
 
-        const viewport = viewportRef.current;
-        const track = trackRef.current;
-        if (!viewport || !track) return;
+  const trackPl = { xs: 2.5, md: 14 };
 
-        const ro = new ResizeObserver(() => recompute());
-        ro.observe(viewport);
-        ro.observe(track);
+  const startDragFromAnywhere = (
+    e: React.PointerEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+  ) => {
+    // Only left click / primary pointer.
+    // (Touch has no button; PointerEvent sometimes does.)
+    // @ts-expect-error - React unions differ slightly.
+    if (typeof e.button === "number" && e.button !== 0) return;
 
-        window.addEventListener("resize", recompute);
-        return () => {
-            ro.disconnect();
-            window.removeEventListener("resize", recompute);
-        };
-    }, []);
+    // This is the key: start track dragging using the native event.
+    dragControls.start(e.nativeEvent as unknown as PointerEvent);
+  };
 
-    const cards = useMemo(() => items, [items]);
+  const onDragStart = () => {
+    blockClickRef.current = true;
+    if (unblockTimerRef.current) window.clearTimeout(unblockTimerRef.current);
+  };
 
-    const trackPl = { xs: 2.5, md: 14 };
+  const onDragEnd = () => {
+    // Delay unblocking to prevent the "pointer up" that ends the drag from triggering a click.
+    unblockTimerRef.current = window.setTimeout(() => {
+      blockClickRef.current = false;
+    }, 120);
+  };
 
-    return (
-        <Stack sx={{ width: "100%", pt: 14 }}>
+  // Optional helper if your arrow buttons need a stable API:
+  // - right/end: animate(x, dragLeft, ...)
+  // - left/start: animate(x, 0, ...)
+  const scrollToStart = () => {
+    animate(x, 0, { type: "spring", stiffness: 260, damping: 34 });
+  };
+  const scrollToEnd = () => {
+    animate(x, dragLeft, { type: "spring", stiffness: 260, damping: 34 });
+  };
+  // Note: keep your existing arrow handlers as-is, but if they previously relied on animate={{x:0}}
+  // or DOM transforms, switching them to scrollToStart/scrollToEnd will be the most robust.
+
+  return (
+    <Stack sx={{ width: "100%", pt: 14 }}>
+      <Box
+        sx={{
+          position: "relative",
+          width: "105vw",
+          ml: "calc(50% - 50vw)",
+          overflow: "hidden",
+          transform: "translateY(-35px)",
+          zIndex: 12,
+          backgroundColor: "transparent",
+        }}
+      >
+        <Image
+          src={MobileSliderTopBorder}
+          alt="Mobile Slider Top Border"
+          width={100}
+          height={100}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: -10,
+            width: "100%",
+            height: "auto",
+          }}
+        />
+
+        <Box sx={{ position: "relative", zIndex: 1, mt: 8 }}>
+          {/* Viewport: dragging should start from ANY point in here */}
+          <Box
+            ref={viewportRef}
+            onPointerDownCapture={startDragFromAnywhere}
+            onMouseDownCapture={startDragFromAnywhere}
+            onTouchStartCapture={startDragFromAnywhere}
+            sx={{
+              width: "100%",
+              overflow: "hidden",
+              mb: 6,
+
+              // Critical UX improvements:
+              touchAction: "pan-y",
+              userSelect: "none",
+              WebkitUserSelect: "none",
+              WebkitTouchCallout: "none",
+              cursor: "grab",
+            }}
+          >
             <Box
-                sx={{
-                    position: "relative",
-                    width: "105vw",
-                    ml: "calc(50% - 50vw)",
-                    overflow: "hidden",
-                    transform: "translateY(-35px)",
-                    zIndex: 12,
-                    backgroundColor: "transparent",
-                }}
+              component={motion.div}
+              ref={trackRef}
+              drag="x"
+              dragControls={dragControls}
+              dragListener={false} // we start drag from viewport instead
+              dragConstraints={{ left: dragLeft, right: 0 }}
+              dragElastic={0.06}
+              dragMomentum
+              style={{
+                x, // stable position, no snap-back
+                touchAction: "pan-y",
+              }}
+              whileTap={{ cursor: "grabbing" }}
+              onDragStart={onDragStart}
+              onDragEnd={onDragEnd}
+              sx={{
+                display: "flex",
+                alignItems: "stretch",
+                gap: { xs: 2.5, md: 4 },
+                pl: trackPl,
+                pb: 2,
+                pr: { xs: 1.5, md: 2 },
+              }}
             >
-
-                <Image src={MobileSliderTopBorder} alt="Mobile Slider Top Border" width={100} height={100}
-                    style={{
-                        position: "absolute",
-                        top: 0, 
-                        left: -10,
-                        width: "100%",
-                        height: "auto", 
-                    }}
-                />
-                <Box sx={{ position: "relative", zIndex: 1, mt: 8 }}>
-                    <Box ref={viewportRef} sx={{ width: "100%", overflow: "hidden", mb: 6 }}>
-                        <Box
-                            component={motion.div}
-                            ref={trackRef}
-                            drag="x"
-                            dragConstraints={{ left: dragLeft, right: 0 }}
-                            dragElastic={0.06}
-                            dragMomentum
-                            style={{ touchAction: "pan-y" }}
-                            whileTap={{ cursor: "grabbing" }}
-                            initial={false}
-                            animate={{ x: 0 }}
-                            transition={{ type: "spring", stiffness: 260, damping: 34 }}
-                            sx={{
-                                display: "flex",
-                                alignItems: "stretch",
-                                gap: { xs: 2.5, md: 4 },
-                                cursor: "grab",
-                                pl: trackPl,
-                                pb: 2,
-                                pr: { xs: 1.5, md: 2 },
-                            }}
-                        >
-                            {cards.map((item) => (
-                                <Box
-                                    key={item.id}
-                                    sx={{
-                                        flex: "0 0 auto",
-                                        width: { xs: 300, sm: 340, md: 420 },
-                                        height: { xs: 320, sm: 340, md: 535 },
-                                        display: "flex",
-                                    }}
-                                >
-                                    <MobileServiceCard
-                                        title={item.title}
-                                        description={item.description}
-                                        image={item.image}
-                                        imageAlt={item.imageAlt}
-                                    />
-                                </Box>
-                            ))}
-
-                            <Box aria-hidden sx={{ flex: "0 0 auto", width: { xs: 16, md: 48 } }} />
-                        </Box>
-                    </Box>
+              {cards.map((item) => (
+                <Box
+                  key={item.id}
+                  // Prevent link navigation only when the user was dragging.
+                  onClickCapture={(e) => {
+                    if (!blockClickRef.current) return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  sx={{
+                    flex: "0 0 auto",
+                    width: { xs: 300, sm: 340, md: 420 },
+                    height: { xs: 320, sm: 340, md: 535 },
+                    display: "flex",
+                  }}
+                >
+                  <MobileServiceCard
+                    title={item.title}
+                    description={item.description}
+                    image={item.image}
+                    imageAlt={item.imageAlt}
+                  />
                 </Box>
-                <Image src={MobileSliderBottomBorder} alt="Mobile Slider Bottom Border" width={100} height={100}
-                    style={{
-                        position: "absolute",
-                        bottom: 0, 
-                        left: -10,
-                        width: "100%",
-                        height: "auto", 
-                    }}
-                />
+              ))}
+
+              <Box aria-hidden sx={{ flex: "0 0 auto", width: { xs: 16, md: 48 } }} />
             </Box>
-        </Stack>
-    );
+          </Box>
+        </Box>
+
+        <Image
+          src={MobileSliderBottomBorder}
+          alt="Mobile Slider Bottom Border"
+          width={100}
+          height={100}
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: -10,
+            width: "100%",
+            height: "auto",
+          }}
+        />
+      </Box>
+
+      {/* If your arrows are currently inside this component, keep them.
+          If they need to jump to ends reliably, call scrollToStart() / scrollToEnd(). */}
+    </Stack>
+  );
 }

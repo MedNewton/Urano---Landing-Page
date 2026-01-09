@@ -8,12 +8,13 @@ import MobilePartnersAndAdvisorsSection from "@/components/sections/mobile/mobil
 import MobileFaqSection, { type MobileFaqItem } from "@/components/sections/mobile/mobileFaqSection";
 import MobilePoweredByUranoSection, { type MobilePoweredByUranoItem } from "@/components/sections/mobile/MobilePoweredByUranoSection";
 
-import slider1 from "@/assets/images/slider/1.webp";
-import slider2 from "@/assets/images/slider/2.webp";
-import slider3 from "@/assets/images/slider/3.webp";
-import slider4 from "@/assets/images/slider/4.webp";
-import slider5 from "@/assets/images/slider/5.webp";
-import slider6 from "@/assets/images/slider/6.webp";
+import slider1 from "@/assets/images/slider/IB.webp";
+import slider2 from "@/assets/images/slider/Notarization.webp";
+import slider3 from "@/assets/images/slider/Compliance.webp";
+import slider4 from "@/assets/images/slider/RE.webp";
+import slider5 from "@/assets/images/slider/IP.webp";
+import slider6 from "@/assets/images/slider/Art.webp";
+
 
 import ecosystemImage1 from "@/assets/images/ecosystem1.webp";
 import ecosystemImage2 from "@/assets/images/ushares.webp";
