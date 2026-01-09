@@ -23,8 +23,7 @@ import slider6 from "@/assets/images/slider/Art.webp";
 import ecosystemImage1 from "@/assets/images/ecosystem1.webp";
 import ecosystemImage2 from "@/assets/images/ushares.webp";
 import ecosystemImage3 from "@/assets/images/ecosystem3.webp";
-import ecosystemImage4 from "@/assets/images/ecosystem4.webp";
-
+import ecosystemImage4 from "@/assets/images/ecosystem4 -1.webp";
 import tech1Image from "@/assets/images/tech1.webp";
 import tech2Image from "@/assets/images/tech2.webp";
 
