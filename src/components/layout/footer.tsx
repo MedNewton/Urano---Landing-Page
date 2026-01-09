@@ -215,7 +215,7 @@ function MobileFooterColumn({
                 },
               }}
             >
-              <Box sx={{ display: "inline-flex", alignItems: "center" }}>
+              <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1 }}>
                 <Typography className="mobile-footer-link-text" sx={{ fontSize: 16 }}>
                   {l.label}
                 </Typography>
