@@ -268,8 +268,8 @@ function AssistantConversationOverlay(): ReactElement {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        pl: { xs: 4, sm: 2 },
-        pr: { xs: 12, sm: 5 },
+        pl: { xs: 2, sm: 2 },
+        pr: { xs: 24, sm: 5 },
       }}
     >
       <Stack sx={{ width: "100%", maxWidth: 360, gap: 1.1 }}>
