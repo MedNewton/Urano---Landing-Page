@@ -1,11 +1,13 @@
 "use client";
 
 import type { ReactElement, ReactNode } from "react";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
+import { useRouter } from "next/navigation";
 import { Box, Button, Container, Stack, Typography, Grid } from "@mui/material";
 import SouthEastIcon from "@mui/icons-material/SouthEast";
 import { motion } from "framer-motion";
+import ErrorModal from "@/components/ui/ErrorModal";
 
 import theme from "@/theme/theme";
 
@@ -33,9 +35,49 @@ export type ExploreEcosystemSectionProps = Readonly<{
   items: ExploreEcosystemItem[];
 }>;
 
-function ActionLink({ label }: { label: string; href: string }): ReactElement {
+function ActionLink({
+  label,
+  href,
+  onLaunch,
+}: {
+  label: string;
+  href: string;
+  onLaunch?: () => void;
+}): ReactElement {
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const raw = (href ?? "").trim();
+    const lower = raw.toLowerCase();
+
+    // ✅ “launch” sentinel => open modal
+    if (lower === "launch") {
+      onLaunch?.();
+      return;
+    }
+
+    // ✅ mailto
+    if (lower.startsWith("mailto:")) {
+      window.location.href = raw;
+      return;
+    }
+
+    // ✅ external
+    if (lower.startsWith("http://") || lower.startsWith("https://")) {
+      window.open(raw, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    // ✅ internal
+    const path = raw.startsWith("/") ? raw : `/${raw}`;
+    router.push(path);
+  };
+
   return (
     <Button
+      onClick={handleClick}
       sx={{
         backgroundColor: "transparent",
         borderRadius: 0,
@@ -44,6 +86,15 @@ function ActionLink({ label }: { label: string; href: string }): ReactElement {
         py: 0.75,
         height: "fit-content",
         width: "fit-content",
+        minWidth: 0,
+        textTransform: "none",
+
+        // default icon state so hover rotation animates correctly
+        ".button-icon": {
+          transform: "rotate(0deg)",
+          transition: "transform 0.3s ease-in-out, color 0.2s ease-in-out",
+        },
+
         "&:hover": {
           background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
           borderBottom: `2px solid transparent`,
@@ -51,9 +102,7 @@ function ActionLink({ label }: { label: string; href: string }): ReactElement {
             color: "#0E0E0E",
           },
           ".button-icon": {
-            filter: "invert(1)",
-            trasform: "rotate(45deg)",
-            transition: "transform 0.3s ease-in-out",
+            color: "#0E0E0E",
           },
         },
       }}
@@ -257,13 +306,9 @@ function AssistantConversationOverlay(): ReactElement {
         zIndex: 3,
         pointerEvents: "none",
         userSelect: "none",
-
-        // ✅ center messages vertically
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start",
-
-        // keep your left padding, remove the top padding so it can truly center
         pl: { xs: 10, sm: 10, md: 10 },
         pr: { xs: 10, sm: 10, md: 10 },
       }}
@@ -275,7 +320,6 @@ function AssistantConversationOverlay(): ReactElement {
           gap: 1.25,
         }}
       >
-        {/* Left bubble */}
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 10, scale: 0.98 }}
@@ -325,7 +369,6 @@ function AssistantConversationOverlay(): ReactElement {
           </Typography>
         </Box>
 
-        {/* Right bubble */}
         <Box
           component={motion.div}
           initial={false}
@@ -337,9 +380,7 @@ function AssistantConversationOverlay(): ReactElement {
           transition={{ duration: 0.28, ease: "easeOut" }}
           sx={{
             alignSelf: "flex-end",
-            // ✅ pull it slightly away from the right edge
             mr: { xs: 1.5, md: 8 },
-
             width: "fit-content",
             maxWidth: "100%",
             px: 2,
@@ -386,7 +427,6 @@ function AssistantConversationOverlay(): ReactElement {
     </Box>
   );
 }
-
 
 function ImageCell({
   image,
@@ -447,9 +487,7 @@ function ImageCell({
         />
       )}
 
-      {/* ✅ overlay inside the image card */}
       {overlay ?? null}
-
       <ImageBottomGlow />
     </CellShell>
   );
@@ -462,6 +500,7 @@ function ContentCell({
   primaryCtaHref,
   secondaryCtaLabel,
   secondaryCtaHref,
+  onLaunch,
 }: {
   title: string;
   description: string;
@@ -469,6 +508,7 @@ function ContentCell({
   primaryCtaHref: string;
   secondaryCtaLabel: string;
   secondaryCtaHref: string;
+  onLaunch: () => void;
 }): ReactElement {
   return (
     <CellShell bg="#191919">
@@ -506,8 +546,8 @@ function ContentCell({
         </Typography>
 
         <Stack direction="row" spacing={3} sx={{ pt: 0.5 }}>
-          <ActionLink label={primaryCtaLabel} href={primaryCtaHref} />
-          <ActionLink label={secondaryCtaLabel} href={secondaryCtaHref} />
+          <ActionLink label={primaryCtaLabel} href={primaryCtaHref} onLaunch={onLaunch} />
+          <ActionLink label={secondaryCtaLabel} href={secondaryCtaHref} onLaunch={onLaunch} />
         </Stack>
       </Stack>
     </CellShell>
@@ -518,85 +558,109 @@ export default function ExploreEcosystemSection({
   title = "EXPLORE THE ECOSYSTEM",
   items,
 }: ExploreEcosystemSectionProps): ReactElement {
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorModalTitle, setErrorModalTitle] = useState("");
+  const [errorModalMessage, setErrorModalMessage] = useState("");
+
+  const showLockError = (t: string, m: string) => {
+    setErrorModalTitle(t);
+    setErrorModalMessage(m);
+    setErrorModalOpen(true);
+  };
+
   return (
-    <Box component="section" id="explore-the-ecosystem" sx={{ width: "100%", pt: { xs: 4, md: 6 } }}>
-      <Box sx={{ width: "100vw", ml: "calc(50% - 50vw)" }}>
-        <Container maxWidth={false} sx={{ px: { xs: 2.5, md: 16 } }}>
-          <Typography
-            className="conthrax"
-            sx={{
-              textAlign: "center",
-              fontSize: { xs: 22, md: 30 },
-              textTransform: "uppercase",
-              background: theme.palette.uranoGradient,
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              mb: { xs: 4, md: 6 },
-            }}
-          >
-            {title}
-          </Typography>
-        </Container>
+    <>
+      <Box component="section" id="explore-the-ecosystem" sx={{ width: "100%", pt: { xs: 4, md: 6 } }}>
+        <Box sx={{ width: "100vw", ml: "calc(50% - 50vw)" }}>
+          <Container maxWidth={false} sx={{ px: { xs: 2.5, md: 16 } }}>
+            <Typography
+              className="conthrax"
+              sx={{
+                textAlign: "center",
+                fontSize: { xs: 22, md: 30 },
+                textTransform: "uppercase",
+                background: theme.palette.uranoGradient,
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                mb: { xs: 4, md: 6 },
+              }}
+            >
+              {title}
+            </Typography>
+          </Container>
 
-        <Grid container spacing={0} sx={{ width: "100%", m: 0 }}>
-          {items.map((it, idx) => {
-            const isLast = idx === items.length - 1;
+          <Grid container spacing={0} sx={{ width: "100%", m: 0 }}>
+            {items.map((it, idx) => {
+              const isLast = idx === items.length - 1;
 
-            // ✅ “4th card (uAssistant)” detector:
-            const isAssistantCard =
-              idx === 3 ||
-              it.id.toLowerCase().includes("assistant") ||
-              it.title.toLowerCase().includes("assistant");
+              const isAssistantCard =
+                idx === 3 ||
+                it.id.toLowerCase().includes("assistant") ||
+                it.title.toLowerCase().includes("assistant");
 
-            const imageBlock = (
-              <Grid key={`${it.id}-img`} size={{ xs: 12, md: 6 }} sx={{ p: 0 }}>
-                <Box sx={{ height: { xs: 360, sm: 420, md: 520 } }}>
-                  <ImageCell
-                    image={it.image}
-                    imageAlt={it.imageAlt ?? ""}
-                    fit={isLast ? "cover" : "contain"}
-                    scale={isLast ? 1 : 0.75}
-                    overlay={isAssistantCard ? <AssistantConversationOverlay /> : undefined}
-                  />
+              const imageBlock = (
+                <Grid key={`${it.id}-img`} size={{ xs: 12, md: 6 }} sx={{ p: 0 }}>
+                  <Box sx={{ height: { xs: 360, sm: 420, md: 520 } }}>
+                    <ImageCell
+                      image={it.image}
+                      imageAlt={it.imageAlt ?? ""}
+                      fit={isLast ? "cover" : "contain"}
+                      scale={isLast ? 1 : 0.75}
+                      overlay={isAssistantCard ? <AssistantConversationOverlay /> : undefined}
+                    />
+                  </Box>
+                </Grid>
+              );
+
+              const contentBlock = (
+                <Grid
+                  key={`${it.id}-content`}
+                  size={{ xs: 12, md: 6 }}
+                  sx={{ p: 0 }}
+                  id={it.id}
+                >
+                  <Box sx={{ height: { xs: 360, sm: 420, md: 520 } }}>
+                    <ContentCell
+                      title={it.title}
+                      description={it.description}
+                      primaryCtaLabel={it.primaryCtaLabel}
+                      primaryCtaHref={it.primaryCtaHref}
+                      secondaryCtaLabel={it.secondaryCtaLabel}
+                      secondaryCtaHref={it.secondaryCtaHref}
+                      onLaunch={() =>
+                        showLockError(
+                          "The uApp is currently under development.",
+                          "Stay tuned — the testnet version is coming soon."
+                        )
+                      }
+                    />
+                  </Box>
+                </Grid>
+              );
+
+              return it.imageSide === "left" ? (
+                <Box key={it.id} sx={{ display: "contents" }}>
+                  {imageBlock}
+                  {contentBlock}
                 </Box>
-              </Grid>
-            );
-
-            const contentBlock = (
-              <Grid
-                key={`${it.id}-content`}
-                size={{ xs: 12, md: 6 }}
-                sx={{ p: 0 }}
-                id={it.id}
-              >
-                <Box sx={{ height: { xs: 360, sm: 420, md: 520 } }}>
-                  <ContentCell
-                    title={it.title}
-                    description={it.description}
-                    primaryCtaLabel={it.primaryCtaLabel}
-                    primaryCtaHref={it.primaryCtaHref}
-                    secondaryCtaLabel={it.secondaryCtaLabel}
-                    secondaryCtaHref={it.secondaryCtaHref}
-                  />
+              ) : (
+                <Box key={it.id} sx={{ display: "contents" }}>
+                  {contentBlock}
+                  {imageBlock}
                 </Box>
-              </Grid>
-            );
-
-            return it.imageSide === "left" ? (
-              <Box key={it.id} sx={{ display: "contents" }}>
-                {imageBlock}
-                {contentBlock}
-              </Box>
-            ) : (
-              <Box key={it.id} sx={{ display: "contents" }}>
-                {contentBlock}
-                {imageBlock}
-              </Box>
-            );
-          })}
-        </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
       </Box>
-    </Box>
+
+      <ErrorModal
+        open={errorModalOpen}
+        onClose={() => setErrorModalOpen(false)}
+        errorTitle={errorModalTitle}
+        errorMessage={errorModalMessage}
+      />
+    </>
   );
 }

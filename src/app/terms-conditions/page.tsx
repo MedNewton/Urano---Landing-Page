@@ -110,7 +110,8 @@ export default function Terms(): ReactElement {
           maxWidth: 1120,
           mx: "auto",
           px: { xs: 2, sm: 3, md: 6 },
-          py: { xs: 3, sm: 4, md: 6 },
+          pt: { xs: 3, sm: 4, md: 20 },
+          pb: { xs: 3, sm: 4, md: 6 },
           flex: 1,
         }}
       >

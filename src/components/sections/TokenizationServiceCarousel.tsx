@@ -49,6 +49,14 @@ export default function TokenizationAsAServiceCarousel({
   const [canGoLeft, setCanGoLeft] = useState(false);
   const [canGoRight, setCanGoRight] = useState(false);
 
+  // ✅ distinguish click vs drag (so links remain clickable but never block dragging)
+  const dragIntentRef = useRef<{
+    startX: number;
+    startY: number;
+    moved: boolean;
+  }>({ startX: 0, startY: 0, moved: false });
+
+
   const recompute = () => {
     const viewport = viewportRef.current;
     const track = trackRef.current;
@@ -284,10 +292,29 @@ export default function TokenizationAsAServiceCarousel({
               ref={trackRef}
               drag="x"
               dragConstraints={{ left: dragLeft, right: 0 }}
-              dragElastic={0.06}
-              dragMomentum
+              dragElastic={0.1}          // slightly easier to “grab”
+              dragMomentum               // keep as you like
               style={{ x, touchAction: "pan-y" }}
               whileTap={{ cursor: "grabbing" }}
+              // ✅ pointer intent tracking (capture phase so children can’t steal it)
+              onPointerDownCapture={(e) => {
+                dragIntentRef.current.startX = e.clientX;
+                dragIntentRef.current.startY = e.clientY;
+                dragIntentRef.current.moved = false;
+              }}
+              onPointerMoveCapture={(e) => {
+                const dx = Math.abs(e.clientX - dragIntentRef.current.startX);
+                const dy = Math.abs(e.clientY - dragIntentRef.current.startY);
+
+                // small threshold; require mostly-horizontal movement
+                if (dx > 6 && dx > dy) dragIntentRef.current.moved = true;
+              }}
+              onPointerUpCapture={() => {
+                // let the click event happen first, then reset
+                window.setTimeout(() => {
+                  dragIntentRef.current.moved = false;
+                }, 0);
+              }}
               sx={{
                 display: "flex",
                 alignItems: "stretch",
@@ -300,6 +327,7 @@ export default function TokenizationAsAServiceCarousel({
                 zIndex: 10,
               }}
             >
+
               {cards.map((item) => (
                 <Box
                   key={item.id}
@@ -308,11 +336,35 @@ export default function TokenizationAsAServiceCarousel({
                   target="_blank"
                   rel="noopener noreferrer"
                   underline="none"
+                  // ✅ stop link navigation if the gesture was a drag
+                  onClick={(e) => {
+                    if (dragIntentRef.current.moved) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                  // ✅ prevent native “dragging a link/image” + text selection from stealing the gesture
+                  onDragStart={(e) => e.preventDefault()}
+                  onMouseDown={(e) => {
+                    // prevents text selection on desktop while still allowing click
+                    if (e.button === 0) e.preventDefault();
+                  }}
                   sx={{
                     flex: "0 0 auto",
                     width: { xs: 270, sm: 310, md: 360 },
                     height: { xs: 320, sm: 340, md: 300 },
                     display: "flex",
+
+                    userSelect: "none",
+                    WebkitUserSelect: "none",
+                    WebkitUserDrag: "none",
+
+                    // ✅ critical: make images not capture pointer events so drag works from image areas
+                    "& img": {
+                      pointerEvents: "none",
+                      userSelect: "none",
+                      WebkitUserDrag: "none",
+                    },
                   }}
                 >
                   <ServiceCard
@@ -323,8 +375,14 @@ export default function TokenizationAsAServiceCarousel({
                   />
                 </Box>
               ))}
+              <Box
+                aria-hidden
+                sx={{
+                  flex: "0 0 auto",
+                  width: { xs: 32, sm: 48, md: 80, lg: 250 },
+                }}
+              />
 
-              <Box aria-hidden sx={{ flex: "0 0 auto", width: { xs: 14, md: 40 } }} />
             </Box>
           </Box>
 
