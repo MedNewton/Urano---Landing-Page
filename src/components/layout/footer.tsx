@@ -554,7 +554,7 @@ export default function UranoFooter({
             direction={{ xs: "column", md: "row" }}
             alignItems="flex-start"
             spacing={{ xs: 5, md: 0 }}
-            sx={{ mt: 16, mb: 4, minWidth: 0, width: "100%" }}
+            sx={{ mt: 16, mb: 0, minWidth: 0, width: "100%" }}
           >
             <Stack
               spacing={0}
