@@ -170,7 +170,13 @@ export default function MobilePartnersAndAdvisorsSection(): ReactElement {
                     alt="Partners and Advisors Background"
                     fill
                     sizes="100vw"
-                    style={{ objectFit: "contain", pointerEvents: "none", userSelect: "none", }}
+                    style={{
+                        objectFit: "contain",
+                        pointerEvents: "none",
+                        userSelect: "none",
+                        transform: "scaleY(1.5)", // <- taller (15%)
+                        transformOrigin: "center",
+                      }}
                 />
                 <Box sx={{
                     position: "absolute",
