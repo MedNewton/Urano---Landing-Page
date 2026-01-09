@@ -329,7 +329,7 @@ export default function UranoFooter({
         ml: "calc(50% - 50vw)",
         backgroundColor: "#141414",
         overflowX: "clip",
-        minHeight: "100vh",
+        minHeight: {xs: "100vh", md: "80vh"},
         mt: { xs: 10, md: 0 },
       }}
     >
@@ -369,12 +369,12 @@ export default function UranoFooter({
         sx={{
           position: "relative",
           zIndex: 1,
-          minHeight: "100vh",
+          minHeight: {xs: "100vh", md: "80vh"},
           display: "flex",
           flexDirection: "column",
           px: { xs: 3, md: 16 },
           pt: { xs: 0, md: 12 },
-          pb: { xs: 6, md: 2 },
+          pb: { xs: 6, md: 0 },
         }}
       >
         {/* MOBILE */}
