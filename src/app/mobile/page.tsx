@@ -121,7 +121,7 @@ export default function Home() {
             title: "uStation",
             description:
                 "Supporting businesses and individuals throughout the process of bringing real-world assets on-chain.",
-            primaryCtaLabel: "TOKENIZE NOW",
+            primaryCtaLabel: "TOKENIZE",
             primaryCtaHref: "mailto:info@uranoecosystem.com",
             secondaryCtaLabel: "DISCOVER",
             secondaryCtaHref: "https://docs.uranoecosystem.com/ecosystem/ustation",
