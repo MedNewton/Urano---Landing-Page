@@ -429,17 +429,22 @@ export default function UranoFooter({
             <Box sx={{ display: "flex", gap: 2, alignItems: "center", width: "100%" }}>
               <IconButton aria-label="X" sx={mobileIconBtn}>
                 <MuiLink href="https://x.com/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
-                  <FaXTwitter className="icon" size={26} color="#EDEDED" style={{marginTop: 5}} />
+                  <FaXTwitter className="icon" size={26} color="#EDEDED" style={{ marginTop: 5 }} />
                 </MuiLink>
               </IconButton>
 
               <IconButton aria-label="Telegram" sx={mobileIconBtn}>
                 <MuiLink href="https://t.me/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
-                  <RiTelegram2Fill className="icon" size={28} color="#EDEDED" style={{marginTop: 5}}  />
+                  <RiTelegram2Fill className="icon" size={28} color="#EDEDED" style={{ marginTop: 5 }} />
                 </MuiLink>
               </IconButton>
 
+
               <Button
+                component="a"
+                href="https://docs.uranoecosystem.com/the-legal-structure-of-urano"
+                target="_blank"
+                rel="noopener noreferrer"
                 variant="contained"
                 sx={{
                   ...mobilePillBtn,
@@ -455,6 +460,10 @@ export default function UranoFooter({
             </Box>
 
             <Button
+            component="a"
+            href="mailto:info@uranoecosystem.com"
+            target="_blank"
+            rel="noopener noreferrer"
               variant="contained"
               startIcon={<Sms className="icon" size={26} color="#EDEDED" />}
               sx={{
@@ -688,19 +697,19 @@ export default function UranoFooter({
                 <MuiLink href="mailto:info@uranoecosystem.com" target="_blank" rel="noopener noreferrer" underline="none" sx={{
                   width: "100%"
                 }}>
-                <Button
-                  variant="contained"
-                  startIcon={<Sms className="icon" size={24} color="#EDEDED" />}
-                  sx={{
-                    ...surfaceBtnSx,
-                    width: "100%",
-                    minWidth: "unset",
-                    justifyContent: "center",
-                    "&:hover": hoverGradient,
-                  }}
-                >
-                  Contact us
-                </Button>
+                  <Button
+                    variant="contained"
+                    startIcon={<Sms className="icon" size={24} color="#EDEDED" />}
+                    sx={{
+                      ...surfaceBtnSx,
+                      width: "100%",
+                      minWidth: "unset",
+                      justifyContent: "center",
+                      "&:hover": hoverGradient,
+                    }}
+                  >
+                    Contact us
+                  </Button>
                 </MuiLink>
               </Stack>
             </Box>
