@@ -144,7 +144,7 @@ export default function MobilePoweredByUranoSection({
     const bottomRowExtraTopPadPx = 56;
 
     return (
-        <Box component="section" sx={{ width: "100%", pt: 6, pb: 0 }}>
+        <Box component="section" id="powered-by-urano" sx={{ width: "100%", pt: 6, pb: 0 }}>
             <Typography
                 className="conthrax"
                 sx={{

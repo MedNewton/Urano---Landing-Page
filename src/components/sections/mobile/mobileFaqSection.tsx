@@ -149,7 +149,7 @@ export default function MobileFaqSection({
   const rightItems = useMemo(() => items.filter((_, i) => i % 2 === 1), [items]);
 
   return (
-    <Box component="section" sx={{ width: "100%", mt: -20, position: "relative", zIndex: 20 }}>
+    <Box component="section" id="faq" sx={{ width: "100%", mt: -20, position: "relative", zIndex: 20 }}>
       <Container maxWidth={false} sx={{ px: { xs: 2.5, md: 14 } }}>
         <Typography
           className="conthrax"

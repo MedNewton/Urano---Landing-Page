@@ -62,31 +62,31 @@ export type MobileMenuProps = Readonly<{
 
 const DEFAULT_SECTIONS: readonly MobileMenuSection[] = [
     {
-        title: "PRODUCTS",
+        title: "PRODUCTS", 
         links: [
-            { label: "uApp", href: "/uapp" },
-            { label: "uShares", href: "/ushares" },
-            { label: "uAssistant", href: "/uassistant" },
-            { label: "uStation", href: "/ustation" },
+            { label: "uApp", href: "/#uapp" },
+            { label: "uShares", href: "/#ushares" },
+            { label: "uAssistant", href: "/#uassistant" },
+            { label: "uStation", href: "/#ustation" },
         ],
     },
     {
         title: "LEARN",
         links: [
-            { label: "Docs", href: "/docs" },
-            { label: "Audit", href: "/audit" },
-            { label: "FAQ", href: "/faq" },
-            { label: "uPaper", href: "/upaper" },
-            { label: "Github", href: "https://github.com", external: true },
+            { label: "Docs", href: "https://docs.uranoecosystem.com/" },
+            { label: "Audit", href: "https://docs.uranoecosystem.com/more/audit" },
+            { label: "FAQ", href: "/#faq" },
+            { label: "uPaper", href: "https://docs.uranoecosystem.com/more/upaper" },
+            { label: "Github", href: "https://github.com/uranoecosystem2024", external: true },
         ],
     },
     {
         title: "COMMUNITY",
         links: [
-            { label: "$URANO", href: "/urano" },
+            { label: "$URANO", href: "/#powered-by-urano" },
             { label: "Airdrop", href: "/airdrop", pill: { text: "Coming Soon" } },
-            { label: "Telegram", href: "https://t.me/", external: true },
-            { label: "X (Twitter)", href: "https://x.com/", external: true },
+            { label: "Telegram", href: "https://t.me/UranoEcosystem", external: true },
+            { label: "X (Twitter)", href: "https://x.com/uranoecosystem", external: true },
         ],
     },
 ];
@@ -191,7 +191,7 @@ export default function MobileMenu({
     rocketIconSrc,
     sections = DEFAULT_SECTIONS,
     complianceHref = "/compliance",
-    contactHref = "/contact",
+    contactHref = "mailto:info@uranoecosystem.com",
     telegramHref = "https://t.me/",
     xHref = "https://x.com/",
     copyrightText = '"Urano Ecosystem Sp. Z o.o. © 2025 Urano Ecosystem, All rights reserved."',

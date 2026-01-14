@@ -605,7 +605,7 @@ export default function MobileExploreEcosystemSection({
             );
 
             const contentNode = (
-              <Grid key={`${it.id}-content`} size={{ xs: 12, md: 6 }} sx={{ p: 0 }}>
+              <Grid key={`${it.id}-content`} id={it.id} size={{ xs: 12, md: 6 }} sx={{ p: 0 }}>
                 <Box sx={{ height: { xs: 300, sm: 420, md: 520 } }}>
                   <ContentCell
                     title={it.title}
