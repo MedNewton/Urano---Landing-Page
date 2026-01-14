@@ -10,7 +10,7 @@ const Hero = () => {
         <Stack
             component="section"
             width="100%"
-            height="80dvh"
+            height="83dvh"
             sx={{
                 position: "relative",
                 overflow: "hidden",
