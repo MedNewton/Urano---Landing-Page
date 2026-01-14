@@ -150,7 +150,14 @@ function MenuLinkRow({
         href={link.href}
         target={link.external ? "_blank" : undefined}
         rel={link.external ? "noreferrer" : undefined}
-        onClick={onNavigate}
+        onClick={(e)=>{
+            if(link.pill){
+                e.preventDefault()
+            }
+            else{
+                onNavigate()
+            }
+        }}
         sx={{
           width: "100%",
           justifyContent: "space-between",
