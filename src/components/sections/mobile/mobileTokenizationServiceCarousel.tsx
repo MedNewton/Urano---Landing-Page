@@ -2,9 +2,10 @@
 
 import type { ReactElement } from "react";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { motion, useDragControls, useMotionValue, animate } from "framer-motion";
 import Image from "next/image";
+import theme from "@/theme/theme"
 
 import MobileServiceCard, {
   type MobileServiceCardProps,
@@ -123,6 +124,20 @@ export default function MobileTokenizationServiceCarousel({
 
   return (
     <Stack sx={{ width: "100%", pt: 14 }}>
+      <Typography
+            className="conthrax"
+            sx={{
+              pl: trackPl, 
+              textAlign: "center",
+              fontSize: { xs: 22, md: 30 },
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              color: theme.palette.uranoGreen1.main,
+              mb: 8,
+            }}
+          >
+            Tokenization as a service
+          </Typography>
       <Box
         sx={{
           position: "relative",
