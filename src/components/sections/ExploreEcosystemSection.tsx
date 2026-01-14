@@ -590,7 +590,7 @@ export default function ExploreEcosystemSection({
             </Typography>
           </Container>
 
-          <Grid container spacing={0} sx={{ width: "100%", m: 0 }}>
+          <Grid container spacing={0} sx={{ width: "100%", m: 0, display: {xs: "none", md: "flex"} }}>
             {items.map((it, idx) => {
               const isLast = idx === items.length - 1;
 
@@ -643,6 +643,68 @@ export default function ExploreEcosystemSection({
                 <Box key={it.id} sx={{ display: "contents" }}>
                   {imageBlock}
                   {contentBlock}
+                </Box>
+              ) : (
+                <Box key={it.id} sx={{ display: "contents" }}>
+                  {contentBlock}
+                  {imageBlock}
+                </Box>
+              );
+            })}
+          </Grid>
+          <Grid container spacing={0} sx={{ width: "100%", m: 0, display: {xs: "flex", md: "none"} }}>
+            {items.map((it, idx) => {
+              const isLast = idx === items.length - 1;
+
+              const isAssistantCard =
+                idx === 3 ||
+                it.id.toLowerCase().includes("assistant") ||
+                it.title.toLowerCase().includes("assistant");
+
+              const imageBlock = (
+                <Grid key={`${it.id}-img`} size={{ xs: 12, md: 6 }} sx={{ p: 0 }}>
+                  <Box sx={{ height: { xs: 360, sm: 420, md: 520 } }}>
+                    <ImageCell
+                      image={it.image}
+                      imageAlt={it.imageAlt ?? ""}
+                      fit={isLast ? "cover" : "contain"}
+                      scale={isLast ? 1 : 0.75}
+                      overlay={isAssistantCard ? <AssistantConversationOverlay /> : undefined}
+                    />
+                  </Box>
+                </Grid>
+              );
+
+              const contentBlock = (
+                <Grid
+                  key={`${it.id}-content`}
+                  size={{ xs: 12, md: 6 }}
+                  sx={{ p: 0 }}
+                  id={it.id}
+                >
+                  <Box sx={{ height: { xs: 360, sm: 420, md: 520 } }}>
+                    <ContentCell
+                      title={it.title}
+                      description={it.description}
+                      primaryCtaLabel={it.primaryCtaLabel}
+                      primaryCtaHref={it.primaryCtaHref}
+                      secondaryCtaLabel={it.secondaryCtaLabel}
+                      secondaryCtaHref={it.secondaryCtaHref}
+                      onLaunch={() =>
+                        showLockError(
+                          "The uApp is currently under development.",
+                          "Stay tuned — the testnet version is coming soon."
+                        )
+                      }
+                    />
+                  </Box>
+                </Grid>
+              );
+
+              return it.imageSide === "left" ? (
+                <Box key={it.id} sx={{ display: "contents" }}>
+                  {contentBlock}
+                  {imageBlock}
                 </Box>
               ) : (
                 <Box key={it.id} sx={{ display: "contents" }}>
