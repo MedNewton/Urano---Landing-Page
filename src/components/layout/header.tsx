@@ -611,7 +611,15 @@ export default function Header() {
             height: "fit-content",
             width: "fit-content",
             textTransform: "none",
-          }}>
+          }}
+          onClick={(e)=>{
+            e.preventDefault();
+            showLockError(
+              "The uApp is currently under development.",
+              "Stay tuned — the testnet version is coming soon."
+            );
+          }}
+          >
             <Stack direction="row" alignItems="center" justifyContent="center" gap={1}>
               <Typography variant="h6" fontWeight={500} sx={{ color: theme.palette.background.default, fontSize: 18 }}>uApp</Typography>
               <Image src={rocketIcon} alt="Rocket Icon" width={18} height={18} style={{ transform: "translateY(1px)" }} />

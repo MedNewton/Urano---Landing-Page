@@ -124,14 +124,14 @@ const Hero = () => {
                     position: "absolute",
                     zIndex: 10,
                     width: "100%",
-                    minHeight: "80dvh",
+                    minHeight: "83dvh",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "end",
                     alignContent: "center",
                     left: 0,
                     right: 0,
-                    pt: 20,
+                    pt: 24,
                     mx: "auto",
                     gap: "0.75rem"
                 }}
