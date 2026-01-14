@@ -79,6 +79,8 @@ export default function PrivacyPolicy() {
               Last updated: {lastUpdated}
             </Typography>
 
+            <Divider sx={{ borderColor: theme.palette.secondary.main }} />
+
             <Typography variant="body1" paragraph>
               Urano Ecosystem Sp. z o.o. (hereinafter referred to as “Urano Ecosystem” or the
               “Company”), in its capacity as Data Controller, is committed to protecting the

@@ -118,7 +118,7 @@ export default function Terms(): ReactElement {
         <Stack spacing={{ xs: 3, md: 4 }}>
           <Stack spacing={1.5}>
             <Typography variant="h3" component="h1">
-              Terms &amp; Conditions – Urano Ecosystem Website
+              Terms &amp; Conditions
             </Typography>
             <Typography variant="body1" color="text.secondary">
               Last updated: {LAST_UPDATED}

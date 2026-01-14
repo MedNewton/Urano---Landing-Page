@@ -84,7 +84,7 @@ export default function CookiePolicy() {
         <Stack spacing={{ xs: 3, md: 4 }}>
           <Stack sx={{ p: { xs: 0, md: 4 } }} spacing={2}>
             <Typography variant="h3" component="h1" gutterBottom sx={{ mb: 1 }}>
-              Cookie Policy – Urano Ecosystem
+              Cookie Policy
             </Typography>
 
             <Typography variant="body1" gutterBottom>
