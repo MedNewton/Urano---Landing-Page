@@ -215,7 +215,7 @@ export default function TokenizationAsAServiceCarousel({
               left: 0,
               width: "105vw",
               height: "auto",
-              paddingTop: 4,
+              paddingTop: 6,
               overflow: "hidden",
               pointerEvents: "none",
               userSelect: "none",
@@ -238,7 +238,7 @@ export default function TokenizationAsAServiceCarousel({
             sx={{
               width: "100%",
               overflow: "hidden",
-              mt: 8,
+              mt: 10,
               position: "relative",
             }}
           >
