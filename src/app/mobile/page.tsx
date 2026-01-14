@@ -95,7 +95,7 @@ export default function Home() {
             description:
                 "Our Web3-native platform designed to let users access and manage real-world asset representations, stake $URANO, and participate in decentralized governance within a single, seamless ecosystem.",
             primaryCtaLabel: "LAUNCH",
-            primaryCtaHref: "/uapp",
+            primaryCtaHref: "launch",
             secondaryCtaLabel: "DISCOVER",
             secondaryCtaHref: "https://docs.uranoecosystem.com/ecosystem/uapp",
             imageSide: "left",
@@ -109,7 +109,7 @@ export default function Home() {
             description:
                 "From art and real estate to private equity, uShares represent real-world assets in a fractionalized on-chain format, enabling broader access through compliant digital instruments.",
             primaryCtaLabel: "BUY",
-            primaryCtaHref: "/ushares",
+            primaryCtaHref: "launch",
             secondaryCtaLabel: "DISCOVER",
             secondaryCtaHref: "https://docs.uranoecosystem.com/ecosystem/ushares",
             imageSide: "right",
@@ -137,7 +137,7 @@ export default function Home() {
             description:
                 "An AI agent designed to guide users through real-world assets, assist with complex operations, and enhance the overall platform experience.",
             primaryCtaLabel: "LAUNCH",
-            primaryCtaHref: "/uassistant",
+            primaryCtaHref: "launch",
             secondaryCtaLabel: "DISCOVER",
             secondaryCtaHref: "https://docs.uranoecosystem.com/ecosystem/uassistant",
             imageSide: "right",

@@ -4,8 +4,10 @@ import type { ReactElement, ReactNode } from "react";
 import React, { useEffect, useRef, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { Box, Button, Container, Stack, Typography, Grid } from "@mui/material";
+import { useRouter } from "next/navigation";
 import SouthEastIcon from "@mui/icons-material/SouthEast";
 import { motion } from "framer-motion";
+import ErrorModal from "@/components/ui/ErrorModal";
 
 import theme from "@/theme/theme";
 
@@ -32,10 +34,41 @@ export type MobileExploreEcosystemSectionProps = Readonly<{
   items: MobileExploreEcosystemItem[];
 }>;
 
-function ActionLink({ label, href }: { label: string; href: string }): ReactElement {
+function ActionLink({ label, href, onLaunch }: { label: string; href: string, onLaunch?: () => void; }): ReactElement {
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const raw = (href ?? "").trim();
+    const lower = raw.toLowerCase();
+
+    // ✅ “launch” sentinel => open modal
+    if (lower === "launch") {
+      onLaunch?.();
+      return;
+    }
+
+    // ✅ mailto
+    if (lower.startsWith("mailto:")) {
+      window.location.href = raw;
+      return;
+    }
+
+    // ✅ external
+    if (lower.startsWith("http://") || lower.startsWith("https://")) {
+      window.open(raw, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    // ✅ internal
+    const path = raw.startsWith("/") ? raw : `/${raw}`;
+    router.push(path);
+  };
+
   return (
     <Button
-      href={href}
+      onClick={handleClick}
       sx={{
         width: "45%",
         backgroundColor: "transparent",
@@ -450,6 +483,7 @@ function ContentCell({
   primaryCtaHref,
   secondaryCtaLabel,
   secondaryCtaHref,
+  onLaunch,
 }: {
   title: string;
   description: string;
@@ -457,6 +491,7 @@ function ContentCell({
   primaryCtaHref: string;
   secondaryCtaLabel: string;
   secondaryCtaHref: string;
+  onLaunch: () => void;
 }): ReactElement {
   return (
     <CellShell bg="#191919">
@@ -500,8 +535,8 @@ function ContentCell({
           justifyContent="space-between"
           sx={{ pt: 0.5 }}
         >
-          <ActionLink label={primaryCtaLabel} href={primaryCtaHref} />
-          <ActionLink label={secondaryCtaLabel} href={secondaryCtaHref} />
+          <ActionLink label={primaryCtaLabel} href={primaryCtaHref} onLaunch={onLaunch}  />
+          <ActionLink label={secondaryCtaLabel} href={secondaryCtaHref} onLaunch={onLaunch}  />
         </Stack>
       </Stack>
     </CellShell>
@@ -511,7 +546,19 @@ function ContentCell({
 export default function MobileExploreEcosystemSection({
   items,
 }: MobileExploreEcosystemSectionProps): ReactElement {
+
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorModalTitle, setErrorModalTitle] = useState("");
+  const [errorModalMessage, setErrorModalMessage] = useState("");
+
+  const showLockError = (t: string, m: string) => {
+    setErrorModalTitle(t);
+    setErrorModalMessage(m);
+    setErrorModalOpen(true);
+  };
+
   return (
+    <>
     <Box component="section" sx={{ width: "100%", pt: { xs: 2, md: 6 } }}>
       <Box sx={{ width: "100vw", ml: "calc(50% - 50vw)" }}>
         <Container maxWidth={false} sx={{ px: { xs: 2.5, md: 16 } }}>
@@ -567,6 +614,12 @@ export default function MobileExploreEcosystemSection({
                     primaryCtaHref={it.primaryCtaHref}
                     secondaryCtaLabel={it.secondaryCtaLabel}
                     secondaryCtaHref={it.secondaryCtaHref}
+                    onLaunch={() =>
+                      showLockError(
+                        "The uApp is currently under development.",
+                        "Stay tuned — the testnet version is coming soon."
+                      )
+                    }
                   />
                 </Box>
               </Grid>
@@ -593,5 +646,12 @@ export default function MobileExploreEcosystemSection({
         </Grid>
       </Box>
     </Box>
+    <ErrorModal
+        open={errorModalOpen}
+        onClose={() => setErrorModalOpen(false)}
+        errorTitle={errorModalTitle}
+        errorMessage={errorModalMessage}
+      />
+    </>
   );
 }
