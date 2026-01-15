@@ -52,6 +52,18 @@ export default function LaunchUAppButton({
           "&:hover .rocketImg": {
             animation: `${rocketFly} 1500ms ease-in-out infinite`,
           },
+          "&:active": {
+            border: "1px solid rgba(0, 105, 111, 0.28)",
+            background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
+            boxShadow: "0 0 12.2px 0 #006650 inset",
+          },
+
+          // optional: keeps it looking “pressed” while keyboard focused
+          "&:focus-visible": {
+            outline: "none",
+            border: "1px solid rgba(0, 105, 111, 0.28)",
+            boxShadow: "0 0 0 3px rgba(94, 187, 195, 0.25)",
+          },
         }}
       >
         <Typography
