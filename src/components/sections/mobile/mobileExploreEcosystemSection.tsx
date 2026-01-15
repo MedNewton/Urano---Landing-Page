@@ -559,7 +559,7 @@ export default function MobileExploreEcosystemSection({
 
   return (
     <>
-    <Box component="section" sx={{ width: "100%", pt: { xs: 2, md: 6 } }}>
+    <Box component="section" id="explore-the-ecosystem" sx={{ width: "100%", pt: { xs: 2, md: 6 } }}>
       <Box sx={{ width: "100vw", ml: "calc(50% - 50vw)" }}>
         <Container maxWidth={false} sx={{ px: { xs: 2.5, md: 16 } }}>
           <Typography

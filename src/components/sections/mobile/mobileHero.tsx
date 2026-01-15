@@ -1,5 +1,5 @@
 import theme from "@/theme/theme";
-import { Box, Stack, Typography, Button } from "@mui/material";
+import { Box, Stack, Typography, Button, Link } from "@mui/material";
 import Image from "next/image";
 
 import arb from "@/assets/images/poweredByArbitrumLogos/Secondary-OneLine_BlueIcon.png";
@@ -171,94 +171,102 @@ const Hero = () => {
                     </Typography>
 
                     <Stack width="100%" direction="row" alignItems="center" gap={5} mt={2} px={3}>
-                        <Button sx={{
-                            width: "45%",
-                            backgroundColor: "transparent",
-                            borderRadius: 0,
-                            borderBottom: `2px solid ${theme.palette.text.primary}`,
-                            borderTop: "none",
-                            borderLeft: "none",
-                            borderRight: "none",
-                            paddingX: 0.5,
-                            paddingY: 0.75,
-                            margin: 0,
-                            height: "fit-content",
-                            transition: "background 0.3s ease-in-out, border-bottom 0.3s ease-in-out, color 0.3s ease-in-out, filter 0.3s ease-in-out",
-                            "&:hover": {
-                                background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
-                                borderBottom: `2px solid transparent`,
-                                ".button-text": {
-                                    color: "#0E0E0E",
-                                },
-                                ".button-icon": {
-                                    filter: "invert(1)",
-                                    trasform: "rotate(45deg)",
-                                    transition: "transform 0.3s ease-in-out",
-                                },
-                            },
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center",
+                        <Link href="/#explore-the-ecosystem" underline="none" sx={{
+                            width: "45%"
                         }}>
-                            <Stack width="100%" direction="row" alignItems="center" gap={5} justifyContent="space-between">
-                                <Typography
-                                    className="button-text"
-                                    variant="h6"
-                                    sx={{
-                                        fontSize: { xs: "1.2rem", lg: "1.125rem" },
-                                        fontWeight: { xs: 400, lg: 400 },
-                                        color: theme.palette.text.primary,
-                                    }}
-                                >
-                                    EXPLORE
-                                </Typography>
-                                <SouthEastIcon className="button-icon" sx={{ fontSize: 20, color: theme.palette.text.primary, alignSelf: "flex-end" }} />
-                            </Stack>
-                        </Button>
-                        <Button sx={{
-                            width: "45%",
-                            backgroundColor: "transparent",
-                            borderRadius: 0,
-                            borderBottom: `2px solid ${theme.palette.text.primary}`,
-                            borderTop: "none",
-                            borderLeft: "none",
-                            borderRight: "none",
-                            paddingX: 0.75,
-                            paddingY: 0.75,
-                            margin: 0,
-                            height: "fit-content",
-                            transition: "background 0.3s ease-in-out, border-bottom 0.3s ease-in-out, color 0.3s ease-in-out, filter 0.3s ease-in-out",
-                            "&:hover": {
-                                background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
-                                borderBottom: `2px solid transparent`,
-                                ".button-text": {
-                                    color: "#0E0E0E",
+                            <Button sx={{
+                                width: "100%",
+                                backgroundColor: "transparent",
+                                borderRadius: 0,
+                                borderBottom: `2px solid ${theme.palette.text.primary}`,
+                                borderTop: "none",
+                                borderLeft: "none",
+                                borderRight: "none",
+                                paddingX: 0.5,
+                                paddingY: 0.75,
+                                margin: 0,
+                                height: "fit-content",
+                                transition: "background 0.3s ease-in-out, border-bottom 0.3s ease-in-out, color 0.3s ease-in-out, filter 0.3s ease-in-out",
+                                "&:hover": {
+                                    background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
+                                    borderBottom: `2px solid transparent`,
+                                    ".button-text": {
+                                        color: "#0E0E0E",
+                                    },
+                                    ".button-icon": {
+                                        filter: "invert(1)",
+                                        trasform: "rotate(45deg)",
+                                        transition: "transform 0.3s ease-in-out",
+                                    },
                                 },
-                                ".button-icon": {
-                                    filter: "invert(1)",
-                                },
-                            },
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center",
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}>
+                                <Stack width="100%" direction="row" alignItems="center" gap={5} justifyContent="space-between">
+                                    <Typography
+                                        className="button-text"
+                                        variant="h6"
+                                        sx={{
+                                            fontSize: { xs: "1.2rem", lg: "1.125rem" },
+                                            fontWeight: { xs: 400, lg: 400 },
+                                            color: theme.palette.text.primary,
+                                        }}
+                                    >
+                                        EXPLORE
+                                    </Typography>
+                                    <SouthEastIcon className="button-icon" sx={{ fontSize: 20, color: theme.palette.text.primary, alignSelf: "flex-end" }} />
+                                </Stack>
+                            </Button>
+                        </Link>
+                        <Link href="https://docs.uranoecosystem.com/ecosystem/ustation" target="_blank" rel="noopener noreferrer" underline="none" sx={{
+                            width: "45%"
                         }}>
-                            <Stack width="100%" direction="row" alignItems="center" gap={5} justifyContent="space-between">
-                                <Typography
-                                    className="button-text"
-                                    variant="h6"
-                                    sx={{
-                                        fontSize: { xs: "1.2rem", lg: "1.125rem" },
-                                        fontWeight: { xs: 400, lg: 400 },
-                                        color: theme.palette.text.primary,
-                                    }}
-                                >
-                                    TOKENIZE
-                                </Typography>
-                                <SouthEastIcon className="button-icon" sx={{ fontSize: 20, color: theme.palette.text.primary }} />
-                            </Stack>
-                        </Button>
+                            <Button sx={{
+                                width: "100%",
+                                backgroundColor: "transparent",
+                                borderRadius: 0,
+                                borderBottom: `2px solid ${theme.palette.text.primary}`,
+                                borderTop: "none",
+                                borderLeft: "none",
+                                borderRight: "none",
+                                paddingX: 0.75,
+                                paddingY: 0.75,
+                                margin: 0,
+                                height: "fit-content",
+                                transition: "background 0.3s ease-in-out, border-bottom 0.3s ease-in-out, color 0.3s ease-in-out, filter 0.3s ease-in-out",
+                                "&:hover": {
+                                    background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
+                                    borderBottom: `2px solid transparent`,
+                                    ".button-text": {
+                                        color: "#0E0E0E",
+                                    },
+                                    ".button-icon": {
+                                        filter: "invert(1)",
+                                    },
+                                },
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}>
+                                <Stack width="100%" direction="row" alignItems="center" gap={5} justifyContent="space-between">
+                                    <Typography
+                                        className="button-text"
+                                        variant="h6"
+                                        sx={{
+                                            fontSize: { xs: "1.2rem", lg: "1.125rem" },
+                                            fontWeight: { xs: 400, lg: 400 },
+                                            color: theme.palette.text.primary,
+                                        }}
+                                    >
+                                        TOKENIZE
+                                    </Typography>
+                                    <SouthEastIcon className="button-icon" sx={{ fontSize: 20, color: theme.palette.text.primary }} />
+                                </Stack>
+                            </Button>
+                        </Link>
                     </Stack>
                 </Stack>
             </Box>
