@@ -1,7 +1,7 @@
 "use client";
 
 import type { CSSProperties, ReactElement } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Link } from "@mui/material";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import { keyframes } from "@emotion/react";
 
@@ -19,6 +19,7 @@ export type MobilePoweredByUranoItem = Readonly<{
   id: string;
   title: string;
   description: string;
+  href: string;
 }>;
 
 export type MobilePoweredByUranoSectionProps = Readonly<{
@@ -35,6 +36,11 @@ function PoweredCell({
 }): ReactElement {
   return (
     <Box
+    component={Link}
+                  href={item?.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="none"
       sx={{
         height: "100%",
         minWidth: 0,

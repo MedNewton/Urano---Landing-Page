@@ -172,12 +172,14 @@ export default function Home() {
         {
             id: "governance",
             title: "Governance",
+            href: "https://docs.uranoecosystem.com/ecosystem/uranotoken/governance",
             description:
                 "Shape the Urano ecosystem through on-chain governance. $URANO holders vote on proposals, protocol upgrades and ecosystem allocations, contributing to the evolution of the protocol.",
         },
         {
             id: "staking",
             title: "Staking",
+            href: "https://docs.uranoecosystem.com/ecosystem/uranotoken/staking",
             description:
                 "Stake your $URANO to support protocol integrity, access participation-based benefits and receive protocol rewards.",
 
@@ -185,6 +187,7 @@ export default function Home() {
         {
             id: "priority",
             title: "Priority  Access",
+            href: "https://docs.uranoecosystem.com/ecosystem/uranotoken#strategic-benefits-of-holding-usdurano",
             description:
                 "Access curated tokenizations, strategic launches and ecosystem programs, available to verified $URANO holders.",
 
@@ -192,6 +195,7 @@ export default function Home() {
         {
             id: "revenue",
             title: "Ecosystem Rewards Pool",
+            href: "https://docs.uranoecosystem.com/ecosystem/uranotoken/ecosystem-rewards-pool",
             description:
                 "Benefit from Urano’s ecosystem activity through a shared rewards pool that supports active participation across the network.",
 
