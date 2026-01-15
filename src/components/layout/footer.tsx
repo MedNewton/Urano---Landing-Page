@@ -904,7 +904,7 @@ export default function UranoFooter({
 
           <Divider sx={{ mt: 6, borderColor: "rgba(255,255,255,0.08)" }} />
 
-          <Box sx={{ py: { xs: 4, md: 5 } }}>
+          <Box sx={{ pt: { xs: 4, md: 5 } }}>
             <Typography
               sx={{
                 color: "rgba(255,255,255,0.45)",
