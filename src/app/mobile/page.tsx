@@ -159,12 +159,14 @@ export default function Home() {
             image: tech1Image.src,
             imageAlt: "ArbiFuel",
             caption: "Gasless transactions powered by ArbiFuel",
+            href: "https://docs.uranoecosystem.com/arbitrum/arbifuel-program",
         },
         {
             id: "thirdweb",
             image: tech2Image.src,
             imageAlt: "Thirdweb",
             caption: "Onboarding everyone seamlessly with Thirdweb",
+            href: "https://thirdweb.com/",
         },
     ];
 

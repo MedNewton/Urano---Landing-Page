@@ -2,7 +2,7 @@
 
 import type { ReactElement } from "react";
 import Image, { type StaticImageData } from "next/image";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography, Link } from "@mui/material";
 
 import theme from "@/theme/theme";
 
@@ -11,6 +11,7 @@ export type MobileTechIntegrationItem = Readonly<{
   image: StaticImageData | string;
   imageAlt?: string;
   caption: string;
+  href: string;
 }>;
 
 export type MobileTechIntegrationsSectionProps = Readonly<{
@@ -22,75 +23,82 @@ function MobileTechCard({
   image,
   imageAlt = "",
   caption,
+  href
 }: {
   image: StaticImageData | string;
   imageAlt?: string;
   caption: string;
+  href: string;
 }): ReactElement {
   return (
-    <Box
-      sx={{
-        borderRadius: 3,
-        px: 0.5,
-        pt: 0.5,
-        overflow: "hidden",
-        border: `1px solid ${theme.palette.cardBorder1.main}`,
-        backgroundColor: theme.palette.background.paper,
-      }}
+    <Link
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      underline="none"
     >
       <Box
         sx={{
-          position: "relative",
-          width: "100%",
-          borderRadius: 2,
-          aspectRatio: "16 / 8",
+          borderRadius: 3,
+          px: 0.5,
+          pt: 0.5,
           overflow: "hidden",
-          backgroundColor: "rgba(255,255,255,0.04)",
-          "& .tech-bg-img": {
-            transform: "scale(1)",
-            transition: "transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1)",
-            willChange: "transform",
-          },
-          "&:hover .tech-bg-img": {
-            transform: "scale(1.06)",
-          },
+          border: `1px solid ${theme.palette.cardBorder1.main}`,
+          backgroundColor: theme.palette.background.paper,
         }}
       >
-        <Image
-          src={image}
-          alt={imageAlt}
-          fill
-          sizes="(max-width: 900px) 100vw, 900px"
-          className="tech-bg-img"
-          style={{ objectFit: "cover", objectPosition: "center" }}
-          priority={false}
-        />
-      </Box>
-
-      <Box
-        sx={{
-          px: { xs: 2.25, md: 3 },
-          py: { xs: 2, md: 0 },
-          backgroundColor: "rgba(18,18,18,0.92)",
-          borderTop: `1px solid ${theme.palette.cardBorder1.main}`,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-          minHeight: { xs: 72, md: 86 },
-        }}
-      >
-        <Typography
+        <Box
           sx={{
-            color: theme.palette.text.primary,
-            fontSize: { xs: "0.875rem", md: "1.25rem" },
-            fontWeight: 700,
+            position: "relative",
+            width: "100%",
+            borderRadius: 2,
+            aspectRatio: "16 / 8",
+            overflow: "hidden",
+            backgroundColor: "rgba(255,255,255,0.04)",
+            "& .tech-bg-img": {
+              transform: "scale(1)",
+              transition: "transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1)",
+              willChange: "transform",
+            },
+            "&:hover .tech-bg-img": {
+              transform: "scale(1.06)",
+            },
           }}
         >
-          {caption}
-        </Typography>
+          <Image
+            src={image}
+            alt={imageAlt}
+            fill
+            sizes="(max-width: 900px) 100vw, 900px"
+            className="tech-bg-img"
+            style={{ objectFit: "cover", objectPosition: "center" }}
+            priority={false}
+          />
+        </Box>
+
+        <Box
+          sx={{
+            px: { xs: 2.25, md: 3 },
+            py: { xs: 2, md: 0 },
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            minHeight: { xs: 72, md: 86 },
+          }}
+        >
+          <Typography
+            sx={{
+              color: theme.palette.text.primary,
+              fontSize: { xs: "0.875rem", md: "1.25rem" },
+              fontWeight: 700,
+            }}
+          >
+            {caption}
+          </Typography>
+        </Box>
       </Box>
-    </Box>
+    </Link>
   );
 }
 
@@ -121,7 +129,7 @@ export default function MobileTechIntegrationsSection({
         <Grid container spacing={{ xs: 2.5, md: 4 }}>
           {items.slice(0, 2).map((it) => (
             <Grid key={it.id} size={{ xs: 12, md: 6 }}>
-              <MobileTechCard image={it.image} imageAlt={it.imageAlt} caption={it.caption} />
+              <MobileTechCard image={it.image} imageAlt={it.imageAlt} caption={it.caption} href={it.href} />
             </Grid>
           ))}
         </Grid>
