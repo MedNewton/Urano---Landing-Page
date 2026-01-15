@@ -161,6 +161,11 @@ function MenuRow({
     <ButtonBase
       component={external ? "a" : NextLink}
       href={href}
+      onClick={(e)=>{
+        if(endAdornment) {
+          e.preventDefault()
+        }
+      }}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
       sx={{
@@ -401,7 +406,7 @@ function CommunityMenu(): React.ReactElement {
         />
 
         <MenuRow
-          href="/airdrop"
+          href="/"
           icon={<UranoGradientIcon icon={<Gift {...iconProps} />} size={22} />}
           label="Airdrop"
           endAdornment={comingSoonPill}
