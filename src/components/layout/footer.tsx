@@ -500,11 +500,11 @@ export default function UranoFooter({
             <MobileFooterColumn
               title="LEARN"
               links={[
-                { label: "Docs", href: "/docs" },
-                { label: "Audit", href: "/audit" },
-                { label: "FAQ", href: "/faq" },
-                { label: "uPaper", href: "/upaper" },
-                { label: "Github", href: "/github" },
+                { label: "Docs", href: "https://docs.uranoecosystem.com/" },
+                { label: "Audit", href: "https://docs.uranoecosystem.com/more/audit" },
+                { label: "FAQ", href: "https://docs.uranoecosystem.com/more/faqs" },
+                { label: "uPaper", href: "https://docs.uranoecosystem.com/more/upaper" },
+                { label: "Github", href: "https://github.com/uranoecosystem2024" },
               ]}
               twoColLinks
             />
