@@ -2,7 +2,7 @@
 
 import type { ReactElement } from "react";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, Link } from "@mui/material";
 import { motion, useDragControls, useMotionValue, animate } from "framer-motion";
 import Image from "next/image";
 import theme from "@/theme/theme"
@@ -16,6 +16,7 @@ import MobileSliderBottomBorder from "@/assets/images/slider/mobileSliderBottomB
 
 export type MobileTokenizationServiceCarouselItem = MobileServiceCardProps & {
   id: string;
+  href: string;
 };
 
 export type MobileTokenizationServiceCarouselProps = Readonly<{
@@ -211,6 +212,11 @@ export default function MobileTokenizationServiceCarousel({
               {cards.map((item) => (
                 <Box
                   key={item.id}
+                  component={Link}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="none"
                   // Prevent link navigation only when the user was dragging.
                   onClickCapture={(e) => {
                     if (!blockClickRef.current) return;

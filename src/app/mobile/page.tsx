@@ -45,6 +45,7 @@ export default function Home() {
                 "Supported and trusted by BlockSuisse AG a SPV Holding serving as an anchor investor.",
             image: slider1.src,
             imageAlt: "Slider 1",
+            href: "https://docs.uranoecosystem.com/the-legal-structure-of-urano/blocksuisse-ag",
         },
         {
             id: "notarization",
@@ -53,6 +54,7 @@ export default function Home() {
                 "Tamper-proof certification for digital and tokenized assets with instant on-chain verification.",
             image: slider2.src,
             imageAlt: "Slider 2",
+            href: "https://notarify.io/",
         },
         {
             id: "compliance",
@@ -61,6 +63,7 @@ export default function Home() {
                 "Full regulatory transparency and security, ensuring all tokenized assets meet compliance standards.",
             image: slider3.src,
             imageAlt: "Slider 3",
+            href: "https://withpersona.com/"
         },
         {
             id: "real-estate",
@@ -69,6 +72,7 @@ export default function Home() {
                 "From bricks to tokens: access institutional-grade fractional real estate.",
             image: slider4.src,
             imageAlt: "Slider 4",
+            href: "https://docs.uranoecosystem.com/core-concepts/use-cases-of-tokenization#real-estate"
         },
         {
             id: "intellectual-properties",
@@ -77,6 +81,7 @@ export default function Home() {
                 "Early access to tomorrow’s unicorns: IP, patents, and emerging startups.",
             image: slider5.src,
             imageAlt: "Slider 5",
+            href: "https://docs.uranoecosystem.com/core-concepts/use-cases-of-tokenization#intellectual-property-ip"
         },
         {
             id: "art",
@@ -85,6 +90,7 @@ export default function Home() {
                 "Tokenize fine Arts, track provenance on-chain and open new opportunities for creators.",
             image: slider6.src,
             imageAlt: "Slider 6",
+            href: "https://docs.uranoecosystem.com/core-concepts/use-cases-of-tokenization#art-and-collectibles"
         },
     ];
 
