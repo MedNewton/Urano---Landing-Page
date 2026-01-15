@@ -97,8 +97,6 @@ function PoweredCell({
           WebkitTextFillColor: "transparent",
           maxWidth: "100%",
           overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
         }}
       >
         {item?.title ?? ""}
