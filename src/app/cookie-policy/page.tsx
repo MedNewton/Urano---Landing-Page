@@ -76,7 +76,7 @@ export default function CookiePolicy() {
           maxWidth: 1120,
           mx: "auto",
           px: { xs: 2, sm: 3, md: 0 },
-          pt: { xs: 3, sm: 4, md: 20 },
+          pt: { xs: 16, sm: 4, md: 20 },
           pb: { xs: 3, sm: 4, md: 6 },
           flex: 1,
         }}

@@ -59,7 +59,7 @@ export default function PrivacyPolicy() {
   const lastUpdated = 'April 20, 2025';
 
   return (
-    <Stack direction="column" minHeight="100dvh" width="100%" px={{ xs: 0, lg: 6 }} py={{ xs: 0, lg: 3 }}>
+    <Stack direction="column" minHeight="100dvh" width="100%" px={{ xs: 0, lg: 6 }} py={{ xs: 12, lg: 3 }}>
       <Container
         maxWidth={false}
         sx={{
