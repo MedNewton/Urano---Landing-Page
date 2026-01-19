@@ -10,7 +10,7 @@ import Header from "@/components/layout/header";
 import UranoFooter from "@/components/layout/footer";
 
 import logo from "@/assets/images/logos/logo-turquoise-1.webp";
-import arbitrum from "@/assets/images/poweredByArbitrumLogos/Secondary-TwoLines_AllWhite.png";
+import arbitrum from "@/assets/images/poweredByArbitrumLogos/Secondary-OneLine_AllWhite.png";
 
 export const metadata: Metadata = {
   title: "Urano - Ecosystem",
