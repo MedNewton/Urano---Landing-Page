@@ -561,43 +561,46 @@ export default function UranoFooter({
         {/* DESKTOP */}
         <Box sx={{ display: { xs: "none", md: "flex" }, width: "100%", flexDirection: "column", minWidth: 0 }}>
           {/* ===========================
-              TABLET/LAPTOP MODE (md .. < xl)
-              One row: Logos | Links (2x2) | Buttons
+              DESKTOP (md+)
+              Logos | 4 Columns in a row | Buttons
              =========================== */}
-          <Box sx={{ display: { md: "block", xl: "none" }, width: "100%", minWidth: 0, mt: 16 }}>
-            <Box
-              sx={{
-                display: "flex",
-                flexWrap: "nowrap",
-                alignItems: "flex-start",
-                justifyContent: "space-between",
-                gap: 3,
-                minWidth: 0,
-                width: "100%",
-              }}
+          <Box sx={{ display: "block", width: "100%", minWidth: 0 }}>
+            <Stack
+              direction="row"
+              alignItems="flex-start"
+              spacing={0}
+              sx={{ mt: 16, mb: 0, minWidth: 0, width: "100%" }}
             >
-              {/* LEFT: LOGOS */}
-              <Stack spacing={0} sx={{ minWidth: 0, flex: "0 0 auto", marginTop: -4 }}>
-                <Box sx={{ position: "relative", width: { md: 200, lg: 280 }, height: 84, maxWidth: "100%" }}>
+              {/* LEFT LOGO BLOCK */}
+              <Stack
+                spacing={0}
+                sx={{
+                  minWidth: 0,
+                  flex: "0 0 auto",
+                  width: "fit-content",
+                  marginTop: -2
+                }}
+              >
+                <Box sx={{ position: "relative", width: { md: 200, lg: 260, xl: 320 }, height: 84, maxWidth: "100%" }}>
                   <MuiLink href="/" target="_blank" rel="noopener noreferrer" underline="none">
                     <Image
                       src={logoImage}
                       alt="Urano"
                       fill
-                      sizes="280px"
+                      sizes="(max-width: 1200px) 200px, (max-width: 1536px) 260px, 320px"
                       style={{ objectFit: "contain", objectPosition: "left top" }}
                     />
                   </MuiLink>
                 </Box>
 
-                <Stack direction="row" spacing={1.5} alignItems="center" sx={{ flexWrap: "nowrap", mt: 1, minWidth: 0 }}>
-                  <Box sx={{ position: "relative", width: { md: 120, lg: 160 }, height: 36, flexShrink: 0 }}>
+                <Stack direction="row" spacing={1.5} alignItems="center" sx={{ flexWrap: "nowrap" }}>
+                  <Box sx={{ position: "relative", width: { md: 120, lg: 150, xl: 180 }, height: 36, flexShrink: 0 }}>
                     <MuiLink href="https://arbitrum.io/" target="_blank" rel="noopener noreferrer" underline="none">
                       <Image
                         src={arbitrumImage}
                         alt="Arbitrum"
                         fill
-                        sizes="160px"
+                        sizes="(max-width: 1200px) 120px, (max-width: 1536px) 150px, 180px"
                         style={{ objectFit: "contain", objectPosition: "left center", marginLeft: 14 }}
                       />
                     </MuiLink>
@@ -605,49 +608,65 @@ export default function UranoFooter({
                 </Stack>
               </Stack>
 
-              {/* MIDDLE: LINKS (2x2 grid of 4 columns) */}
+              {/* COLUMNS - 4 columns in a row */}
               <Box
                 sx={{
                   flex: "1 1 auto",
                   minWidth: 0,
-                  pt: 1,
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, minmax(120px, 1fr))",
-                  columnGap: { md: 1, lg: 2 },
-                  rowGap: { md: 2, lg: 3 },
-                  alignItems: "flex-start",
+                  pt: 2.5,
+                  display: "flex",
                   justifyContent: "center",
-                  px: { md: 0, lg: 1 },
-                  overflow: "hidden",
+                  alignItems: "flex-start",
+                  gap: { md: 2, lg: 3, xl: 4 },
                 }}
               >
                 {columns.map((c) => {
                   const isLegal = c.title === "LEGAL";
+
                   return (
-                    <Box key={c.title} sx={{ minWidth: 0, width: "100%", overflow: "hidden" }}>
-                      <FooterColumnList col={c} allowWrapLinks />
+                    <Box
+                      key={c.title}
+                      sx={{
+                        minWidth: 0,
+                        width: isLegal
+                          ? { md: 160, lg: 190, xl: 220 }
+                          : { md: 120, lg: 150, xl: 170 },
+                        maxWidth: isLegal
+                          ? { md: 180, lg: 210, xl: 240 }
+                          : { md: 140, lg: 170, xl: 200 },
+                      }}
+                    >
+                      <FooterColumnList col={c} allowWrapLinks={isLegal} />
                     </Box>
                   );
                 })}
               </Box>
 
-              {/* RIGHT: BUTTONS */}
-              <Box sx={{ minWidth: 0, flex: "0 0 auto", pt: 1 }}>
-                <Stack spacing={1.5} sx={{ alignItems: "flex-end" }}>
+              {/* RIGHT CTA CLUSTER */}
+              <Box
+                sx={{
+                  pt: 2.5,
+                  flex: "0 0 auto",
+                  width: "fit-content",
+                  ml: "auto",
+                }}
+              >
+                <Stack spacing={{ md: 1.5, xl: 2 }} sx={{ width: "fit-content", alignItems: "flex-end" }}>
                   <Box
                     sx={{
                       display: "inline-flex",
-                      gap: { md: 1, lg: 1.5 },
+                      gap: { md: 1, lg: 1.25, xl: 1.5 },
                       alignItems: "center",
                       justifyContent: "flex-end",
-                      flexWrap: "nowrap",
+                      width: "fit-content",
+                      maxWidth: "100%",
                     }}
                   >
                     <IconButton
                       aria-label="X"
                       sx={{
-                        width: { md: 40, lg: 44 },
-                        height: { md: 40, lg: 44 },
+                        width: { md: 38, lg: 40, xl: 44 },
+                        height: { md: 38, lg: 40, xl: 44 },
                         borderRadius: 2,
                         backgroundColor: "#2A2A2A",
                         "&:hover": hoverGradient,
@@ -661,8 +680,8 @@ export default function UranoFooter({
                     <IconButton
                       aria-label="Telegram"
                       sx={{
-                        width: { md: 40, lg: 44 },
-                        height: { md: 40, lg: 44 },
+                        width: { md: 38, lg: 40, xl: 44 },
+                        height: { md: 38, lg: 40, xl: 44 },
                         borderRadius: 2,
                         backgroundColor: "#2A2A2A",
                         "&:hover": hoverGradient,
@@ -678,16 +697,16 @@ export default function UranoFooter({
                       target="_blank"
                       rel="noopener noreferrer"
                       underline="none"
-                      sx={{ display: "inline-block" }}
+                      sx={{ display: "inline-block", minWidth: 0 }}
                     >
                       <Button
                         variant="contained"
                         sx={{
                           ...surfaceBtnSx,
-                          px: { md: 1.5, lg: 2 },
-                          minWidth: { md: 110, lg: 140 },
-                          height: { md: 40, lg: 44 },
-                          fontSize: { md: 13, lg: 14 },
+                          px: { md: 1.5, lg: 2, xl: 2.25 },
+                          minWidth: { md: 120, lg: 145, xl: 170 },
+                          height: { md: 38, lg: 40, xl: 44 },
+                          fontSize: { md: 13, lg: 14, xl: 14 },
                           whiteSpace: "nowrap",
                           "&:hover": hoverGradient,
                         }}
@@ -711,185 +730,8 @@ export default function UranoFooter({
                         ...surfaceBtnSx,
                         width: "100%",
                         minWidth: "unset",
-                        height: { md: 40, lg: 44 },
-                        fontSize: { md: 13, lg: 14 },
-                        justifyContent: "center",
-                        "&:hover": hoverGradient,
-                      }}
-                    >
-                      Contact us
-                    </Button>
-                  </MuiLink>
-                </Stack>
-              </Box>
-            </Box>
-          </Box>
-
-          {/* ===========================
-              LARGE SCREENS (xl+)
-              Keep EXACT layout you had:
-              Logos | Columns | Buttons in one row
-             =========================== */}
-          <Box sx={{ display: { lg: "none", xl: "block" }, width: "100%", minWidth: 0 }}>
-            <Stack
-              direction="row"
-              alignItems="flex-start"
-              spacing={0}
-              sx={{ mt: 16, mb: 0, minWidth: 0, width: "100%" }}
-            >
-              {/* LEFT LOGO BLOCK */}
-              <Stack
-                spacing={0}
-                sx={{
-                  minWidth: 0,
-                  flex: "0 0 auto",
-                  width: "fit-content",
-                  marginTop: -2
-                }}
-              >
-                <Box sx={{ position: "relative", width: 320, height: 84, maxWidth: "100%" }}>
-                  <MuiLink href="/" target="_blank" rel="noopener noreferrer" underline="none">
-                    <Image
-                      src={logoImage}
-                      alt="Urano"
-                      fill
-                      sizes="320px"
-                      style={{ objectFit: "contain", objectPosition: "left top" }}
-                    />
-                  </MuiLink>
-                </Box>
-
-                <Stack direction="row" spacing={1.5} alignItems="center" sx={{ flexWrap: "nowrap" }}>
-                  <Box sx={{ position: "relative", width: 180, height: 36, flexShrink: 0 }}>
-                    <MuiLink href="https://arbitrum.io/" target="_blank" rel="noopener noreferrer" underline="none">
-                      <Image
-                        src={arbitrumImage}
-                        alt="Arbitrum"
-                        fill
-                        sizes="180px"
-                        style={{ objectFit: "contain", objectPosition: "left center", marginLeft: 14 }}
-                      />
-                    </MuiLink>
-                  </Box>
-                </Stack>
-              </Stack>
-
-              {/* COLUMNS */}
-              <Box
-                sx={{
-                  flex: "1 1 auto",
-                  minWidth: 0,
-                  pt: 2.5,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "flex-start",
-                  gap: 4,
-                }}
-              >
-                {columns.map((c) => {
-                  const isLegal = c.title === "LEGAL";
-
-                  return (
-                    <Box
-                      key={c.title}
-                      sx={{
-                        minWidth: 0,
-                        width: isLegal ? 220 : 170,
-                        maxWidth: isLegal ? 240 : 200,
-                      }}
-                    >
-                      <FooterColumnList col={c} allowWrapLinks={isLegal} />
-                    </Box>
-                  );
-                })}
-              </Box>
-
-              {/* RIGHT CTA CLUSTER */}
-              <Box
-                sx={{
-                  pt: 2.5,
-                  flex: "0 0 auto",
-                  width: "fit-content",
-                  ml: "auto",
-                }}
-              >
-                <Stack spacing={2} sx={{ width: "fit-content", alignItems: "flex-end" }}>
-                  <Box
-                    sx={{
-                      display: "inline-flex",
-                      gap: 1.5,
-                      alignItems: "center",
-                      justifyContent: "flex-end",
-                      width: "fit-content",
-                      maxWidth: "100%",
-                    }}
-                  >
-                    <IconButton
-                      aria-label="X"
-                      sx={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: 2,
-                        backgroundColor: "#2A2A2A",
-                        "&:hover": hoverGradient,
-                      }}
-                    >
-                      <MuiLink href="https://x.com/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
-                        <FaXTwitter className="icon" size={24} color="#EDEDED" style={{ marginTop: 5 }} />
-                      </MuiLink>
-                    </IconButton>
-
-                    <IconButton
-                      aria-label="Telegram"
-                      sx={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: 2,
-                        backgroundColor: "#2A2A2A",
-                        "&:hover": hoverGradient,
-                      }}
-                    >
-                      <MuiLink href="https://t.me/uranoecosystem" target="_blank" rel="noopener noreferrer" underline="none">
-                        <RiTelegram2Fill className="icon" size={24} color="#EDEDED" style={{ marginTop: 5 }} />
-                      </MuiLink>
-                    </IconButton>
-
-                    <MuiLink
-                      href="https://docs.uranoecosystem.com/the-legal-structure-of-urano"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      underline="none"
-                      sx={{ display: "inline-block", minWidth: 0 }}
-                    >
-                      <Button
-                        variant="contained"
-                        sx={{
-                          ...surfaceBtnSx,
-                          px: 2.25,
-                          minWidth: 170,
-                          whiteSpace: "nowrap",
-                          "&:hover": hoverGradient,
-                        }}
-                      >
-                        Compliance Note
-                      </Button>
-                    </MuiLink>
-                  </Box>
-
-                  <MuiLink
-                    href="mailto:info@uranoecosystem.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    underline="none"
-                    sx={{ width: "100%" }}
-                  >
-                    <Button
-                      variant="contained"
-                      startIcon={<Sms className="icon" size={24} color="#EDEDED" />}
-                      sx={{
-                        ...surfaceBtnSx,
-                        width: "100%",
-                        minWidth: "unset",
+                        height: { md: 38, lg: 40, xl: 44 },
+                        fontSize: { md: 13, lg: 14, xl: 14 },
                         justifyContent: "center",
                         "&:hover": hoverGradient,
                       }}
