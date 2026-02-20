@@ -8,6 +8,7 @@ import ConditionalPreloader from "@/components/layout/ConditionalPreloader";
 import { Providers } from "@/components/layout/providers";
 import Header from "@/components/layout/header";
 import UranoFooter from "@/components/layout/footer";
+import CookieConsent from "@/components/layout/cookiesPopUp";
 
 import logo from "@/assets/images/logos/logo-turquoise-1.webp";
 import arbitrum from "@/assets/images/poweredByArbitrumLogos/Secondary-OneLine_AllWhite.png";
@@ -41,6 +42,7 @@ export default function RootLayout({
             {children}
             <ConditionalPreloader />
             <UranoFooter logoImage={logo} arbitrumImage={arbitrum} />
+            <CookieConsent />
           </Box>
         </Providers>
       </body>
