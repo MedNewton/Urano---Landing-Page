@@ -21,7 +21,7 @@ import logo from "@/assets/images/logos/logo-turquoise-1.webp";
 
 const TOKEN_ADDRESS = "0x5AF01e4d2bEFf2b01A8F3992e875EDd8d67469D2";
 const PRESALE_URL = "https://www.presale.uranoecosystem.com";
-const LAUNCH_DATE = "March 17, 2025";
+const LAUNCH_DATE = "March 17, 2026";
 
 export default function LaunchPage() {
   const [copied, setCopied] = useState(false);
