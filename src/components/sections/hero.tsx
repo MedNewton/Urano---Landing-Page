@@ -3,6 +3,7 @@ import { Box, Stack, Typography, Button, Link } from "@mui/material";
 import Image from "next/image";
 
 import arb from "@/assets/images/poweredByArbitrumLogos/Secondary-OneLine_BlueIcon.png";
+import uniswapLogo from "@/assets/images/logos/uniswap-logo.png";
 import SouthEastIcon from '@mui/icons-material/SouthEast';
 
 const Hero = () => {
@@ -150,9 +151,93 @@ const Hero = () => {
                 >
                     Urano Ecosystem is a full-stack platform powering secure and scalable tokenization of Real-World Assets
                 </Typography>
-                <Stack direction="row" alignItems="center" gap={1} mt={2}>
+                <Stack direction="row" alignItems="center" gap={2} mt={2} flexWrap="wrap">
                     <Link href="https://arbitrum.io/" target="_blank" rel="noopener noreferrer">
                         <Image src={arb} alt="ArbDAO" width={180} height={38} />
+                    </Link>
+                    <Box
+                        sx={{
+                            width: "1px",
+                            height: "24px",
+                            background: "rgba(255,255,255,0.18)",
+                        }}
+                    />
+                    <Link
+                        href="https://app.uniswap.org/swap?outputCurrency=0x5AF01e4d2bEFf2b01A8F3992e875EDd8d67469D2&chain=arbitrum"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        underline="none"
+                        sx={{ width: "fit-content", display: "inline-flex" }}
+                    >
+                        <Stack
+                            direction="row"
+                            alignItems="center"
+                            gap={1.25}
+                            sx={{
+                                transition: "opacity 0.3s ease-in-out",
+                                "&:hover": {
+                                    ".uniswap-cta-text": {
+                                        background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
+                                        backgroundClip: "text",
+                                        WebkitBackgroundClip: "text",
+                                        WebkitTextFillColor: "transparent",
+                                    },
+                                },
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    position: "relative",
+                                    width: 8,
+                                    height: 8,
+                                    borderRadius: "50%",
+                                    background: "#6DE7C2",
+                                    boxShadow: "0 0 8px rgba(109, 231, 194, 0.8)",
+                                    "&::after": {
+                                        content: '""',
+                                        position: "absolute",
+                                        inset: 0,
+                                        borderRadius: "50%",
+                                        background: "#6DE7C2",
+                                        animation: "uranoPulse 1.8s ease-out infinite",
+                                    },
+                                    "@keyframes uranoPulse": {
+                                        "0%": { transform: "scale(1)", opacity: 0.7 },
+                                        "100%": { transform: "scale(2.8)", opacity: 0 },
+                                    },
+                                }}
+                            />
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    lineHeight: 0,
+                                    marginTop: -1
+                                }}
+                            >
+                                <Image
+                                    src={uniswapLogo}
+                                    alt="Uniswap"
+                                    width={44}
+                                    height={44}
+                                    style={{ objectFit: "contain", display: "block" }}
+                                />
+                            </Box>
+                            <Typography
+                                className="uniswap-cta-text"
+                                sx={{
+                                    fontSize: { xs: "0.95rem", lg: "1.05rem" },
+                                    fontWeight: 500,
+                                    color: theme.palette.text.primary,
+                                    letterSpacing: "0.02em",
+                                    lineHeight: 1,
+                                    transition: "color 0.3s ease-in-out",
+                                }}
+                            >
+                                Live on Uniswap
+                            </Typography>
+                        </Stack>
                     </Link>
                 </Stack>
                 <Stack direction="row" alignItems="center" gap={5} mt={2}>
