@@ -386,6 +386,36 @@ export default function MobileMenu({
                             </AccordionDetails>
                         </Accordion>
                     ))}
+
+                    <Box sx={cardSx}>
+                        <ButtonBase
+                            component={NextLink}
+                            href="/team"
+                            onClick={onNavigate}
+                            sx={{
+                                width: "100%",
+                                justifyContent: "flex-start",
+                                px: 2.25,
+                                minHeight: 84,
+                                transition: "background-color 150ms ease",
+                                "&:hover": {
+                                    backgroundColor: "rgba(255,255,255,0.04)",
+                                },
+                            }}
+                        >
+                            <Typography
+                                className="conthrax"
+                                sx={{
+                                    color: "#EDEDED",
+                                    fontSize: 16,
+                                    letterSpacing: "0.08em",
+                                    textTransform: "uppercase",
+                                }}
+                            >
+                                TEAM
+                            </Typography>
+                        </ButtonBase>
+                    </Box>
                 </Stack>
             </Box>
 

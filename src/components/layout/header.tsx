@@ -596,6 +596,28 @@ export default function Header() {
               onMouseLeave={scheduleClose}
               isOpen={openKey === "community"}
             />
+            <ButtonBase
+              component={NextLink}
+              href="/team"
+              onMouseEnter={scheduleClose}
+              sx={{
+                display: "inline-flex",
+                alignItems: "center",
+                px: 1.5,
+                py: 1,
+                borderRadius: 1.5,
+                color: theme.palette.text.secondary,
+                transition: "color 150ms ease, background-color 150ms ease",
+                "&:hover": {
+                  color: theme.palette.text.primary,
+                  backgroundColor: "rgba(0,0,0,0.25)",
+                },
+              }}
+            >
+              <Typography sx={{ fontSize: 14, letterSpacing: "0.10em" }}>
+                TEAM
+              </Typography>
+            </ButtonBase>
           </Stack>
 
           <RocketButton onPress={(e)=>{
