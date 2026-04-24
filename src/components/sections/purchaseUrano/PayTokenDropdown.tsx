@@ -9,7 +9,7 @@ export function PayTokenDropdown({
   onChange,
 }: Readonly<{ value: PayToken; onChange: (v: PayToken) => void }>) {
   const handleChange = (e: SelectChangeEvent<PayToken>) => {
-    onChange(e.target.value as PayToken);
+    onChange(e.target.value);
   };
 
   return (

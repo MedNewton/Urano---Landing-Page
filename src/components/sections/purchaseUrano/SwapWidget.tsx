@@ -2,12 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Box, Button, InputBase, Stack, Typography } from "@mui/material";
-import { readContract } from "thirdweb";
+import { prepareContractCall, readContract } from "thirdweb";
 import {
   ConnectButton,
   useActiveAccount,
   useActiveWalletChain,
   useReadContract,
+  useSendTransaction,
   useSwitchActiveWalletChain,
   useWalletBalance,
 } from "thirdweb/react";
@@ -109,11 +110,11 @@ export default function SwapWidget() {
           if (!cancelled) setQuotedOut(null);
           return;
         }
-        const amounts = (await readContract({
+        const amounts = await readContract({
           contract: v2RouterContract,
           method: "getAmountsOut",
-          params: [amountInWei, path as readonly `0x${string}`[]],
-        })) as readonly bigint[];
+          params: [amountInWei, path],
+        });
         if (cancelled) return;
         setQuotedOut(amounts[amounts.length - 1] ?? null);
       } catch {
@@ -184,7 +185,13 @@ export default function SwapWidget() {
     return allowance < amountInBigInt;
   })();
 
-  const ctaLabel: string = (() => {
+  const { mutateAsync: sendTx, isPending: txPending } = useSendTransaction();
+  const [txError, setTxError] = useState<string | null>(null);
+  const [txSuccess, setTxSuccess] = useState<boolean>(false);
+
+  const slippageBps = BigInt(Math.round(slippage * 100));
+
+  const baseCtaLabel: string = (() => {
     if (amountInBigInt === null || amountInBigInt === 0n)
       return "Enter an amount";
     if (insufficient) return payToken === "USDC" ? "Insufficient USDC" : "Insufficient ETH";
@@ -193,10 +200,85 @@ export default function SwapWidget() {
     return "Swap";
   })();
 
+  const ctaLabel = txPending ? "Confirming…" : baseCtaLabel;
+
   const ctaDisabled =
-    ctaLabel === "Enter an amount" ||
-    ctaLabel.startsWith("Insufficient") ||
-    ctaLabel === "No route";
+    txPending ||
+    baseCtaLabel === "Enter an amount" ||
+    baseCtaLabel.startsWith("Insufficient") ||
+    baseCtaLabel === "No route";
+
+  async function handleApprove() {
+    if (!account || amountInBigInt === null) return;
+    setTxError(null);
+    setTxSuccess(false);
+    try {
+      const tx = prepareContractCall({
+        contract: usdcContract,
+        method: "approve",
+        params: [env.NEXT_PUBLIC_UNISWAP_V2_ROUTER, amountInBigInt],
+      });
+      await sendTx(tx);
+      await allowanceQuery.refetch();
+    } catch (err) {
+      const e = err as { shortMessage?: string; message?: string };
+      setTxError(e.shortMessage ?? e.message ?? "Approval failed");
+    }
+  }
+
+  async function handleSwap() {
+    if (!account || amountInBigInt === null || quotedOut === null) return;
+    setTxError(null);
+    setTxSuccess(false);
+    const amountOutMin = (quotedOut * (10000n - slippageBps)) / 10000n;
+    const deadline = BigInt(Math.floor(Date.now() / 1000) + 600);
+    try {
+      const tx =
+        payToken === "USDC"
+          ? prepareContractCall({
+              contract: v2RouterContract,
+              method: "swapExactTokensForTokens",
+              params: [
+                amountInBigInt,
+                amountOutMin,
+                usdcPath(),
+                account.address,
+                deadline,
+              ],
+            })
+          : prepareContractCall({
+              contract: v2RouterContract,
+              method: "swapExactETHForTokens",
+              params: [
+                amountOutMin,
+                ethPath(),
+                account.address,
+                deadline,
+              ],
+              value: amountInBigInt,
+            });
+      await sendTx(tx);
+      setAmountIn("");
+      setQuotedOut(null);
+      setTxSuccess(true);
+      if (payToken === "USDC") {
+        await Promise.all([
+          usdcBalanceQuery.refetch(),
+          allowanceQuery.refetch(),
+        ]);
+      }
+    } catch (err) {
+      const e = err as { shortMessage?: string; message?: string };
+      setTxError(e.shortMessage ?? e.message ?? "Swap failed");
+    }
+  }
+
+  const handleCtaClick =
+    baseCtaLabel === "Approve USDC"
+      ? handleApprove
+      : baseCtaLabel === "Swap"
+        ? handleSwap
+        : undefined;
 
   return (
     <Box
@@ -337,10 +419,41 @@ export default function SwapWidget() {
           Switch to Arbitrum
         </Button>
       ) : (
-        <Button fullWidth disabled={ctaDisabled} sx={ctaSx}>
+        <Button
+          fullWidth
+          disabled={ctaDisabled}
+          onClick={handleCtaClick}
+          sx={ctaSx}
+        >
           {ctaLabel}
         </Button>
       )}
+
+      {txError ? (
+        <Typography
+          sx={{
+            color: "#ff6b6b",
+            fontSize: 12,
+            mt: 1.5,
+            textAlign: "center",
+            wordBreak: "break-word",
+          }}
+        >
+          {txError}
+        </Typography>
+      ) : null}
+      {txSuccess ? (
+        <Typography
+          sx={{
+            color: "#6DE7C2",
+            fontSize: 12,
+            mt: 1.5,
+            textAlign: "center",
+          }}
+        >
+          Swap confirmed.
+        </Typography>
+      ) : null}
     </Box>
   );
 }
