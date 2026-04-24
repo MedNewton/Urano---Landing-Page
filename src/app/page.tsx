@@ -9,6 +9,7 @@ import type { TechIntegrationItem } from "@/components/sections/TechIntegrations
 import TechIntegrationsSection from "@/components/sections/TechIntegrationsSection";
 import type { PoweredByUranoItem } from "@/components/sections/PoweredByUranoSection";
 import PoweredByUranoSection from "@/components/sections/PoweredByUranoSection";
+import PurchaseUranoSection from "@/components/sections/PurchaseUranoSection";
 import type { FaqItem } from "@/components/sections/FaqSection";
 import FaqSection from "@/components/sections/FaqSection";
 import PartnersAndAdvisorsSection from "@/components/sections/PartnersAndAdvisorsSection";
@@ -241,6 +242,7 @@ export default function Home() {
       <TokenizationAsAServiceCarousel title="Tokenization as a Service" items={carouselItems} />
       <ExploreEcosystemSection title="Explore the Urano Ecosystem" items={ecosystemItems} />
       <PoweredByUranoSection title="Powered by Urano" items={poweredItems} />
+      <PurchaseUranoSection />
       <TechIntegrationsSection title="Tech Integrations" items={techItems} />
       <PartnersAndAdvisorsSection />
       <FaqSection title="FAQ" items={faqItems} />
