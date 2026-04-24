@@ -59,32 +59,6 @@ export default function TeamPage() {
         overflow: "hidden",
       }}
     >
-      {/* Background */}
-      <Box
-        sx={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "none",
-        }}
-      >
-        <Image
-          src={bgdark}
-          alt=""
-          fill
-          priority
-          style={{ objectFit: "cover", objectPosition: "center" }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.3) 50%, rgba(10,10,10,0.7) 100%)",
-          }}
-        />
-      </Box>
-
       {/* Content */}
       <Stack
         spacing={{ xs: 5, md: 7 }}
@@ -114,7 +88,7 @@ export default function TeamPage() {
               WebkitTextFillColor: "transparent",
             }}
           >
-            TradiFi team
+            Founding Team
           </Typography>
 
           <Typography
