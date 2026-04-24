@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import { Box, Button, InputBase, Stack, Typography } from "@mui/material";
 import { prepareContractCall, readContract } from "thirdweb";
 import {
-  ConnectButton,
   useActiveAccount,
   useActiveWalletChain,
+  useConnectModal,
   useReadContract,
   useSendTransaction,
   useSwitchActiveWalletChain,
@@ -57,6 +57,22 @@ export default function SwapWidget() {
   const activeChain = useActiveWalletChain();
   const switchChain = useSwitchActiveWalletChain();
   const isWrongChain = !!account && activeChain?.id !== chain.id;
+
+  const { connect, isConnecting } = useConnectModal();
+
+  const handleConnect = () => {
+    void connect({
+      client,
+      chain,
+      accountAbstraction: {
+        chain,
+        sponsorGas: true,
+      },
+      size: "compact",
+      title: "Connect to Urano",
+      showThirdwebBranding: false,
+    });
+  };
 
   const handlePayTokenChange = (next: PayToken) => {
     setPayToken(next);
@@ -392,28 +408,14 @@ export default function SwapWidget() {
       ) : null}
 
       {!account ? (
-        <ConnectButton
-          client={client}
-          chain={chain}
-          theme="dark"
-          connectButton={{
-            label: "Connect Wallet",
-            style: {
-              width: "100%",
-              padding: "12px 0",
-              borderRadius: 8,
-              fontWeight: 700,
-              fontSize: 16,
-              color: "#0c1b1e",
-              background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
-            },
-          }}
-          connectModal={{
-            size: "compact",
-            title: "Connect to Urano",
-            showThirdwebBranding: false,
-          }}
-        />
+        <Button
+          fullWidth
+          onClick={handleConnect}
+          disabled={isConnecting}
+          sx={ctaSx}
+        >
+          {isConnecting ? "Connecting…" : "Connect Wallet"}
+        </Button>
       ) : isWrongChain ? (
         <Button fullWidth onClick={() => switchChain(chain)} sx={ctaSx}>
           Switch to Arbitrum
