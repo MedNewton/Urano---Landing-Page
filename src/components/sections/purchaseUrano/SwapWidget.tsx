@@ -1,14 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Box, Button, InputBase, Stack, Typography } from "@mui/material";
+import { readContract } from "thirdweb";
 import {
   ConnectButton,
   useActiveAccount,
   useActiveWalletChain,
   useSwitchActiveWalletChain,
 } from "thirdweb/react";
+import { formatUnits, parseUnits } from "viem";
 import { client, chain } from "@/lib/thirdweb";
+import {
+  ETH_DECIMALS,
+  URANO_DECIMALS,
+  USDC_DECIMALS,
+  ethPath,
+  usdcPath,
+  v2RouterContract,
+} from "@/lib/contracts";
 import { SlippageDropdown, type SlippagePct } from "./SlippageDropdown";
 import { PayTokenDropdown, type PayToken } from "./PayTokenDropdown";
 
@@ -58,6 +68,63 @@ export default function SwapWidget() {
     if (frac !== undefined && frac.length > maxDecimals) return;
     setAmountIn(raw);
   };
+
+  const [debouncedAmount, setDebouncedAmount] = useState<string>("");
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedAmount(amountIn), 300);
+    return () => clearTimeout(t);
+  }, [amountIn]);
+
+  const [quotedOut, setQuotedOut] = useState<bigint | null>(null);
+  const [quoteError, setQuoteError] = useState<string | null>(null);
+
+  const payDecimals = payToken === "USDC" ? USDC_DECIMALS : ETH_DECIMALS;
+  const path = useMemo(
+    () => (payToken === "USDC" ? usdcPath() : ethPath()),
+    [payToken],
+  );
+
+  useEffect(() => {
+    setQuoteError(null);
+    if (
+      !debouncedAmount ||
+      debouncedAmount === "0" ||
+      debouncedAmount === "."
+    ) {
+      setQuotedOut(null);
+      return;
+    }
+    let cancelled = false;
+    const run = async () => {
+      try {
+        const amountInWei = parseUnits(debouncedAmount, payDecimals);
+        if (amountInWei === 0n) {
+          if (!cancelled) setQuotedOut(null);
+          return;
+        }
+        const amounts = (await readContract({
+          contract: v2RouterContract,
+          method: "getAmountsOut",
+          params: [amountInWei, path as readonly `0x${string}`[]],
+        })) as readonly bigint[];
+        if (cancelled) return;
+        setQuotedOut(amounts[amounts.length - 1] ?? null);
+      } catch {
+        if (cancelled) return;
+        setQuotedOut(null);
+        setQuoteError("No route");
+      }
+    };
+    void run();
+    return () => {
+      cancelled = true;
+    };
+  }, [debouncedAmount, payDecimals, path]);
+
+  const receiveDisplay =
+    quotedOut === null
+      ? ""
+      : Number(formatUnits(quotedOut, URANO_DECIMALS)).toFixed(4);
 
   return (
     <Box
@@ -139,7 +206,7 @@ export default function SwapWidget() {
         <InputBase
           fullWidth
           readOnly
-          value=""
+          value={receiveDisplay}
           placeholder="0.0"
           sx={{
             color: "#fff",
@@ -161,6 +228,14 @@ export default function SwapWidget() {
           URANO
         </Typography>
       </Stack>
+
+      {quoteError ? (
+        <Typography
+          sx={{ color: "#ff6b6b", fontSize: 12, mb: 1, textAlign: "center" }}
+        >
+          {quoteError}
+        </Typography>
+      ) : null}
 
       {!account ? (
         <ConnectButton
