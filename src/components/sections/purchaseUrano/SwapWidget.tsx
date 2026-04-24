@@ -2,6 +2,13 @@
 
 import { useState } from "react";
 import { Box, Button, InputBase, Stack, Typography } from "@mui/material";
+import {
+  ConnectButton,
+  useActiveAccount,
+  useActiveWalletChain,
+  useSwitchActiveWalletChain,
+} from "thirdweb/react";
+import { client, chain } from "@/lib/thirdweb";
 import { SlippageDropdown, type SlippagePct } from "./SlippageDropdown";
 import { PayTokenDropdown, type PayToken } from "./PayTokenDropdown";
 
@@ -27,6 +34,11 @@ export default function SwapWidget() {
   const [payToken, setPayToken] = useState<PayToken>("USDC");
   const [slippage, setSlippage] = useState<SlippagePct>(0.5);
   const [amountIn, setAmountIn] = useState<string>("");
+
+  const account = useActiveAccount();
+  const activeChain = useActiveWalletChain();
+  const switchChain = useSwitchActiveWalletChain();
+  const isWrongChain = !!account && activeChain?.id !== chain.id;
 
   const handlePayTokenChange = (next: PayToken) => {
     setPayToken(next);
@@ -150,9 +162,38 @@ export default function SwapWidget() {
         </Typography>
       </Stack>
 
-      <Button fullWidth disableElevation sx={ctaSx}>
-        Connect Wallet
-      </Button>
+      {!account ? (
+        <ConnectButton
+          client={client}
+          chain={chain}
+          theme="dark"
+          connectButton={{
+            label: "Connect Wallet",
+            style: {
+              width: "100%",
+              padding: "12px 0",
+              borderRadius: 8,
+              fontWeight: 700,
+              fontSize: 16,
+              color: "#0c1b1e",
+              background: "linear-gradient(90deg, #5EBBC3 0%, #6DE7C2 100%)",
+            },
+          }}
+          connectModal={{
+            size: "compact",
+            title: "Connect to Urano",
+            showThirdwebBranding: false,
+          }}
+        />
+      ) : isWrongChain ? (
+        <Button fullWidth onClick={() => switchChain(chain)} sx={ctaSx}>
+          Switch to Arbitrum
+        </Button>
+      ) : (
+        <Button fullWidth disabled sx={ctaSx}>
+          Enter an amount
+        </Button>
+      )}
     </Box>
   );
 }
