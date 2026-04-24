@@ -30,6 +30,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+    "thirdweb": "^5.119.4",
+    "viem": "^2.48.4",
     "zod": "^3.24.2"
   },
   "devDependencies": {
