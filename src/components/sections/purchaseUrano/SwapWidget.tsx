@@ -7,20 +7,27 @@ import {
   ConnectButton,
   useActiveAccount,
   useActiveWalletChain,
+  useReadContract,
   useSwitchActiveWalletChain,
+  useWalletBalance,
 } from "thirdweb/react";
 import { formatUnits, parseUnits } from "viem";
+import { env } from "@/env";
 import { client, chain } from "@/lib/thirdweb";
 import {
   ETH_DECIMALS,
+  ETH_GAS_BUFFER_WEI,
   URANO_DECIMALS,
   USDC_DECIMALS,
   ethPath,
   usdcPath,
+  usdcContract,
   v2RouterContract,
 } from "@/lib/contracts";
 import { SlippageDropdown, type SlippagePct } from "./SlippageDropdown";
 import { PayTokenDropdown, type PayToken } from "./PayTokenDropdown";
+
+const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000" as const;
 
 const ctaSx = {
   py: 1.5,
@@ -125,6 +132,71 @@ export default function SwapWidget() {
     quotedOut === null
       ? ""
       : Number(formatUnits(quotedOut, URANO_DECIMALS)).toFixed(4);
+
+  const usdcBalanceQuery = useReadContract({
+    contract: usdcContract,
+    method: "balanceOf",
+    params: [account?.address ?? ZERO_ADDRESS],
+    queryOptions: { enabled: !!account && payToken === "USDC" },
+  });
+
+  const allowanceQuery = useReadContract({
+    contract: usdcContract,
+    method: "allowance",
+    params: [
+      account?.address ?? ZERO_ADDRESS,
+      env.NEXT_PUBLIC_UNISWAP_V2_ROUTER,
+    ],
+    queryOptions: { enabled: !!account && payToken === "USDC" },
+  });
+
+  const ethBalanceQuery = useWalletBalance({
+    client,
+    chain,
+    address: account?.address,
+  });
+
+  const amountInBigInt: bigint | null = (() => {
+    if (!debouncedAmount) return null;
+    try {
+      return parseUnits(debouncedAmount, payDecimals);
+    } catch {
+      return null;
+    }
+  })();
+
+  const insufficient = (() => {
+    if (!account || amountInBigInt === null) return false;
+    if (payToken === "USDC") {
+      const bal = usdcBalanceQuery.data;
+      if (bal === undefined) return false;
+      return amountInBigInt > bal;
+    }
+    const bal = ethBalanceQuery.data?.value;
+    if (bal === undefined) return false;
+    return amountInBigInt + ETH_GAS_BUFFER_WEI > bal;
+  })();
+
+  const needsApproval = (() => {
+    if (payToken !== "USDC" || !account || amountInBigInt === null) return false;
+    const allowance = allowanceQuery.data;
+    if (allowance === undefined) return false;
+    return allowance < amountInBigInt;
+  })();
+
+  const ctaLabel: string = (() => {
+    if (amountInBigInt === null || amountInBigInt === 0n)
+      return "Enter an amount";
+    if (insufficient) return payToken === "USDC" ? "Insufficient USDC" : "Insufficient ETH";
+    if (quoteError) return "No route";
+    if (needsApproval) return "Approve USDC";
+    return "Swap";
+  })();
+
+  const ctaDisabled =
+    ctaLabel === "Enter an amount" ||
+    ctaLabel.startsWith("Insufficient") ||
+    ctaLabel === "No route";
 
   return (
     <Box
@@ -265,8 +337,8 @@ export default function SwapWidget() {
           Switch to Arbitrum
         </Button>
       ) : (
-        <Button fullWidth disabled sx={ctaSx}>
-          Enter an amount
+        <Button fullWidth disabled={ctaDisabled} sx={ctaSx}>
+          {ctaLabel}
         </Button>
       )}
     </Box>
