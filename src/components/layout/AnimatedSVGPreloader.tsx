@@ -213,7 +213,7 @@ function createSvgFromMarkup(svgMarkup: string): SVGSVGElement | null {
     const doc = parser.parseFromString(svgMarkup, "image/svg+xml");
     const svg = doc.querySelector("svg");
     if (!svg) return null;
-    return svg as unknown as SVGSVGElement;
+    return svg;
 }
 
 function getPathLengthSafe(p: SVGPathElement): number {
