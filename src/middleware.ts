@@ -1,7 +1,7 @@
 import { NextResponse, userAgent } from "next/server";
 import type { NextRequest } from "next/server";
 
-const mobileRewrittenPaths = ["/", "/team", "/about"];
+const mobileRewrittenPaths = ["/"];
 
 export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
