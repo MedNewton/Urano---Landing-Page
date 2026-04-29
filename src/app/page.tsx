@@ -9,7 +9,6 @@ import type { TechIntegrationItem } from "@/components/sections/TechIntegrations
 import TechIntegrationsSection from "@/components/sections/TechIntegrationsSection";
 import type { PoweredByUranoItem } from "@/components/sections/PoweredByUranoSection";
 import PoweredByUranoSection from "@/components/sections/PoweredByUranoSection";
-import PurchaseUranoSection from "@/components/sections/PurchaseUranoSection";
 import type { FaqItem } from "@/components/sections/FaqSection";
 import FaqSection from "@/components/sections/FaqSection";
 import PartnersAndAdvisorsSection from "@/components/sections/PartnersAndAdvisorsSection";
