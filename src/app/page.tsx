@@ -9,10 +9,10 @@ import type { TechIntegrationItem } from "@/components/sections/TechIntegrations
 import TechIntegrationsSection from "@/components/sections/TechIntegrationsSection";
 import type { PoweredByUranoItem } from "@/components/sections/PoweredByUranoSection";
 import PoweredByUranoSection from "@/components/sections/PoweredByUranoSection";
-import PurchaseUranoSection from "@/components/sections/PurchaseUranoSection";
 import type { FaqItem } from "@/components/sections/FaqSection";
 import FaqSection from "@/components/sections/FaqSection";
 import PartnersAndAdvisorsSection from "@/components/sections/PartnersAndAdvisorsSection";
+import PurchaseUranoSection from "@/domains/token/components/PurchaseUranoSection";
 
 import slider1 from "@/assets/images/slider/IB.webp";
 import slider2 from "@/assets/images/slider/Notarization.webp";

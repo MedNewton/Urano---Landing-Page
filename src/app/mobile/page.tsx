@@ -6,6 +6,7 @@ import MobileExploreEcosystemSection, { type MobileExploreEcosystemItem } from "
 import MobileTechIntegrationsSection, { type MobileTechIntegrationItem } from "@/components/sections/mobile/mobileTechIntegrationsSection";
 import MobilePartnersAndAdvisorsSection from "@/components/sections/mobile/mobilePartnersAndAdvisorsSection";
 import MobileFaqSection, { type MobileFaqItem } from "@/components/sections/mobile/mobileFaqSection";
+import MobilePurchaseUranoSection from "@/domains/token/components/MobilePurchaseUranoSection";
 import MobilePoweredByUranoSection, { type MobilePoweredByUranoItem } from "@/components/sections/mobile/MobilePoweredByUranoSection";
 
 import slider1 from "@/assets/images/slider/IB.webp";
@@ -232,6 +233,7 @@ export default function Home() {
             <MobileTokenizationServiceCarousel items={servicesItems} />
             <MobileExploreEcosystemSection items={ecosystemItems} />
             <MobilePoweredByUranoSection items={poweredItems} />
+            <MobilePurchaseUranoSection />
             <MobileTechIntegrationsSection items={techIntegrationsItems} />
             <MobilePartnersAndAdvisorsSection />
             <MobileFaqSection items={faqItems} />
