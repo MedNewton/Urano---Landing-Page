@@ -17,8 +17,18 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
     NEXT_PUBLIC_API_URL: z.string().default(""),
+    NEXT_PUBLIC_THIRDWEB_CLIENT_ID: z.string().min(1),
+    NEXT_PUBLIC_URANO_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+    NEXT_PUBLIC_USDC_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+    NEXT_PUBLIC_WETH_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+    NEXT_PUBLIC_UNISWAP_V2_ROUTER: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+    NEXT_PUBLIC_URANO_USDC_DIRECT_PAIR: z
+      .enum(["true", "false"])
+      .transform((v) => v === "true"),
+    NEXT_PUBLIC_URANO_WETH_DIRECT_PAIR: z
+      .enum(["true", "false"])
+      .transform((v) => v === "true"),
   },
 
   /**
@@ -28,8 +38,14 @@ export const env = createEnv({
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
     DATABASE_URL: process.env.DATABASE_URL,
-    // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_THIRDWEB_CLIENT_ID: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID,
+    NEXT_PUBLIC_URANO_ADDRESS: process.env.NEXT_PUBLIC_URANO_ADDRESS,
+    NEXT_PUBLIC_USDC_ADDRESS: process.env.NEXT_PUBLIC_USDC_ADDRESS,
+    NEXT_PUBLIC_WETH_ADDRESS: process.env.NEXT_PUBLIC_WETH_ADDRESS,
+    NEXT_PUBLIC_UNISWAP_V2_ROUTER: process.env.NEXT_PUBLIC_UNISWAP_V2_ROUTER,
+    NEXT_PUBLIC_URANO_USDC_DIRECT_PAIR: process.env.NEXT_PUBLIC_URANO_USDC_DIRECT_PAIR,
+    NEXT_PUBLIC_URANO_WETH_DIRECT_PAIR: process.env.NEXT_PUBLIC_URANO_WETH_DIRECT_PAIR,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
