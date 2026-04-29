@@ -197,7 +197,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({ showError, onSwapSuccess }) => 
           <Select
             value={inputToken}
             onChange={(e) => {
-              setInputToken(e.target.value as InputToken);
+              setInputToken(e.target.value);
               setInputAmount('');
             }}
             size="small"
