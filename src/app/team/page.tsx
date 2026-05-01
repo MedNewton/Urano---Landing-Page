@@ -7,7 +7,7 @@ import bgdark from "@/assets/images/bgdark.webp";
 import ivonaImg from "@/assets/images/team/Ivona.png";
 import erminioImg from "@/assets/images/team/Ermino.png";
 import gjonImg from "@/assets/images/team/Gjon.png";
-import ivanoImg from "@/assets/images/team/Ivano.png";
+import ivanoImg from "@/assets/images/team/Ivano.jpg";
 
 type TeamMember = {
   name: string;
